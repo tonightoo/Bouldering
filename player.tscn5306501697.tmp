@@ -1,0 +1,137 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp72r7eppxsin"]
+
+[ext_resource type="Script" uid="uid://cv1sf48mos3bh" path="res://player.gd" id="1_4flbx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4flbx"]
+radius = 2.0
+height = 12.0
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_4flbx")
+
+[node name="Body" type="RigidBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Body"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9142768, 0.7239761, 0.500413, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("CapsuleShape2D_sh265")
+
+[node name="LeftShoulderJoint" type="PinJoint2D" parent="Body"]
+position = Vector2(-10, -15)
+node_a = NodePath("..")
+node_b = NodePath("LeftUpperArm")
+
+[node name="LeftUpperArm" type="RigidBody2D" parent="Body/LeftShoulderJoint"]
+
+[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulderJoint/LeftUpperArm"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29803923, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/LeftShoulderJoint/LeftUpperArm"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_4flbx")
+
+[node name="LeftElbowJoint" type="PinJoint2D" parent="Body/LeftShoulderJoint/LeftUpperArm"]
+position = Vector2(0, -10)
+node_a = NodePath("..")
+node_b = NodePath("LeftForeArm")
+
+[node name="LeftForeArm" type="RigidBody2D" parent="Body/LeftShoulderJoint/LeftUpperArm/LeftElbowJoint"]
+
+[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulderJoint/LeftUpperArm/LeftElbowJoint/LeftForeArm"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9529412, 0.45882353, 0.95686275, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/LeftShoulderJoint/LeftUpperArm/LeftElbowJoint/LeftForeArm"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_4flbx")
+
+[node name="LeftTipTarget" type="Node2D" parent="Body/LeftShoulderJoint/LeftUpperArm/LeftElbowJoint/LeftForeArm"]
+position = Vector2(0, -10)
+
+[node name="RightShoulderJoint" type="PinJoint2D" parent="Body"]
+position = Vector2(10, -15)
+node_a = NodePath("..")
+node_b = NodePath("RightUpperArm")
+
+[node name="RightUpperArm" type="RigidBody2D" parent="Body/RightShoulderJoint"]
+
+[node name="ColorRect" type="ColorRect" parent="Body/RightShoulderJoint/RightUpperArm"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29803923, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/RightShoulderJoint/RightUpperArm"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_4flbx")
+
+[node name="RightElbowJoint" type="PinJoint2D" parent="Body/RightShoulderJoint/RightUpperArm"]
+position = Vector2(0, -10)
+node_a = NodePath("..")
+node_b = NodePath("RightForeArm")
+
+[node name="RightForeArm" type="RigidBody2D" parent="Body/RightShoulderJoint/RightUpperArm/RightElbowJoint"]
+
+[node name="ColorRect" type="ColorRect" parent="Body/RightShoulderJoint/RightUpperArm/RightElbowJoint/RightForeArm"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9529412, 0.45882353, 0.95686275, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/RightShoulderJoint/RightUpperArm/RightElbowJoint/RightForeArm"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_4flbx")
+
+[node name="RightTipTarget" type="Node2D" parent="Body/RightShoulderJoint/RightUpperArm/RightElbowJoint/RightForeArm"]
+position = Vector2(0, -10)
