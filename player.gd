@@ -1,23 +1,10 @@
 extends Node2D
 
-@export var HAND_SPEED: float = 150.0
-@export var LEFT_UPPER_ARM_LEN: float = 32.0
-@export var LEFT_FORE_ARM_LEN: float = 26.0
-@export var RIGHT_UPPER_ARM_LEN: float = 32.0
-@export var RIGHT_FORE_ARM_LEN: float = 26.0
-@export var SHOULDER_MIN = deg_to_rad(-120)
-@export var SHOULDER_MAX = deg_to_rad(120)
-@export var ELBOW_MIN = deg_to_rad(10)
-@export var ELBOW_MAX = deg_to_rad(150)
-var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN - 1.0
-var LEFT_ARM_MIN_LEN := 10.0
-var RIGHT_ARM_MAX_LEN := RIGHT_UPPER_ARM_LEN + RIGHT_FORE_ARM_LEN - 1.0
-var RIGHT_ARM_MIN_LEN := 10.0
-
 var grabbed_hold_left: Area2D = null
 var grabbed_hold_right: Area2D = null
 var is_grabbing_something: bool = false
 
+@export var config: PlayerConfig
 @onready var body = $Body
 @onready var left_shoulder =  $Body/LeftShoulder
 @onready var left_elbow = $Body/LeftShoulder/LeftUpperArm/LeftElbow
@@ -35,8 +22,7 @@ var is_grabbing_something: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-		
+	config = PlayerConfig.new()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -59,14 +45,48 @@ func _process(delta: float) -> void:
 		body.freeze = false
 	
 	if grabbed_hold_left == null:
-		solve_ik(left_shoulder, LEFT_UPPER_ARM_LEN, left_elbow, LEFT_FORE_ARM_LEN,left_hand_target.global_position, 1.0)
+		solve_ik(
+			left_shoulder,
+			config.LEFT_UPPER_ARM_LEN,
+			left_elbow,
+			config.LEFT_FORE_ARM_LEN,
+			left_hand_target.global_position,
+			1.0
+		)
 	else:
-		solve_reverse_ik(left_hand_target, left_shoulder, left_elbow, LEFT_ARM_MAX_LEN, LEFT_ARM_MIN_LEN, LEFT_UPPER_ARM_LEN, LEFT_FORE_ARM_LEN, 1.0, delta)
+		solve_reverse_ik(
+			left_hand_target,
+			left_shoulder,
+			left_elbow,
+			config.LEFT_ARM_MAX_LEN,
+			config.LEFT_ARM_MIN_LEN,
+			config.LEFT_UPPER_ARM_LEN,
+			config.LEFT_FORE_ARM_LEN,
+			1.0,
+			delta
+		)
 		
 	if grabbed_hold_right == null:
-		solve_ik(right_shoulder, RIGHT_UPPER_ARM_LEN, right_elbow, RIGHT_FORE_ARM_LEN, right_hand_target.global_position, -1.0)
+		solve_ik(
+			right_shoulder,
+			config.RIGHT_UPPER_ARM_LEN,
+			right_elbow,
+			config.RIGHT_FORE_ARM_LEN,
+			right_hand_target.global_position,
+			-1.0
+		)
 	else:
-		solve_reverse_ik(right_hand_target, right_shoulder, right_elbow, RIGHT_ARM_MAX_LEN, RIGHT_ARM_MIN_LEN, RIGHT_UPPER_ARM_LEN, RIGHT_FORE_ARM_LEN, -1.0, delta)
+		solve_reverse_ik(
+			right_hand_target,
+			right_shoulder,
+			right_elbow,
+			config.RIGHT_ARM_MAX_LEN,
+			config.RIGHT_ARM_MIN_LEN,
+			config.RIGHT_UPPER_ARM_LEN,
+			config.RIGHT_FORE_ARM_LEN,
+			-1.0,
+			delta
+		)
 
 
 		
@@ -91,18 +111,18 @@ func update_hand_target(delta):
 		
 	if grabbed_hold_left != null:
 		var force_dir: Vector2 = -left_dir
-		apply_body_from_hand(force_dir, delta, left_hand)
+		apply_body_from_hand(force_dir, delta)
 	else:
-		left_hand_target.global_position += left_dir * HAND_SPEED * delta
+		left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
 
 	
 	if grabbed_hold_right != null:
 		var force_dir: Vector2 = -right_dir
-		apply_body_from_hand(force_dir, delta, right_hand)
+		apply_body_from_hand(force_dir, delta)
 	#print("left:", left_hand_target.global_position)
 	#print("right:", right_hand_target.global_position)
 	else:
-		right_hand_target.global_position += right_dir * HAND_SPEED * delta
+		right_hand_target.global_position += right_dir * config.HAND_SPEED * delta
 	
 
 
@@ -160,38 +180,7 @@ func solve_ik(
 		
 	#print(shoulder.global_rotation)
 	#print(elbow.rotation)
-
-func try_grab(hand: Area2D, isLeft: bool):
-	var areas = hand.get_overlapping_areas()
-	for a in areas:
-		if not a.is_in_group("hold"):
-			continue
-
-		if isLeft:
-			grabbed_hold_left = a
-			left_hand_target.global_position = a.global_position
-		else:
-			grabbed_hold_right = a
-			right_hand_target.global_position = a.global_position
-		
-		update_grab_state()
-
-func update_grab_state() -> void:
-	is_grabbing_something = (grabbed_hold_left != null or grabbed_hold_right != null)
-
-func release_left_grab() -> void:
-	grabbed_hold_left = null
-	left_hand_target.global_position = left_hand.global_position
-		
-	update_grab_state()
-
-func release_right_grab() -> void:
-	grabbed_hold_right = null
-	right_hand_target.global_position = right_hand.global_position
-		
-	update_grab_state()
-
-func apply_body_from_hand(input: Vector2, delta: float, hand: Node2D) -> void:
+func apply_body_from_hand(input: Vector2, delta: float) -> void:
 	if input == Vector2.ZERO:
 		return
 	
@@ -252,3 +241,34 @@ func solve_reverse_ik(
 	
 	# 通常のIKで腕の角度を解決
 	solve_ik(shoulder, upper_len, elbow, fore_len, hand_pos, sign)
+
+
+func try_grab(hand: Area2D, isLeft: bool):
+	var areas = hand.get_overlapping_areas()
+	for a in areas:
+		if not a.is_in_group("hold"):
+			continue
+
+		if isLeft:
+			grabbed_hold_left = a
+			left_hand_target.global_position = a.global_position
+		else:
+			grabbed_hold_right = a
+			right_hand_target.global_position = a.global_position
+		
+		update_grab_state()
+
+func update_grab_state() -> void:
+	is_grabbing_something = (grabbed_hold_left != null or grabbed_hold_right != null)
+
+func release_left_grab() -> void:
+	grabbed_hold_left = null
+	left_hand_target.global_position = left_hand.global_position
+		
+	update_grab_state()
+
+func release_right_grab() -> void:
+	grabbed_hold_right = null
+	right_hand_target.global_position = right_hand.global_position
+		
+	update_grab_state()
