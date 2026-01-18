@@ -1,8 +1,6 @@
 extends Node2D
 
 @export var HAND_SPEED: float = 150.0
-@export var ANGLE_SPEED: float = 3.0
-@export var RADIAL_SPEED: float = 150.0
 @export var LEFT_UPPER_ARM_LEN: float = 32.0
 @export var LEFT_FORE_ARM_LEN: float = 26.0
 @export var RIGHT_UPPER_ARM_LEN: float = 32.0
@@ -15,13 +13,10 @@ var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN - 1.0
 var LEFT_ARM_MIN_LEN := 10.0
 var RIGHT_ARM_MAX_LEN := RIGHT_UPPER_ARM_LEN + RIGHT_FORE_ARM_LEN - 1.0
 var RIGHT_ARM_MIN_LEN := 10.0
-var JOINT_SOFTNESS := 0.1
 
 var grabbed_hold_left: Area2D = null
 var grabbed_hold_right: Area2D = null
 var is_grabbing_something: bool = false
-var left_pin_joint: PinJoint2D = null
-var right_pin_joint: PinJoint2D = null
 
 @onready var body = $Body
 @onready var left_shoulder =  $Body/LeftShoulder
@@ -58,7 +53,7 @@ func _process(delta: float) -> void:
 		release_right_grab()
 
 	update_hand_target(delta)
-	if grabbed_hold_left != null or grabbed_hold_right != null:
+	if is_grabbing_something:
 		body.freeze = true
 	else:
 		body.freeze = false
@@ -108,38 +103,7 @@ func update_hand_target(delta):
 	#print("right:", right_hand_target.global_position)
 	else:
 		right_hand_target.global_position += right_dir * HAND_SPEED * delta
-
-
-
-func calcurate_position(
-	hand: Node2D,
-	shoulder_pos: Vector2,
-	arm_max_len: float,
-	input_dir: Vector2,
-	delta: float
-) -> Vector2:
-	var v: Vector2 = hand.global_position - shoulder_pos
-	var dist = (hand.global_position - shoulder_pos).length()
-	var angle_gain = clamp(dist / arm_max_len, 0.3, 1.0)
-	var angle: float = v.angle()
-	angle += input_dir.x * ANGLE_SPEED * angle_gain * delta
-	var radius: float = dist 
-	radius += input_dir.y * RADIAL_SPEED * delta
-	return shoulder_pos + Vector2.from_angle(angle) * radius
 	
-	
-func clamp_target_distance(
-	shoulder_pos: Vector2,
-	target_pos: Vector2,
-	ARM_MAX_LEN: float,
-	ARM_MIN_LEN: float
-) -> Vector2:
-	var v := target_pos - shoulder_pos
-	var d := v.length()
-	
-	d = clamp(d, ARM_MIN_LEN, ARM_MAX_LEN)
-	return shoulder_pos + v.normalized() * d
-
 
 
 func solve_ik(
@@ -206,23 +170,11 @@ func try_grab(hand: Area2D, isLeft: bool):
 		if isLeft:
 			grabbed_hold_left = a
 			left_hand_target.global_position = a.global_position
-			left_pin_joint = create_pin_joint(a)
 		else:
 			grabbed_hold_right = a
 			right_hand_target.global_position = a.global_position
-			right_pin_joint = create_pin_joint(a)
 		
 		update_grab_state()
-
-func create_pin_joint(hold: Area2D) -> PinJoint2D:
-	var joint = PinJoint2D.new()
-	add_child(joint)
-	
-	joint.node_a = body.get_path()
-	joint.node_b = hold.get_path()
-	joint.global_position = hold.global_position
-	joint.softness = JOINT_SOFTNESS
-	return joint
 
 func update_grab_state() -> void:
 	is_grabbing_something = (grabbed_hold_left != null or grabbed_hold_right != null)
@@ -230,18 +182,12 @@ func update_grab_state() -> void:
 func release_left_grab() -> void:
 	grabbed_hold_left = null
 	left_hand_target.global_position = left_hand.global_position
-	if left_pin_joint != null:
-		left_pin_joint.queue_free()
-		left_pin_joint = null
 		
 	update_grab_state()
 
 func release_right_grab() -> void:
 	grabbed_hold_right = null
 	right_hand_target.global_position = right_hand.global_position
-	if right_pin_joint != null:
-		right_pin_joint.queue_free()
-		right_pin_joint = null
 		
 	update_grab_state()
 
