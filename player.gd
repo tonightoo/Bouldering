@@ -114,7 +114,11 @@ func update_hand_target(delta):
 		apply_body_from_hand(force_dir, delta)
 	else:
 		left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
-
+		left_hand_target.global_position = clamp_to_circle(
+			left_shoulder.global_position,
+			left_hand_target.global_position,
+			config.LEFT_ARM_MAX_LEN
+		)
 	
 	if grabbed_hold_right != null:
 		var force_dir: Vector2 = -right_dir
@@ -123,7 +127,24 @@ func update_hand_target(delta):
 	#print("right:", right_hand_target.global_position)
 	else:
 		right_hand_target.global_position += right_dir * config.HAND_SPEED * delta
+		right_hand_target.global_position = clamp_to_circle(
+			right_shoulder.global_position,
+			right_hand_target.global_position,
+			config.RIGHT_ARM_MAX_LEN
+		)
 	
+func clamp_to_circle(
+	center: Vector2,
+	pos: Vector2,
+	max_radius: float
+) -> Vector2:
+	var v := pos - center
+	var d := v.length()
+
+	if d > max_radius:
+		return center + v.normalized() * max_radius
+
+	return pos
 
 
 func solve_ik(
@@ -270,5 +291,5 @@ func release_left_grab() -> void:
 func release_right_grab() -> void:
 	grabbed_hold_right = null
 	right_hand_target.global_position = right_hand.global_position
-		
+	
 	update_grab_state()
