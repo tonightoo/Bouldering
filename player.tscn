@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcdkdymc37lpc"]
+[gd_scene load_steps=5 format=3 uid="uid://bcdkdymc37lpc"]
 
 [ext_resource type="Script" uid="uid://b64hkx1hjwaqa" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://ckkivldck8nbi" path="res://fatigue_ui.tscn" id="2_onrkg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 16.0
@@ -134,6 +135,15 @@ shape = SubResource("CapsuleShape2D_4flbx")
 
 [node name="Camera2D" type="Camera2D" parent="Body"]
 position_smoothing_enabled = true
+
+[node name="LeftFatigueUI" parent="Body" instance=ExtResource("2_onrkg")]
+x_offset = -50.0
+y_offset = -20.0
+
+[node name="RightFatigueUI" parent="Body" instance=ExtResource("2_onrkg")]
+is_left = false
+x_offset = 50.0
+y_offset = -20.0
 
 [node name="LeftHandTarget" type="Node2D" parent="."]
 position = Vector2(48, -32)

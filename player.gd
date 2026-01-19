@@ -1,24 +1,36 @@
 extends Node2D
 
+# つかみ関係
 var grabbed_hold_left: Area2D = null
 var grabbed_hold_right: Area2D = null
 var is_grabbing_something: bool = false
 
+# 疲労関係
+var left_hand_fatigue: float = 0.0
+var right_hand_fatigue: float = 0.0
+
+# パラメータ
 @export var config: PlayerConfig
+
 @onready var body = $Body
+
+# 左手
 @onready var left_shoulder =  $Body/LeftShoulder
 @onready var left_elbow = $Body/LeftShoulder/LeftUpperArm/LeftElbow
 @onready var left_upper_arm = $Body/LeftShoulder/LeftUpperArm
 @onready var left_fore_arm = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm
 @onready var left_hand = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand
 @onready var left_hand_target = $LeftHandTarget
+@onready var left_fatigue_ui = $Body/LeftFatigueUI
 
+#右手
 @onready var right_shoulder = $Body/RightShoulder
 @onready var right_elbow = $Body/RightShoulder/RightUpperArm/RightElbow
 @onready var right_upper_arm = $Body/RightShoulder/RightUpperArm
 @onready var right_fore_arm = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm
 @onready var right_hand = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand
 @onready var right_hand_target = $RightHandTarget
+@onready var right_fatigue_ui = $Body/RightFatigueUI
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,7 +50,11 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_released("RightHold"):
 		release_right_grab()
 
+	update_fatigue(delta)
+	left_fatigue_ui.fatigue = left_hand_fatigue
 	update_hand_target(delta)
+	right_fatigue_ui.fatigue = right_hand_fatigue	
+	
 	if is_grabbing_something:
 		body.freeze = true
 	else:
@@ -87,6 +103,7 @@ func _process(delta: float) -> void:
 			-1.0,
 			delta
 		)
+	
 
 
 		
@@ -293,3 +310,78 @@ func release_right_grab() -> void:
 	right_hand_target.global_position = right_hand.global_position
 	
 	update_grab_state()
+
+
+func update_fatigue(delta: float) -> void:
+	# 左手の疲労度
+	if grabbed_hold_left != null:
+		# 肘の角度を取得(絶対値)
+		var elbow_angle = abs(left_elbow.rotation)
+		
+		# 疲労速度を計算
+		var fatigue_rate: float
+		if elbow_angle > config.BENT_ARM_THRESHOLD:
+			fatigue_rate = config.FATIGUE_RATE_BENT_ARM
+		else:
+			fatigue_rate = config.FATIGUE_RATE_OPEN_HAND
+
+		
+		# 体が腕より高かったらより倍率上げる
+		if left_shoulder.global_position.y < left_hand.global_position.y:
+			var height_diff = clamp(
+				(left_shoulder.global_position.y - left_hand.global_position.y) / config.HEIGHT_DIFF_MAX,
+				0.0,
+				1.0
+			)
+			
+			fatigue_rate += lerp(1.0, config.FATIGUE_RATE_BODY_ABOVE, height_diff) - 1.0
+
+		# 両手なら少し楽になる
+		if grabbed_hold_right != null:
+			fatigue_rate *= config.FATIGUE_BOTH_HANDS_REDUCE_RATE
+		
+		# 疲労度を増加
+		left_hand_fatigue += fatigue_rate * delta
+		left_hand_fatigue = min(left_hand_fatigue, config.MAX_FATIGUE)
+		
+		# パンプしたら自動で離れる
+		if left_hand_fatigue >= config.MAX_FATIGUE:
+			release_left_grab()
+	else:
+		# レスト中は回復
+		left_hand_fatigue -= config.FATIGUE_RECOVERY_RATE * delta
+		left_hand_fatigue = max(left_hand_fatigue, 0.0)
+	
+	# 右手の疲労度
+	if grabbed_hold_right != null:
+		var elbow_angle = abs(right_elbow.rotation)
+		
+		var fatigue_rate: float
+		if elbow_angle > config.BENT_ARM_THRESHOLD:
+			fatigue_rate = config.FATIGUE_RATE_BENT_ARM
+		else:
+			fatigue_rate = config.FATIGUE_RATE_OPEN_HAND
+
+		# 体が腕より高かったらより倍率あげる
+		if right_shoulder.global_position.y < right_hand.global_position.y:
+			var height_diff = clamp(
+				(right_shoulder.global_position.y - right_hand.global_position.y) / config.HEIGHT_DIFF_MAX,
+				0.0,
+				1.0
+			)
+			
+			fatigue_rate *= lerp(1.0, config.FATIGUE_RATE_BODY_ABOVE, height_diff)
+
+		# 両手なら少し楽になる
+		if grabbed_hold_left != null:
+			fatigue_rate *= config.FATIGUE_BOTH_HANDS_REDUCE_RATE
+
+		
+		right_hand_fatigue += fatigue_rate * delta
+		right_hand_fatigue = min(right_hand_fatigue, config.MAX_FATIGUE)
+		
+		if right_hand_fatigue >= config.MAX_FATIGUE:
+			release_right_grab()
+	else:
+		right_hand_fatigue -= config.FATIGUE_RECOVERY_RATE * delta
+		right_hand_fatigue = max(right_hand_fatigue, 0.0)

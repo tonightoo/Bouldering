@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckkivldck8nbi"]
+
+[ext_resource type="Script" uid="uid://cs16qgop4rbls" path="res://fatigue_ui.gd" id="1_3mryk"]
+
+[node name="FatigueUI" type="Node2D"]
+script = ExtResource("1_3mryk")
