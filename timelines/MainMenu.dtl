@@ -1,0 +1,5 @@
+[background arg="res://images/background/title_background.png" fade="0.0" wait="true"]
+- Start
+	[signal arg="Start"]
+- End
+	[signal arg="End"]

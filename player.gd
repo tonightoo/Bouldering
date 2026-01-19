@@ -183,7 +183,7 @@ func solve_ik(
 	var elbow_bend:= PI - elbow_angle
 	#elbow_bend = clamp(elbow_bend, ELBOW_MIN, ELBOW_MAX)
 	var target_elbow_rotation = sign * elbow_bend
-	elbow.rotation = lerp_angle(elbow.rotation, target_elbow_rotation, 0.2)
+	elbow.rotation = lerp_angle(elbow.rotation, target_elbow_rotation, config.SMOOTHNESS)
 
 	# shoulder angle
 	var shoulder_direction: float = shoulder_to_target.angle()
@@ -193,7 +193,7 @@ func solve_ik(
 	)
 	#var desired_local_angle = shoulder_direction - shoulder.global_rotation + shoulder.rotation
 	var target_shoulder_rotation = shoulder_direction - shoulder_angle * sign
-	shoulder.global_rotation = lerp_angle(shoulder.global_rotation, target_shoulder_rotation, 0.2)
+	shoulder.global_rotation = lerp_angle(shoulder.global_rotation, target_shoulder_rotation, config.SMOOTHNESS)
 	#var parent_global := shoulder.get_parent().global_rotation
 	#var desired_local := desired_global - parent_global	
 	#desired_local_angle = clamp(desired_local_angle, SHOULDER_MIN, SHOULDER_MAX)

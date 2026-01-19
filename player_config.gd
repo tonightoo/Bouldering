@@ -10,6 +10,7 @@ extends Resource
 @export var SHOULDER_MAX = deg_to_rad(120)
 @export var ELBOW_MIN = deg_to_rad(10)
 @export var ELBOW_MAX = deg_to_rad(150)
+@export var SMOOTHNESS = 0.2
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
