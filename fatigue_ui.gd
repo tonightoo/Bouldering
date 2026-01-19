@@ -20,12 +20,16 @@ func _draw():
 	var color := Color.GREEN.lerp(Color.RED, ratio)
 
 	var pos := Vector2(-bar_width/2 + x_offset, y_offset)
+	
+	if ratio >= 0.7:
+		var shake := sin(Time.get_ticks_msec() * 0.02) * 1.5
+		pos.x += shake
 
 	draw_rect(Rect2(pos, Vector2(bar_width, bar_height)), Color(0.2, 0.2, 0.2))
 	draw_rect(Rect2(pos, Vector2(bar_width * ratio, bar_height)), color)
 	
-	var str := "Left:" if is_left else "Right"
+	var text := "Left:" if is_left else "Right:"
 	
 	draw_string(ThemeDB.fallback_font, pos + Vector2(0, -5), 
-				str + str(int(fatigue)) + "%", 
+				text + str(int(fatigue)) + "%", 
 				HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)

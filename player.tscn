@@ -137,10 +137,12 @@ shape = SubResource("CapsuleShape2D_4flbx")
 position_smoothing_enabled = true
 
 [node name="LeftFatigueUI" parent="Body" instance=ExtResource("2_onrkg")]
+z_index = 5
 x_offset = -50.0
 y_offset = -20.0
 
 [node name="RightFatigueUI" parent="Body" instance=ExtResource("2_onrkg")]
+z_index = 5
 is_left = false
 x_offset = 50.0
 y_offset = -20.0
