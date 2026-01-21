@@ -1,28 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgyob1rt5v6uf"]
+[gd_scene load_steps=4 format=3 uid="uid://b4poucd0ncyin"]
 
-[ext_resource type="Script" uid="uid://ccmjcqm04o6tn" path="res://hold.gd" id="1_gf57l"]
+[ext_resource type="Script" uid="uid://d066gd247iuxh" path="res://hold_behavior.gd" id="1_gf57l"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6lcao"]
-size = Vector2(20, 10)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj6eu"]
 
-[node name="Hold" type="Area2D" groups=["hold"]]
-collision_layer = 4
-collision_mask = 0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vofd"]
+
+[node name="Hold" type="Node2D"]
 script = ExtResource("1_gf57l")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Visual" type="ColorRect" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -5.0
-offset_right = 10.0
-offset_bottom = 5.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.91902715, 0, 0.16839501, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_6lcao")
+[node name="Grab2d" type="Area2D" parent="." groups=["hold"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grab2d"]
+shape = SubResource("RectangleShape2D_cj6eu")
+
+[node name="Body2d" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body2d"]
+shape = SubResource("CapsuleShape2D_3vofd")

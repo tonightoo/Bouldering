@@ -9,6 +9,10 @@ var is_grabbing_something: bool = false
 var left_hand_fatigue: float = 0.0
 var right_hand_fatigue: float = 0.0
 
+# 速度関係
+var left_hand_velocity: Vector2 = Vector2.ZERO
+var right_hand_velocity: Vector2 = Vector2.ZERO
+
 # パラメータ
 @export var config: PlayerConfig
 
@@ -53,7 +57,7 @@ func _process(delta: float) -> void:
 	update_fatigue(delta)
 	left_fatigue_ui.fatigue = left_hand_fatigue
 	update_hand_target(delta)
-	right_fatigue_ui.fatigue = right_hand_fatigue	
+	right_fatigue_ui.fatigue = right_hand_fatigue
 	
 	if is_grabbing_something:
 		body.freeze = true
@@ -121,16 +125,26 @@ func update_hand_target(delta):
 	)
 	if left_dir.length() > 0:
 		left_dir = left_dir.normalized()
+		left_hand_velocity += left_dir * config.HAND_ACCEL * delta
+	else:
+		left_hand_velocity = left_hand_velocity.move_toward(Vector2.ZERO, config.HAND_DECEL * delta)
+
+	left_hand_velocity = left_hand_velocity.limit_length(config.HAND_MAX_SPEED)
 
 	if right_dir.length() > 0:
 		right_dir = right_dir.normalized()
+		right_hand_velocity += right_dir * config.HAND_ACCEL * delta
+	else:
+		right_hand_velocity = right_hand_velocity.move_toward(Vector2.ZERO, config.HAND_DECEL * delta)
 
+	right_hand_velocity = right_hand_velocity.limit_length(config.HAND_MAX_SPEED)
 		
 	if grabbed_hold_left != null:
 		var force_dir: Vector2 = -left_dir
 		apply_body_from_hand(force_dir, delta)
 	else:
-		left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
+		#left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
+		left_hand_target.global_position += left_hand_velocity * delta
 		left_hand_target.global_position = clamp_to_circle(
 			left_shoulder.global_position,
 			left_hand_target.global_position,
@@ -143,7 +157,8 @@ func update_hand_target(delta):
 	#print("left:", left_hand_target.global_position)
 	#print("right:", right_hand_target.global_position)
 	else:
-		right_hand_target.global_position += right_dir * config.HAND_SPEED * delta
+		#right_hand_target.global_position += right_dir * config.HAND_SPEED * delta
+		right_hand_target.global_position += right_hand_velocity * delta
 		right_hand_target.global_position = clamp_to_circle(
 			right_shoulder.global_position,
 			right_hand_target.global_position,
