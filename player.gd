@@ -36,9 +36,14 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var right_hand_target = $RightHandTarget
 @onready var right_fatigue_ui = $Body/RightFatigueUI
 
+#UI
+@onready var goal_label = $CanvasLayer/GoalLabel
+var last_display_score := 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	config = PlayerConfig.new()
+	goal_label.text = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -58,6 +63,8 @@ func _process(delta: float) -> void:
 	left_fatigue_ui.fatigue = left_hand_fatigue
 	update_hand_target(delta)
 	right_fatigue_ui.fatigue = right_hand_fatigue
+	
+	check_goal_condition(delta)
 	
 	if is_grabbing_something:
 		body.freeze = true
@@ -302,12 +309,15 @@ func try_grab(hand: Area2D, isLeft: bool):
 		if not a.is_in_group("hold"):
 			continue
 
+		var hold = a.get_parent() as HoldBehavior
 		if isLeft:
 			grabbed_hold_left = a
 			left_hand_target.global_position = a.global_position
+			hold.grabbed_by_left = true
 		else:
 			grabbed_hold_right = a
 			right_hand_target.global_position = a.global_position
+			hold.grabbed_by_right = true
 		
 		update_grab_state()
 
@@ -315,12 +325,22 @@ func update_grab_state() -> void:
 	is_grabbing_something = (grabbed_hold_left != null or grabbed_hold_right != null)
 
 func release_left_grab() -> void:
+	if grabbed_hold_left != null:
+		var hold = grabbed_hold_left.get_parent() as HoldBehavior
+		if hold != null:
+			hold.grabbed_by_left = false
+	
 	grabbed_hold_left = null
 	left_hand_target.global_position = left_hand.global_position
-		
+	
 	update_grab_state()
 
 func release_right_grab() -> void:
+	if grabbed_hold_right != null:
+		var hold = grabbed_hold_right.get_parent() as HoldBehavior
+		if hold != null:
+			hold.grabbed_by_right = false
+
 	grabbed_hold_right = null
 	right_hand_target.global_position = right_hand.global_position
 	
@@ -400,3 +420,45 @@ func update_fatigue(delta: float) -> void:
 	else:
 		right_hand_fatigue -= config.FATIGUE_RECOVERY_RATE * delta
 		right_hand_fatigue = max(right_hand_fatigue, 0.0)
+
+func check_goal_condition(delta: float) -> void:
+	if grabbed_hold_left != null and grabbed_hold_right != null:
+		# 両方のホールドが「GOAL」タイプかチェック
+		var hold_l = grabbed_hold_left.get_parent() as HoldBehavior
+		var hold_r = grabbed_hold_right.get_parent() as HoldBehavior
+		
+		# 両手GOALの場合
+		if ((hold_l.hold_data.type == HoldData.HoldType.GOAL and 
+			hold_r.hold_data.type == HoldData.HoldType.GOAL) or 
+			(hold_l.hold_data.type == HoldData.HoldType.GOAL_LEFT and 
+			hold_r.hold_data.type == HoldData.HoldType.GOAL_RIGHT)):
+			update_goal_ui(min(hold_l.grabbed_goal_time, hold_r.grabbed_goal_time))
+			if (hold_l.grabbed_goal_time >= config.GOAL_FREEZE_TIME and
+				hold_r.grabbed_goal_time >= config.GOAL_FREEZE_TIME):
+				victory()
+	else:
+		update_goal_ui(0.0)	
+
+func update_goal_ui(elapsed_time: float) -> void:
+	var current_score = int(ceil(elapsed_time))
+	if elapsed_time <= 0.0:
+		goal_label.text = ""
+		last_display_score = -1
+	elif elapsed_time < config.GOAL_FREEZE_TIME and current_score != last_display_score:
+		last_display_score = current_score
+		goal_label.text = str(current_score)
+		goal_label.modulate = Color.WHITE
+		
+		var tween = create_tween()
+		goal_label.scale = Vector2(1.5, 1.5)
+		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
+	elif elapsed_time >= config.GOAL_FREEZE_TIME:
+		goal_label.text = "Victory!"
+		goal_label.modulate = Color.GOLD
+			
+func victory() -> void:
+	print("victory!")			
+
+			
+		
+		

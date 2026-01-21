@@ -24,6 +24,7 @@ extends Resource
 @export var ELBOW_HARD_ANGLE := deg_to_rad(90)
 @export var MAX_FATIGUE: float = 100.0
 @export var HEIGHT_DIFF_MAX: float = 40.0
+@export var GOAL_FREEZE_TIME: float = 3.0
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0

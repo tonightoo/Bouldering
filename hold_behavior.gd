@@ -4,7 +4,13 @@ extends Node2D
 @export var hold_data: HoldData
 
 var grabbed_time := 0.0
-var is_grabbed := false
+var grabbed_goal_time := 0.0
+var grabbed_by_left := false
+var grabbed_by_right := false
+var is_grabbed_both: bool:
+	get: return grabbed_by_left and grabbed_by_right
+var is_grabbed_either: bool:
+	get: return grabbed_by_left or grabbed_by_right
 var respawn_timer := 0.0
 var base_position: Vector2
 
@@ -22,8 +28,18 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if is_grabbed:
+	if is_grabbed_either:
 		grabbed_time += delta
+		
+	# GoalのHoldを両手で3秒保持したらクリア
+	if hold_data.type == HoldData.HoldType.GOAL and is_grabbed_both:
+		grabbed_goal_time += delta
+	elif hold_data.type == HoldData.HoldType.GOAL_RIGHT and grabbed_by_right:
+		grabbed_goal_time += delta
+	elif hold_data.type == HoldData.HoldType.GOAL_LEFT and grabbed_by_left: 
+		grabbed_goal_time += delta	
+	else:
+		grabbed_goal_time = 0.0
 
 	match hold_data.type:
 		HoldData.HoldType.MOVING:

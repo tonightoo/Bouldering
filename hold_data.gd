@@ -10,6 +10,9 @@ enum HoldType {
 	SLIPPERY,
 	BLOCK,
 	RECOVER,
+	GOAL,
+	GOAL_RIGHT,
+	GOAL_LEFT,
 }
 
 @export var type: HoldType
