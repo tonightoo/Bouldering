@@ -47,6 +47,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().reload_current_scene()
 	if Input.is_action_pressed("LeftHold"):
 		try_grab(left_hand, true)
 	
