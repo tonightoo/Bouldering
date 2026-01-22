@@ -1,6 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgyob1rt5v6uf"]
+[gd_scene load_steps=3 format=3 uid="uid://cjo7el3yspynq"]
 
-[ext_resource type="Script" uid="uid://ccmjcqm04o6tn" path="res://hold_old.gd" id="1_gf57l"]
+[sub_resource type="GDScript" id="GDScript_k6bil"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6lcao"]
 size = Vector2(20, 10)
@@ -8,7 +20,7 @@ size = Vector2(20, 10)
 [node name="Hold" type="Area2D" groups=["hold"]]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("1_gf57l")
+script = SubResource("GDScript_k6bil")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 8
