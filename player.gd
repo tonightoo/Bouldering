@@ -2,8 +2,8 @@
 ## 
 ## プレイヤーの全体管理の中核ノード。
 ## 各種マネージャークラス（HandController、IKSolver、
-## FatigueManager、GoalChecker）を一体管理し、
-## 毎フレームの処理を調整する。
+## FatigueManager、GoalChecker、LungeController）を一体管理し、
+## 每フレームの処理を調整する。
 extends Node2D
 
 ## ハンドコントローラー（掴み及びリリース管理）
@@ -12,8 +12,10 @@ const HandController = preload("res://HandController.gd")
 const IKSolver = preload("res://IKSolver.gd")
 ## 疲労管理
 const FatigueManager = preload("res://FatigueManager.gd")
-## ゴールチェッカー（クリア判定及びUI表示）
+## ゴールチェッカー（クリア文判定及びUI揺示）
 const GoalChecker = preload("res://GoalChecker.gd")
+## ランジとていて下ちなど）
+const LungeController = preload("res://LungeController.gd")
 
 ## ハンドコントローラーインスタンス
 var hand_controller: HandController = null
@@ -23,6 +25,8 @@ var ik_solver: IKSolver = null
 var fatigue_manager: FatigueManager = null
 ## ゴールチェッカーインスタンス
 var goal_checker: GoalChecker = null
+## ランジコントローラーインスタンス
+var lunge_controller: LungeController = null
 
 ## 左手のターゲット位置への速度度
 var left_hand_velocity: Vector2 = Vector2.ZERO
@@ -108,6 +112,17 @@ func _ready() -> void:
 	goal_checker.hand_controller = hand_controller
 	goal_checker.goal_label = goal_label
 
+	# LungeController を生成して参照ノードをセット
+	lunge_controller = LungeController.new()
+	add_child(lunge_controller)
+	lunge_controller.config = config
+	lunge_controller.hand_controller = hand_controller
+	lunge_controller.body = body
+	lunge_controller.left_shoulder = left_shoulder
+	lunge_controller.right_shoulder = right_shoulder
+	lunge_controller.left_hand = left_hand
+	lunge_controller.right_hand = right_hand
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
 ## [br][br]
@@ -132,11 +147,14 @@ func _process(delta: float) -> void:
 		hand_controller.release_right_grab()
 
 	apply_hold_movement()
-		
+	
+	hand_controller.update(delta)
 	fatigue_manager.update(delta)
 	left_fatigue_ui.fatigue = fatigue_manager.left_hand_fatigue
 	update_hand_target(delta)
 	right_fatigue_ui.fatigue = fatigue_manager.right_hand_fatigue
+	
+	lunge_controller.update(delta)
 	
 	goal_checker.check_goal_condition(delta)
 	if hand_controller.is_grabbing_something:

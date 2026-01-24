@@ -25,15 +25,21 @@ var right_hand_target: Node2D
 var left_hand: Area2D
 ## 右手の実際のノード（外部からセット）
 var right_hand: Area2D
+## グラブ禁止時間（ランジ後にセット）
+var grab_prohibition_time: float = 0.0
 
 ## ホールドを掴もうとする
 ## [br][br]
 ## 指定した手の衝突エリア内のホールドを検索し、掴む。
 ## 掴んだ場合、HoldBehaviorに掴み状態を通知し、ハンドターゲットをホールド位置に移動させる。
+## グラブ禁止時間中を離している場合は、掴むことができない。
 ## [br][br]
 ## [param hand] ホールドに接触している手のArea2D
 ## [param is_left] true なら左手、false なら右手
 func try_grab(hand: Area2D, is_left: bool) -> void:
+	# グラブ禁止時間中を離している場合、掴むことができない
+	if grab_prohibition_time > 0.0:
+		return
 	var areas = hand.get_overlapping_areas()
 	for a in areas:
 		if not a.is_in_group("hold"):
@@ -95,3 +101,20 @@ func release_right_grab() -> void:
 ## is_grabbing_something フラグを、現在のホールド状態に基づいて更新する。
 func update_grab_state() -> void:
 	is_grabbing_something = (grabbed_hold_left != null or grabbed_hold_right != null)
+
+## グラブ禁止時間を更新
+## [br][br]
+## 毎フレーム呼び出され、グラブ禁止時間を減らす。
+## [br][br]
+## [param delta] フレーム時間
+func update(delta: float) -> void:
+	grab_prohibition_time = max(grab_prohibition_time - delta, 0.0)
+
+## グラブ禁止を開始
+## [br][br]
+## 指定時間分、ホールドを掴むことができない状態を設定する。
+## ランジ発動後に呼び出される。
+## [br][br]
+## [param duration] 禁止時間（秒）
+func set_grab_prohibition(duration: float) -> void:
+	grab_prohibition_time = duration
