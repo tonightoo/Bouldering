@@ -461,7 +461,7 @@ func update_goal_ui(elapsed_time: float) -> void:
 		goal_label.modulate = Color.GOLD
 			
 func victory() -> void:
-	print("victory!")			
+	print("victory!")
 
 func apply_hold_movement() -> void:
 	var total_movement = Vector2.ZERO

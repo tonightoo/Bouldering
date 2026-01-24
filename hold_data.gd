@@ -24,14 +24,15 @@ enum HoldType {
 @export var recover_rate := 0.0
 
 # 落下
-@export var fall_time := -1.0
+@export var fall_time := -1.0 ## 落ちるまでの耐久時間
 @export var respawn_time := -1.0
 
 # 移動
-@export var move_dir := Vector2.ZERO
-@export var move_amplitude := 0.0
-@export var move_period := 0.0
-@export var move_phase := 0.0
+
+@export var move_dir := Vector2.ZERO ## 移動方向
+@export var move_amplitude := 0.0 ## 移動の振り幅, 中心からどのくらい遠くまで動くか
+@export var move_period := 0.0 ## 移動の周期 1往復にかかる時間
+@export var move_phase := 0.0 ## 位相のずれ, 複数のホールドをばらばらに動かすためのオフセット
 
 # 滑り
 @export var slip_speed := 0.0
