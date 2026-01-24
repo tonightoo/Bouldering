@@ -1,26 +1,51 @@
+## 疲労管理
+## 
+## プレイヤーの左手・右手の疲労度を計算・更新
+## ホールドを掴んでいる間疲労をため、話している間回復していく
+## 疲労を超過した場合自動でホールドをリリースする。
 class_name FatigueManager
 extends Node
 
+## 疲労完全時に発火
 signal fatigue_depleted(hand: String)
 
-# 疲労度
+## 左手の疲労度（ 0.0 - MAX_FATIGUE ）
 var left_hand_fatigue: float = 0.0
+## 右手の疲労度（ 0.0 - MAX_FATIGUE ）
 var right_hand_fatigue: float = 0.0
 
-# 外部からセットする参照
+## ゲーム設定（FATIGUE_RATE_*等を参照）
 var config: PlayerConfig
+## ハンドコントローラー（掴み状態を参照）
 var hand_controller: HandController
+## 左肘のNode2D
+## 肘の曲がり具合から疲労郘を計算
 var left_elbow: Node2D
+## 右肘のNode2D
 var right_elbow: Node2D
+## 左肩のNode2D
+## 肩の高さを筓との比較に使用
 var left_shoulder: Node2D
+## 右肩のNode2D
 var right_shoulder: Node2D
+## 左手のNode2D
 var left_hand: Node2D
+## 右手のNode2D
 var right_hand: Node2D
 
+## 両手の疲労を更新
+## [br][br]
+## [param delta] フレーム時間
 func update(delta: float) -> void:
 	update_left_fatigue(delta)
 	update_right_fatigue(delta)
 
+## 左手の疲労を更新
+## [br][br]
+## 掴んでいる場合、肘の曲がりと肩の高さを考慮して疲労を追加
+## 疲労最大時に自動リリース。掴んでいない場合、疲労を回復
+## [br][br]
+## [param delta] フレーム時間
 func update_left_fatigue(delta: float) -> void:
 	if hand_controller.grabbed_hold_left != null:
 		# 肘の角度を取得(絶対値)
@@ -60,6 +85,12 @@ func update_left_fatigue(delta: float) -> void:
 		left_hand_fatigue -= config.FATIGUE_RECOVERY_RATE * delta
 		left_hand_fatigue = max(left_hand_fatigue, 0.0)
 
+## 右手の疲労を更新
+## [br][br]
+## 掴んでいる場合、肘の曲がりと肩の高さを考慮して疲労を追加
+## 疲労最大時に自動リリース。掴んでいない場合、疲労を回復
+## [br][br]
+## [param delta] フレーム時間
 func update_right_fatigue(delta: float) -> void:
 	if hand_controller.grabbed_hold_right != null:
 		var elbow_angle = abs(right_elbow.rotation)

@@ -1,10 +1,26 @@
+## 逆運動学（IK）ソルバー
+## 
+## プレイヤーの腕の角度を計算し、手がターゲット位置に到達するように
+## 肩と肘の回転を解決する。通常のIK と逆IK（ホールド掴み時）の2モード対応。
 class_name IKSolver
 extends Node
 
-# 外部からセットする参照
+## ゲーム設定（SMOOTHNESS等を参照）
 var config: PlayerConfig
+## プレイヤーボディ（肩の位置決定に使用）
 var body: Node2D
 
+## 通常の逆運動学（IK）で腕を解く
+## [br][br]
+## 肩とエルボーの回転角度を計算し、手がターゲット位置に到達するように解く。
+## 両腕共通で使用される基本的なIKアルゴリズム。
+## [br][br]
+## [param shoulder] 肩のNode2D（グローバル回転を更新）
+## [param upper_len] 上腕の長さ
+## [param elbow] 肘のNode2D（ローカル回転を更新）
+## [param fore_len] 前腕の長さ
+## [param hand_target] 手が到達すべきグローバル座標
+## [param sign] 1.0 = 左手、-1.0 = 右手（計算方向の反転用）
 func solve_ik(
 	shoulder: Node2D,
 	upper_len: float,
@@ -60,6 +76,20 @@ func solve_ik(
 	#print(shoulder.global_rotation)
 	#print(elbow.rotation)
 
+## ホールド掴み時の逆IK（手位置固定、肩位置可変）
+## [br][br]
+## 手の位置を固定し、プレイヤー入力に応じて肩とボディの位置を計算する。
+## 腕の長さ制約（最小・最大）を考慮して肩位置をクランプする。
+## [br][br]
+## [param hand_target] 手のターゲットNode2D（グローバル位置を参照）
+## [param shoulder] 肩のNode2D
+## [param elbow] 肘のNode2D
+## [param arm_max_len] 腕の最大伸長距離
+## [param arm_min_len] 腕の最小屈曲距離
+## [param upper_len] 上腕の長さ
+## [param fore_len] 前腕の長さ
+## [param sign] 1.0 = 左手、-1.0 = 右手
+## [param delta] フレーム時間
 func solve_reverse_ik(
 	hand_target: Node2D,
 	shoulder: Node2D,
@@ -114,6 +144,15 @@ func solve_reverse_ik(
 	# 通常のIKで腕の角度を解決
 	solve_ik(shoulder, upper_len, elbow, fore_len, hand_pos, sign)
 
+## 円形の範囲内に位置をクランプ
+## [br][br]
+## 指定した中心から最大距離以内に位置を制限する。
+## ハンドの可動範囲制限に使用。
+## [br][br]
+## [param center] 円の中心
+## [param pos] クランプする位置
+## [param max_radius] 最大半径
+## [return] クランプ後の位置
 func clamp_to_circle(
 	center: Vector2,
 	pos: Vector2,

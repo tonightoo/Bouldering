@@ -1,45 +1,76 @@
+## プレイヤー管理
+## 
+## プレイヤーの全体管理の中核ノード。
+## 各種マネージャークラス（HandController、IKSolver、
+## FatigueManager、GoalChecker）を一体管理し、
+## 毎フレームの処理を調整する。
 extends Node2D
 
+## ハンドコントローラー（掴み及びリリース管理）
 const HandController = preload("res://HandController.gd")
+## IKソルバー（腕の角度計算）
 const IKSolver = preload("res://IKSolver.gd")
+## 疲労管理
 const FatigueManager = preload("res://FatigueManager.gd")
+## ゴールチェッカー（クリア判定及びUI表示）
 const GoalChecker = preload("res://GoalChecker.gd")
+
+## ハンドコントローラーインスタンス
 var hand_controller: HandController = null
+## IKソルバーインスタンス
 var ik_solver: IKSolver = null
+## 疲労管理インスタンス
 var fatigue_manager: FatigueManager = null
+## ゴールチェッカーインスタンス
 var goal_checker: GoalChecker = null
 
-# 速度関係
+## 左手のターゲット位置への速度度
 var left_hand_velocity: Vector2 = Vector2.ZERO
+## 右手のターゲット位置への速度度
 var right_hand_velocity: Vector2 = Vector2.ZERO
 
-# パラメータ
+## プレイヤー設定
 @export var config: PlayerConfig
 
+## プレイヤーボディ
 @onready var body = $Body
 
-# 左手
+## 左肩
 @onready var left_shoulder =  $Body/LeftShoulder
+## 左肘
 @onready var left_elbow = $Body/LeftShoulder/LeftUpperArm/LeftElbow
+## 左上腕
 @onready var left_upper_arm = $Body/LeftShoulder/LeftUpperArm
+## 左前腕
 @onready var left_fore_arm = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm
+## 左手
 @onready var left_hand = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand
+## 左手のターゲット位置（IKターゲット）
 @onready var left_hand_target = $LeftHandTarget
+## 左手の疲労度表示UI
 @onready var left_fatigue_ui = $Body/LeftFatigueUI
 
-#右手
+## 右肩
 @onready var right_shoulder = $Body/RightShoulder
+## 右肘
 @onready var right_elbow = $Body/RightShoulder/RightUpperArm/RightElbow
+## 右上腕
 @onready var right_upper_arm = $Body/RightShoulder/RightUpperArm
+## 右前腕
 @onready var right_fore_arm = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm
+## 右手
 @onready var right_hand = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand
+## 右手のターゲット位置（IKターゲット）
 @onready var right_hand_target = $RightHandTarget
+## 右手の疲労度表示UI
 @onready var right_fatigue_ui = $Body/RightFatigueUI
 
-#UI
+## ゴール設定Label
 @onready var goal_label = $CanvasLayer/GoalLabel
 
-# Called when the node enters the scene tree for the first time.
+## ゲームを初期化
+## [br][br]
+## 設定を設定し、各種マネージャークラスを生成し毎々に必要な参照を渡す。
 func _ready() -> void:
 	config = PlayerConfig.new()
 	goal_label.text = ""
@@ -78,6 +109,12 @@ func _ready() -> void:
 	goal_checker.goal_label = goal_label
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+## 毎フレーム処理
+## [br][br]
+## 入力を受けつけ整常、疲労を計算し、IKを描画し、ゴールを判定し、
+## ホールドの移動を使用してプレイヤーが介入。
+## [br][br]
+## [param delta] フレーム時間
 func _process(delta: float) -> void:
 
 	if Input.is_action_pressed("ui_cancel"):
@@ -154,6 +191,13 @@ func _process(delta: float) -> void:
 
 
 
+## 手のターゲット位置を更新
+## [br][br]
+## 入力に応じて左右の手のターゲット位置を移動させる。
+## ホールド掴み時は肩がターゲット位置に到達せず固定される。
+## ハンドの可動範囲制限を満たすようにクランプされる。
+## [br][br]
+## [param delta] フレーム時間
 func update_hand_target(delta):
 	#var target_vel := Vector2.ZERO
 	var left_dir = Vector2(
@@ -208,6 +252,13 @@ func update_hand_target(delta):
 	
 # IK functions moved to IKSolver
 
+## 手からの力を使用してボディを移動
+## [br][br]
+## ホールド掴み時に、入力により手に加わった力をプレイヤーボディに反映させ、
+## プレイヤーを引っ張り上げたり移動させたりする。
+## [br][br]
+## [param input] 入力方向（通常-left_dir、-right_dirで逆方向）
+## [param delta] フレーム時間
 func apply_body_from_hand(input: Vector2, delta: float) -> void:
 	if input == Vector2.ZERO:
 		return
@@ -219,6 +270,10 @@ func apply_body_from_hand(input: Vector2, delta: float) -> void:
 
 # goal management is now handled by GoalChecker
 
+## 掴んでいるホールドの移動をプレイヤーに適用
+## [br][br]
+## 両手が掴んでいるホールドの移動量を平均化し、プレイヤーボディにそれを反映させる。
+## 動くホールドや落下するホールドを表現するのに使用される。
 func apply_hold_movement() -> void:
 	var total_movement = Vector2.ZERO
 	var hold_count: int = 0
