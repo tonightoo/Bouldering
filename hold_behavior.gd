@@ -14,12 +14,16 @@ var is_grabbed_either: bool:
 var respawn_timer := 0.0
 var base_position: Vector2
 
+var previous_position: Vector2
+var position_delta: Vector2 = Vector2.ZERO
+
 @onready var visual = $Visual
 @onready var grab_area = $Grab2d/CollisionShape2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	base_position = global_position
+	previous_position = global_position
 	visual.color = hold_data.color
 	visual.size = hold_data.size
 	visual.position = -hold_data.size * 0.5
@@ -48,6 +52,9 @@ func _process(delta: float) -> void:
 			update_falling(delta)
 		HoldData.HoldType.SLIPPERY:
 			update_slip(delta)
+			
+		
+	position_delta = global_position - previous_position
 
 func update_moving(delta):
 	if hold_data.move_period <= 0.0:
@@ -67,5 +74,6 @@ func update_slip(delta):
 	#if is_grabbed:
 		#hand_target.global_position += Vector2.DOWN * hold_data.slip_speed * delta
 
-		
+func get_movement_delta() -> Vector2:
+	return position_delta
 		

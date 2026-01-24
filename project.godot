@@ -144,6 +144,10 @@ dialogic_default_action={
 
 2d_physics/layer_3="hold"
 
+[physics]
+
+2d/solver/solver_iterations=32
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

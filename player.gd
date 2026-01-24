@@ -62,13 +62,14 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_released("RightHold"):
 		release_right_grab()
 
+	apply_hold_movement()
+		
 	update_fatigue(delta)
 	left_fatigue_ui.fatigue = left_hand_fatigue
 	update_hand_target(delta)
 	right_fatigue_ui.fatigue = right_hand_fatigue
 	
 	check_goal_condition(delta)
-	
 	if is_grabbing_something:
 		body.freeze = true
 	else:
@@ -460,8 +461,31 @@ func update_goal_ui(elapsed_time: float) -> void:
 		goal_label.modulate = Color.GOLD
 			
 func victory() -> void:
-	print("victory!")			
+	print("victory!")
 
-			
-		
-		
+func apply_hold_movement() -> void:
+	var total_movement = Vector2.ZERO
+	var hold_count: int = 0
+	
+	# 左手が掴んでるホールドの移動
+	if grabbed_hold_left != null:
+		var left_hold = grabbed_hold_left.get_parent() as HoldBehavior
+		var movement = left_hold.get_movement_delta()
+		#left_hand_target.global_position += movement
+		total_movement += movement
+		left_hold.previous_position += movement
+		hold_count += 1
+	
+	# 右手が掴んでるホールドの移動
+	if grabbed_hold_right != null:
+		var right_hold = grabbed_hold_right.get_parent() as HoldBehavior
+		var movement = right_hold.get_movement_delta()
+		#right_hand_target.global_position += movement
+		total_movement += movement
+		right_hold.previous_position += movement
+		hold_count += 1
+
+	if hold_count > 0:
+		var average_movement = total_movement / hold_count
+		body.global_position += average_movement
+	
