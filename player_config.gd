@@ -40,6 +40,10 @@ extends Resource
 @export var LUNGE_CHARGE_START_THRESHOLD: float = 0.2
 ## ランジの最大チャージ時間（この時間以上ためてもLUNGE_FORCEは増えない）
 @export var LUNGE_MAX_CHARGE_TIME: float = 3.0
+## 落下ダメージの最大値（これ以上のダメージは発生しない）
+@export var FALL_DAMAGE_MAX: float = 50.0
+## 落下ダメージの係数（落下速度 × この値 = ダメージ）
+@export var FALL_DAMAGE_MULTIPLIER: float = 0.05
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
