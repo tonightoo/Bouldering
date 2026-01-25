@@ -86,6 +86,8 @@ func _ready() -> void:
 	hand_controller.right_hand_target = right_hand_target
 	hand_controller.left_hand = left_hand
 	hand_controller.right_hand = right_hand
+	hand_controller.body = body
+	hand_controller.config = config
 
 	# IKSolver を生成して参照ノードをセット
 	ik_solver = IKSolver.new()
@@ -98,6 +100,8 @@ func _ready() -> void:
 	add_child(fatigue_manager)
 	fatigue_manager.config = config
 	fatigue_manager.hand_controller = hand_controller
+	# HandControllerに FatigueManager の参照を設定
+	hand_controller.fatigue_manager = fatigue_manager
 	fatigue_manager.left_elbow = left_elbow
 	fatigue_manager.right_elbow = right_elbow
 	fatigue_manager.left_shoulder = left_shoulder

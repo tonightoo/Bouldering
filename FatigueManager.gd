@@ -33,7 +33,10 @@ var left_hand: Node2D
 ## 右手のNode2D
 var right_hand: Node2D
 
-## 両手の疲労を更新
+## 左手の落下速度によるダメージ
+var left_hand_fall_damage: float = 0.0
+## 右手の落下速度によるダメージ
+var right_hand_fall_damage: float = 0.0
 ## [br][br]
 ## [param delta] フレーム時間
 func update(delta: float) -> void:
@@ -74,9 +77,10 @@ func update_left_fatigue(delta: float) -> void:
 		
 		# 疲労度を増加
 		left_hand_fatigue += fatigue_rate * delta
+		# 落下速度によるダメージを追加
+		left_hand_fatigue += left_hand_fall_damage
+		left_hand_fall_damage = 0.0
 		left_hand_fatigue = min(left_hand_fatigue, config.MAX_FATIGUE)
-		
-		# パンプしたら自動で離れる
 		if left_hand_fatigue >= config.MAX_FATIGUE:
 			hand_controller.release_left_grab()
 			emit_signal("fatigue_depleted", "left")
@@ -117,6 +121,9 @@ func update_right_fatigue(delta: float) -> void:
 
 		
 		right_hand_fatigue += fatigue_rate * delta
+		# 落下速度によるダメージを追加
+		right_hand_fatigue += right_hand_fall_damage
+		right_hand_fall_damage = 0.0
 		right_hand_fatigue = min(right_hand_fatigue, config.MAX_FATIGUE)
 		
 		if right_hand_fatigue >= config.MAX_FATIGUE:
