@@ -34,6 +34,12 @@ extends Resource
 @export var LUNGE_FORCE: float = 1000.0
 ## ランジ発動後のクールタイム（秒）
 @export var LUNGE_COOLDOWN: float = 0.5
+## ランジの最小チャージ時間（この時間以上ためないとランジは発動しない）
+@export var LUNGE_MIN_CHARGE_TIME: float = 1.0
+## ランジのチャージ開始の閾値（この時間入力を続けたらチャージ開始）
+@export var LUNGE_CHARGE_START_THRESHOLD: float = 0.2
+## ランジの最大チャージ時間（この時間以上ためてもLUNGE_FORCEは増えない）
+@export var LUNGE_MAX_CHARGE_TIME: float = 3.0
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0

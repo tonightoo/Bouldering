@@ -122,6 +122,10 @@ func _ready() -> void:
 	lunge_controller.right_shoulder = right_shoulder
 	lunge_controller.left_hand = left_hand
 	lunge_controller.right_hand = right_hand
+	
+	# ランジチャージシグナルに接続
+	lunge_controller.lunge_charge_updated.connect(_on_lunge_charge_updated)
+	lunge_controller.lunge_charge_reset.connect(_on_lunge_charge_reset)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
@@ -318,3 +322,51 @@ func apply_hold_movement() -> void:
 		var average_movement = total_movement / hold_count
 		body.global_position += average_movement
 	
+
+## ランジチャージ進捗が更新された時のコールバック
+## [br][br]
+## チャージ進捗に応じてボディのグロー効果を更新。
+## 色は黄色→オレンジ→赤に段階的に変化し、
+## MIN_CHARGE_TIME以上で点滅が始まり、進むにつれて加速する。
+## [br][br]
+## [param progress] チャージ進捗（0～1）
+func _on_lunge_charge_updated(progress: float) -> void:
+	var body_rect = body.get_node("ColorRect") as ColorRect
+	if body_rect == null:
+		return
+	
+	# チャージ進捗をMIN_CHARGETIMEからMAX_CHARGETIMEで正規化
+	# MIN_CHARGE_TIME以前は0、MAX_CHARGE_TIME以降は1になる
+	var min_time_ratio = lunge_controller.input_charge_time / config.LUNGE_MIN_CHARGE_TIME
+	var max_time_ratio = (lunge_controller.input_charge_time - config.LUNGE_MIN_CHARGE_TIME) / (config.LUNGE_MAX_CHARGE_TIME - config.LUNGE_MIN_CHARGE_TIME)
+	var normalized_charge = clamp(max_time_ratio, 0.0, 1.0)
+	
+	# 色を段階的に変化させる：黄色(1,1,0.5) → オレンジ(1,0.6,0) → 赤(1,0,0)
+	var color: Color
+	if normalized_charge < 0.5:
+		# 黄色 → オレンジ
+		var t = normalized_charge * 2.0
+		color = Color(1.0, 1.0 - t * 0.4, 0.5 - t * 0.5, 1.0)
+	else:
+		# オレンジ → 赤
+		var t = (normalized_charge - 0.5) * 2.0
+		color = Color(1.0, 0.6 - t * 0.6, 0.0, 1.0)
+	
+	# MIN_CHARGE_TIME以上で点滅を開始
+	if lunge_controller.input_charge_time >= config.LUNGE_MIN_CHARGE_TIME:
+		# 点滅速度：MIN_CHARGE_TIMEで遅く、MAX_CHARGE_TIMEで速くなる
+		var pulse_speed = 5.0 + normalized_charge * 15.0  # 5～20
+		var pulse = sin(Time.get_ticks_msec() * 0.001 * pulse_speed) * 0.3 + 0.7
+		color.v *= pulse
+	
+	body_rect.self_modulate = color
+
+## ランジチャージがリセットされた時のコールバック
+## [br][br]
+## グロー効果をリセットして通常状態に戻す。
+func _on_lunge_charge_reset() -> void:
+	var body_rect = body.get_node("ColorRect") as ColorRect
+	if body_rect == null:
+		return
+	
+	body_rect.self_modulate = Color(1.0, 1.0, 1.0, 1.0)

@@ -8,6 +8,10 @@ extends Node
 
 ## ランジ発動時に発火
 signal lunge_triggered(direction: Vector2, force: float)
+## ランジチャージ進捗が更新された時に発火
+signal lunge_charge_updated(progress: float)
+## ランジチャージがリセットされた時に発火
+signal lunge_charge_reset()
 
 ## ゲーム設定
 var config: PlayerConfig
@@ -32,12 +36,15 @@ var input_charge_time: float = 0.0
 var lunge_cooldown_time: float = 0.0
 ## ランジ発動済みフラグ
 var has_lunged_in_charge: bool = false
+## 前フレームの入力があったかどうか
+var was_input_active: bool = false
 
 ## ランジ管理を更新
 ## [br][br]
 ## 毎フレーム呼び出され、入力を監視してランジ条件を確認。
 ## 両手掴み状態で腕が完全に伸び切っており、
 ## 強い一定入力が続いていれば条件を満たす。
+## また、チャージ中に入力を離したら発動。
 ## [br][br]
 ## [param delta] フレーム時間
 func update(delta: float) -> void:
@@ -46,9 +53,13 @@ func update(delta: float) -> void:
 	
 	# 両手掴み状態かつ腕が伸び切っていなければ リセット
 	if hand_controller.grabbed_hold_left == null or hand_controller.grabbed_hold_right == null or not are_arms_fully_extended():
+		# チャージ中だったのにキャンセルされたのでリセット
+		if input_charge_time > 0.0 and was_input_active:
+			emit_signal("lunge_charge_reset")
 		input_charge_time = 0.0
 		has_lunged_in_charge = false
 		current_input_direction = Vector2.ZERO
+		was_input_active = false
 		return
 	
 	# 現在の入力を取得
@@ -62,20 +73,31 @@ func update(delta: float) -> void:
 	)
 	
 	# 入力が十分に強いか判定
-	if (left_input.length() >= config.LUNGE_INPUT_THRESHOLD and
-	  right_input.length() >= config.LUNGE_INPUT_THRESHOLD):
+	var is_input_active = (left_input.length() >= config.LUNGE_INPUT_THRESHOLD and
+	  right_input.length() >= config.LUNGE_INPUT_THRESHOLD)
+	
+	if is_input_active:
 		current_input_direction = (-left_input - right_input).normalized()
 		input_charge_time += delta
 		
-		# チャージ時間に達して、まだランジしていなければ発動
-		if input_charge_time >= config.LUNGE_CHARGE_TIME and not has_lunged_in_charge and lunge_cooldown_time <= 0.0:
+		# チャージ開始の閾値を超えた場合のみチャージ進捗を報告
+		if input_charge_time >= config.LUNGE_CHARGE_START_THRESHOLD:
+			emit_signal("lunge_charge_updated", get_charge_progress())
+		was_input_active = true
+	else:
+		# 入力が弱くなった
+		if was_input_active and input_charge_time >= config.LUNGE_MIN_CHARGE_TIME and not has_lunged_in_charge and lunge_cooldown_time <= 0.0:
+			# チャージ中に入力を離したのでランジ発動
 			trigger_lunge(current_input_direction)
 			has_lunged_in_charge = true
-	else:
-		# 入力が弱くなったらリセット
+		elif input_charge_time > 0.0:
+			# リセット通知
+			emit_signal("lunge_charge_reset")
+		
 		input_charge_time = 0.0
 		has_lunged_in_charge = false
 		current_input_direction = Vector2.ZERO
+		was_input_active = false
 
 ## 両腕が完全に伸び切っているか判定
 ## [br][br]
@@ -97,16 +119,29 @@ func are_arms_fully_extended() -> bool:
 	# 両腕が伸び切っていれば true
 	return left_extended and right_extended
 
+## チャージ進捗度を取得
+## [br][br]
+## 0～1の値を返す。1でフル完了。
+## [br][br]
+## [return] 進捗度（0～1）
+func get_charge_progress() -> float:
+	return min(input_charge_time / config.LUNGE_CHARGE_TIME, 1.0)
+
 ## ランジを発動
 ## [br][br]
 ## 入力方向の逆方向にプレイヤーボディに速度を付与。
+## チャージ時間に応じて飛ぶ距離が変動する。
 ## クールタイムを設定してシグナルを発火。
 ## [br][br]
 ## [param input_direction] 入力方向（これの逆方向にジャンプ）
 func trigger_lunge(input_direction: Vector2) -> void:
 	# 逆方向にジャンプ
 	var lunge_direction = -input_direction.normalized()
-	var lunge_velocity = lunge_direction * config.LUNGE_FORCE
+	
+	# チャージ時間に応じたフォースを計算
+	var charge_ratio = min(input_charge_time / config.LUNGE_MAX_CHARGE_TIME, 1.0)
+	var lunge_force = config.LUNGE_FORCE * charge_ratio
+	var lunge_velocity = lunge_direction * lunge_force
 	
 	# 両手をリリース（ホールドから離す）
 	hand_controller.release_left_grab()
@@ -121,7 +156,10 @@ func trigger_lunge(input_direction: Vector2) -> void:
 	# クールタイムを設定
 	lunge_cooldown_time = config.LUNGE_COOLDOWN
 	
+	# チャージ状態をリセット
+	emit_signal("lunge_charge_reset")
+	
 	# シグナルを発火
-	emit_signal("lunge_triggered", lunge_direction, config.LUNGE_FORCE)
+	emit_signal("lunge_triggered", lunge_direction, lunge_force)
 	
 	print("Lunge triggered! Direction: ", lunge_direction, " Force: ", config.LUNGE_FORCE)
