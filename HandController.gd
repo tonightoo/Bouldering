@@ -52,12 +52,18 @@ func try_grab(hand: Area2D, is_left: bool) -> void:
 			continue
 
 		var hold = a.get_parent() as HoldBehavior
+		# ホールドが使用不可なら掴めない
+		if hold and not hold.enabled:
+			continue
+		
 		if is_left:
 			grabbed_hold_left = a
 			if left_hand_target:
 				left_hand_target.global_position = a.global_position
 			if hold:
 				hold.grabbed_by_left = true
+				# ホールドに参照を設定
+				hold.hand_controller = self
 			emit_signal("grabbed", "left", a)
 			# 落下速度によるダメージを計算
 			apply_fall_damage(true)
@@ -67,6 +73,8 @@ func try_grab(hand: Area2D, is_left: bool) -> void:
 				right_hand_target.global_position = a.global_position
 			if hold:
 				hold.grabbed_by_right = true
+				# ホールドに参照を設定
+				hold.hand_controller = self
 			emit_signal("grabbed", "right", a)
 			# 落下速度によるダメージを計算
 			apply_fall_damage(false)
@@ -119,6 +127,18 @@ func update_grab_state() -> void:
 ## [param delta] フレーム時間
 func update(delta: float) -> void:
 	grab_prohibition_time = max(grab_prohibition_time - delta, 0.0)
+	
+	# 左手がホールドを掴んでいる場合、手の位置を更新（ホールドの移動に追従）
+	if grabbed_hold_left != null and left_hand_target != null:
+		var hold = grabbed_hold_left.get_parent() as HoldBehavior
+		if hold != null:
+			left_hand_target.global_position = grabbed_hold_left.global_position
+	
+	# 右手がホールドを掴んでいる場合、手の位置を更新（ホールドの移動に追従）
+	if grabbed_hold_right != null and right_hand_target != null:
+		var hold = grabbed_hold_right.get_parent() as HoldBehavior
+		if hold != null:
+			right_hand_target.global_position = grabbed_hold_right.global_position
 
 ## グラブ禁止を開始
 ## [br][br]

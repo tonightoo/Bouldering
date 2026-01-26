@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_12pa5")
-type = 7
+type = 12
 size = Vector2(20, 20)
-color = Color(0.6039216, 0.8784314, 0.5137255, 1)
+color = Color(1, 0.84313726, 0, 1)
 metadata/_custom_type_script = "uid://4ydhvgi6orw3"

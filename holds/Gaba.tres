@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_2kjwm")
 size = Vector2(26, 10)
-color = Color(0, 0.5254902, 1, 1)
+color = Color(0.8784314, 0.8784314, 0.8784314, 1)
 metadata/_custom_type_script = "uid://4ydhvgi6orw3"
