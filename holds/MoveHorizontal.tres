@@ -6,7 +6,7 @@
 script = ExtResource("1_y5vbn")
 type = 1
 size = Vector2(32, 32)
-color = Color(1, 1, 0, 1)
+color = Color(0.30980393, 0.7647059, 0.96862745, 1)
 move_dir = Vector2(1, 0)
 move_amplitude = 50.0
 move_period = 8.0

@@ -7,6 +7,8 @@ var grabbed_time := 0.0
 var grabbed_goal_time := 0.0
 var grabbed_by_left := false
 var grabbed_by_right := false
+var hand_controller: Object = null  # HandController への参照
+var enabled := true  # ホールドが掴める状態か
 var is_grabbed_both: bool:
 	get: return grabbed_by_left and grabbed_by_right
 var is_grabbed_either: bool:
@@ -16,6 +18,12 @@ var base_position: Vector2
 
 var previous_position: Vector2
 var position_delta: Vector2 = Vector2.ZERO
+
+# 落下状態
+var is_falling := false
+var fall_velocity := 0.0
+var fall_gravity := 980.0  # 標準重力加速度
+var is_respawning := false  # リスポーン中か
 
 @onready var visual = $Visual
 @onready var grab_area = $Grab2d/CollisionShape2D
@@ -44,6 +52,13 @@ func _process(delta: float) -> void:
 		grabbed_goal_time += delta	
 	else:
 		grabbed_goal_time = 0.0
+	
+	# リスポーン中のタイマー処理
+	if respawn_timer > 0.0:
+		respawn_timer -= delta
+		if respawn_timer <= 0.0:
+			# リスポーン
+			respawn()
 
 	match hold_data.type:
 		HoldData.HoldType.MOVING:
@@ -66,11 +81,45 @@ func update_moving(delta):
 	global_position = base_position + hold_data.move_dir.normalized() * offset
 
 func update_falling(delta):
-	if grabbed_time > hold_data.fall_time:
-		queue_free()
+	# 掴まれている時間が設定値を超えたら、落下開始
+	if not is_falling and grabbed_time > hold_data.fall_time:
+		is_falling = true
+		enabled = false  # ホールドが掴めないようにする
+		# ホールドが落ち始めた瞬間、掴んでいる手を離す
+		if hand_controller != null:
+			if grabbed_by_left:
+				hand_controller.release_left_grab()
+			if grabbed_by_right:
+				hand_controller.release_right_grab()
+	
+	# 落下中は重力を適用
+	if is_falling and not is_respawning:
+		fall_velocity += fall_gravity * delta
+		global_position.y += fall_velocity * delta
+		
+		# 画面外（大幅に下に落ちた）場合、非表示にしてリスポーン開始
+		if global_position.y > base_position.y + 500:  # 基準位置から500px以上下に落ちた
+			visible = false
+			is_falling = false
+			is_respawning = true
+			if hold_data.respawn_time > 0.0:
+				respawn_timer = hold_data.respawn_time
 		
 func update_slip(delta):
 	pass
+
+func respawn() -> void:
+	# ホールドをリセット
+	global_position = base_position
+	visible = true
+	enabled = true
+	grabbed_time = 0.0
+	grabbed_goal_time = 0.0
+	grabbed_by_left = false
+	grabbed_by_right = false
+	is_falling = false
+	is_respawning = false
+	fall_velocity = 0.0
 	#if is_grabbed:
 		#hand_target.global_position += Vector2.DOWN * hold_data.slip_speed * delta
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbmfambbv5dyv"]
+[gd_scene load_steps=9 format=3 uid="uid://dbmfambbv5dyv"]
 
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_k3ug5"]
 [ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://hold.tscn" id="3_lce2v"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="5_bvuje"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="6_bvuje"]
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="6_h16f0"]
+[ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="7_h16f0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijgqj"]
 size = Vector2(761, 45)
@@ -62,3 +63,7 @@ hold_data = ExtResource("6_bvuje")
 [node name="Hold7" parent="." instance=ExtResource("3_lce2v")]
 position = Vector2(245, -211)
 hold_data = ExtResource("6_h16f0")
+
+[node name="Hold8" parent="." instance=ExtResource("3_lce2v")]
+position = Vector2(109, 197)
+hold_data = ExtResource("7_h16f0")
