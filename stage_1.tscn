@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbmfambbv5dyv"]
+[gd_scene format=3 uid="uid://dbmfambbv5dyv"]
 
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_k3ug5"]
 [ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://hold.tscn" id="3_lce2v"]
@@ -7,63 +7,66 @@
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="6_bvuje"]
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="6_h16f0"]
 [ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="7_h16f0"]
+[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="8_bbwhg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijgqj"]
 size = Vector2(761, 45)
 
-[node name="Stage1" type="Node2D"]
+[node name="Stage1" type="Node2D" unique_id=1342701377]
 
-[node name="Player" parent="." instance=ExtResource("1_k3ug5")]
+[node name="Player" parent="." unique_id=393832685 instance=ExtResource("1_k3ug5")]
 z_index = 2
 position = Vector2(220, 361)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=670673817]
 collision_layer = 2
 collision_mask = 7
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=407777932]
 offset_left = -48.0
 offset_top = 403.0
 offset_right = 697.0
 offset_bottom = 443.0
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" groups=["hold"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1143252973 groups=["hold"]]
 position = Vector2(326, 427.5)
 shape = SubResource("RectangleShape2D_ijgqj")
 
-[node name="Hold" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold" parent="." unique_id=256606341 instance=ExtResource("3_lce2v")]
 position = Vector2(313, 252)
 hold_data = ExtResource("4_u5qfc")
 
-[node name="Hold2" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold2" parent="." unique_id=985393406 instance=ExtResource("3_lce2v")]
 position = Vector2(241, 91)
 hold_data = ExtResource("4_u5qfc")
 
-[node name="Hold3" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold3" parent="." unique_id=1272165961 instance=ExtResource("3_lce2v")]
 position = Vector2(176, 284)
 hold_data = ExtResource("4_u5qfc")
 
-[node name="Hold4" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold4" parent="." unique_id=206953726 instance=ExtResource("3_lce2v")]
 position = Vector2(223, 182)
 hold_data = ExtResource("5_bvuje")
 
-[node name="Hold5" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold5" parent="." unique_id=568137714 instance=ExtResource("3_lce2v")]
 position = Vector2(197, -10)
 hold_data = ExtResource("4_u5qfc")
 
-[node name="Hold6" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold6" parent="." unique_id=2076309661 instance=ExtResource("3_lce2v")]
 position = Vector2(295, -29)
 hold_data = ExtResource("4_u5qfc")
 
-[node name="GoalHold" parent="." instance=ExtResource("3_lce2v")]
+[node name="GoalHold" parent="." unique_id=999527449 instance=ExtResource("3_lce2v")]
 position = Vector2(276, -409)
 hold_data = ExtResource("6_bvuje")
 
-[node name="Hold7" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold7" parent="." unique_id=924525204 instance=ExtResource("3_lce2v")]
 position = Vector2(245, -211)
 hold_data = ExtResource("6_h16f0")
 
-[node name="Hold8" parent="." instance=ExtResource("3_lce2v")]
+[node name="Hold8" parent="." unique_id=2102444603 instance=ExtResource("3_lce2v")]
 position = Vector2(109, 197)
 hold_data = ExtResource("7_h16f0")
+
+[node name="PauseMenu" parent="." unique_id=1774615308 instance=ExtResource("8_bbwhg")]

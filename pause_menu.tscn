@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://buyi6bsggwctb"]
+
+[ext_resource type="Script" uid="uid://cfqcv8op5twx6" path="res://pause_menu.gd" id="1_hdmo1"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1774615308]
+script = ExtResource("1_hdmo1")
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=881906592]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -100.0
+offset_right = 75.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6036826, 0.8357438, 0.9415431, 1)
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=534849026]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -50.5
+offset_right = 39.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="PauseLabel" type="Label" parent="MenuContainer" unique_id=98138958]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.24115619, 0.24115601, 0.24115601, 1)
+text = "- Pause -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="MenuContainer" unique_id=960795379]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 0
+text = "Continue"
+
+[node name="RestartButton" type="Button" parent="MenuContainer" unique_id=1659987376]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 0
+text = "Restart"
+
+[node name="ExitButton" type="Button" parent="MenuContainer" unique_id=1037006230]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 0
+text = "Exit"
+
+[connection signal="mouse_entered" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/RestartButton" to="." method="_on_restart_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/ExitButton" to="." method="_on_exit_button_pressed"]

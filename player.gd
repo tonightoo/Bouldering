@@ -140,8 +140,6 @@ func _ready() -> void:
 ## [param delta] フレーム時間
 func _process(delta: float) -> void:
 
-	if Input.is_action_pressed("ui_cancel"):
-		get_tree().reload_current_scene()
 	if Input.is_action_pressed("LeftHold"):
 		hand_controller.try_grab(left_hand, true)
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcdkdymc37lpc"]
+[gd_scene format=3 uid="uid://bcdkdymc37lpc"]
 
 [ext_resource type="Script" uid="uid://b64hkx1hjwaqa" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://ckkivldck8nbi" path="res://fatigue_ui.tscn" id="2_onrkg"]
@@ -11,15 +11,15 @@ height = 64.0
 radius = 5.0
 height = 10.0
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" unique_id=1703604452]
 script = ExtResource("1_4flbx")
 
-[node name="Body" type="RigidBody2D" parent="."]
+[node name="Body" type="RigidBody2D" parent="." unique_id=570406556]
 collision_mask = 2
 linear_damp = 1.0
 angular_damp = 0.2
 
-[node name="ColorRect" type="ColorRect" parent="Body"]
+[node name="ColorRect" type="ColorRect" parent="Body" unique_id=1173816805]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -32,15 +32,15 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=1282312990]
 shape = SubResource("CapsuleShape2D_sh265")
 
-[node name="LeftShoulder" type="Node2D" parent="Body"]
+[node name="LeftShoulder" type="Node2D" parent="Body" unique_id=1100496951]
 position = Vector2(-16, -32)
 
-[node name="LeftUpperArm" type="Node2D" parent="Body/LeftShoulder"]
+[node name="LeftUpperArm" type="Node2D" parent="Body/LeftShoulder" unique_id=121721875]
 
-[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm"]
+[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm" unique_id=651935558]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -50,12 +50,12 @@ offset_bottom = 4.0
 grow_vertical = 2
 color = Color(0.41960785, 1, 1, 1)
 
-[node name="LeftElbow" type="Node2D" parent="Body/LeftShoulder/LeftUpperArm"]
+[node name="LeftElbow" type="Node2D" parent="Body/LeftShoulder/LeftUpperArm" unique_id=1120023881]
 position = Vector2(32, 0)
 
-[node name="LeftForeArm" type="Node2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow"]
+[node name="LeftForeArm" type="Node2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow" unique_id=1331855061]
 
-[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm"]
+[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm" unique_id=1555240842]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -65,12 +65,12 @@ offset_bottom = 3.5
 grow_vertical = 2
 color = Color(1, 0.24705882, 1, 1)
 
-[node name="LeftHand" type="Area2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm"]
+[node name="LeftHand" type="Area2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm" unique_id=709705635]
 position = Vector2(26, 0)
 collision_mask = 6
 monitorable = false
 
-[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand"]
+[node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" unique_id=2139749518]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -80,16 +80,16 @@ offset_bottom = 6.0
 grow_vertical = 2
 color = Color(1, 1, 0.25490198, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" unique_id=1126059037]
 position = Vector2(6, 0)
 shape = SubResource("CapsuleShape2D_4flbx")
 
-[node name="RightShoulder" type="Node2D" parent="Body"]
+[node name="RightShoulder" type="Node2D" parent="Body" unique_id=812598058]
 position = Vector2(16, -32)
 
-[node name="RightUpperArm" type="Node2D" parent="Body/RightShoulder"]
+[node name="RightUpperArm" type="Node2D" parent="Body/RightShoulder" unique_id=230935008]
 
-[node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm"]
+[node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm" unique_id=1808987953]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -99,12 +99,12 @@ offset_bottom = 4.0
 grow_vertical = 2
 color = Color(0.41960785, 1, 1, 1)
 
-[node name="RightElbow" type="Node2D" parent="Body/RightShoulder/RightUpperArm"]
+[node name="RightElbow" type="Node2D" parent="Body/RightShoulder/RightUpperArm" unique_id=512163662]
 position = Vector2(32, 0)
 
-[node name="RightForeArm" type="Node2D" parent="Body/RightShoulder/RightUpperArm/RightElbow"]
+[node name="RightForeArm" type="Node2D" parent="Body/RightShoulder/RightUpperArm/RightElbow" unique_id=1629361651]
 
-[node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm"]
+[node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm" unique_id=348860731]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -114,12 +114,12 @@ offset_bottom = 3.5
 grow_vertical = 2
 color = Color(1, 0.24705882, 1, 1)
 
-[node name="RightHand" type="Area2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm"]
+[node name="RightHand" type="Area2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm" unique_id=2006382714]
 position = Vector2(26, 0)
 collision_mask = 6
 monitorable = false
 
-[node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand"]
+[node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=696119971]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -129,28 +129,28 @@ offset_bottom = 6.0
 grow_vertical = 2
 color = Color(1, 1, 0.25490198, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=108224228]
 position = Vector2(6, 0)
 shape = SubResource("CapsuleShape2D_4flbx")
 
-[node name="Camera2D" type="Camera2D" parent="Body"]
+[node name="Camera2D" type="Camera2D" parent="Body" unique_id=1457155868]
 position_smoothing_enabled = true
 
-[node name="LeftFatigueUI" parent="Body" instance=ExtResource("2_onrkg")]
+[node name="LeftFatigueUI" parent="Body" unique_id=1199585877 instance=ExtResource("2_onrkg")]
 z_index = 5
 x_offset = -50.0
 y_offset = -20.0
 
-[node name="RightFatigueUI" parent="Body" instance=ExtResource("2_onrkg")]
+[node name="RightFatigueUI" parent="Body" unique_id=1569272503 instance=ExtResource("2_onrkg")]
 z_index = 5
 is_left = false
 x_offset = 50.0
 y_offset = -20.0
 
-[node name="LeftHandTarget" type="Node2D" parent="."]
+[node name="LeftHandTarget" type="Node2D" parent="." unique_id=2015379460]
 position = Vector2(48, -32)
 
-[node name="ColorRect" type="ColorRect" parent="LeftHandTarget"]
+[node name="ColorRect" type="ColorRect" parent="LeftHandTarget" unique_id=1483700435]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -164,10 +164,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
-[node name="RightHandTarget" type="Node2D" parent="."]
+[node name="RightHandTarget" type="Node2D" parent="." unique_id=2113656126]
 position = Vector2(80, -32)
 
-[node name="ColorRect" type="ColorRect" parent="RightHandTarget"]
+[node name="ColorRect" type="ColorRect" parent="RightHandTarget" unique_id=2098308742]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -181,9 +181,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=345617044]
 
-[node name="GoalLabel" type="Label" parent="CanvasLayer"]
+[node name="GoalLabel" type="Label" parent="CanvasLayer" unique_id=357262225]
 z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
