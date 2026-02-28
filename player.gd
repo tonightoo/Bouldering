@@ -145,12 +145,18 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("RightHold"):
 		hand_controller.try_grab(right_hand, false)
-		
-	if Input.is_action_just_released("LeftHold"):
-		hand_controller.release_left_grab()
 
-	if Input.is_action_just_released("RightHold"):
+	if not Input.is_action_pressed("LeftHold") and hand_controller.grabbed_hold_left != null:
+		hand_controller.release_left_grab()
+		
+	if not Input.is_action_pressed("RightHold") and hand_controller.grabbed_hold_right != null:
 		hand_controller.release_right_grab()
+
+	#if Input.is_action_just_released("LeftHold"):
+		#hand_controller.release_left_grab()
+
+	#if Input.is_action_just_released("RightHold"):
+		#hand_controller.release_right_grab()
 
 	apply_hold_movement()
 	
