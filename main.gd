@@ -1,16 +1,24 @@
-extends Node2D
-
+extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Dialogic.signal_event.connect(_on_dialogic_signal)
-	Dialogic.start('MainMenu')
+	$MenuContainer/StartButton.grab_focus()
 
 
-func _on_dialogic_signal(arg_str: String) -> void:
-	if arg_str == "Start":
-		get_tree().change_scene_to_file("res://stage_1.tscn")
-	elif arg_str == "End":
-		get_tree().quit()
-		
-		
+
+func _on_start_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://stage_1.tscn")
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()
+
+
+
+
+func _on_start_button_mouse_entered() -> void:
+	$MenuContainer/StartButton.grab_focus()
+
+
+func _on_exit_button_mouse_entered() -> void:
+	$MenuContainer/ExitButton.grab_focus()

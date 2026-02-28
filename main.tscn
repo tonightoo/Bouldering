@@ -1,6 +1,66 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnqfcq6u6wl0v"]
+[gd_scene format=3 uid="uid://cnqfcq6u6wl0v"]
 
 [ext_resource type="Script" uid="uid://do2vp2ueook35" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://b53f5yqn8nchd" path="res://images/background/title_background.png" id="2_1bvp3"]
+[ext_resource type="FontFile" uid="uid://c8q66b1qnxv3a" path="res://assets/fonts/GN-KillGothic-U-KanaNA.ttf" id="2_h2yge"]
+[ext_resource type="FontFile" uid="uid://bi1fvbqocthsa" path="res://assets/fonts/Corporate-Logo-Bold-ver3.otf" id="3_1bvp3"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="CanvasLayer" unique_id=1857095617]
 script = ExtResource("1_ig7tw")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=830698542]
+position = Vector2(562, 139)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_1bvp3")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1596563650]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -276.5
+offset_top = 150.0
+offset_right = 276.5
+offset_bottom = 224.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.99607843, 1, 0.34117648, 1)
+theme_override_colors/font_outline_color = Color(0, 0.039215688, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_h2yge")
+theme_override_font_sizes/font_size = 54
+text = "The Last Observation"
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=1077916559]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 26.0
+offset_right = 100.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="StartButton" type="Button" parent="MenuContainer" unique_id=1974315312]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+theme_override_fonts/font = ExtResource("3_1bvp3")
+theme_override_font_sizes/font_size = 24
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="MenuContainer" unique_id=1798186730]
+layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../StartButton")
+theme_override_fonts/font = ExtResource("3_1bvp3")
+theme_override_font_sizes/font_size = 24
+text = "Exit"
+
+[connection signal="mouse_entered" from="MenuContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/ExitButton" to="." method="_on_exit_button_pressed"]
