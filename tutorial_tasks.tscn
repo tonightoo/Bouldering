@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c8vk6gyfivv7o"]
+
+[ext_resource type="Script" uid="uid://bqfpc4dwswiy2" path="res://tutorial_tasks.gd" id="1_403lj"]
+
+[node name="TutorialTasks" type="CanvasLayer" unique_id=1741045538]
+script = ExtResource("1_403lj")
+
+[node name="TasksContainer" type="VBoxContainer" parent="." unique_id=356770974]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 313.0
+grow_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="TaskTitle" type="Label" parent="TasksContainer" unique_id=821398429]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+text = "以下のタスクをこなせ！"
+
+[node name="FirstTask" type="Label" parent="TasksContainer" unique_id=1250148995]
+layout_mode = 2
+text = "first"
+vertical_alignment = 1
+
+[node name="SecondTask" type="Label" parent="TasksContainer" unique_id=737888016]
+layout_mode = 2
+text = "second"
+vertical_alignment = 1
+
+[node name="ThirdTask" type="Label" parent="TasksContainer" unique_id=1309721651]
+layout_mode = 2
+text = "third"
+vertical_alignment = 1
+
+[node name="FourthTask" type="Label" parent="TasksContainer" unique_id=86449252]
+layout_mode = 2
+
+[node name="FifthTask" type="Label" parent="TasksContainer" unique_id=1713011288]
+layout_mode = 2
+
+[node name="SixthTask" type="Label" parent="TasksContainer" unique_id=809331418]
+layout_mode = 2
+
+[node name="SeventhTask" type="Label" parent="TasksContainer" unique_id=287023806]
+layout_mode = 2
+
+[node name="EighthTask" type="Label" parent="TasksContainer" unique_id=1524375089]
+layout_mode = 2

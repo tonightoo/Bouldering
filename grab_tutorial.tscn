@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cdmnl4bonxcad"]
+
+[ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_onvm2"]
+[ext_resource type="Script" uid="uid://bjjkbdr87diy0" path="res://grab_tutorial.gd" id="1_p6p6w"]
+[ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://hold.tscn" id="2_p6p6w"]
+[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba.tres" id="3_0630d"]
+[ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="4_4psfs"]
+[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="5_xfknr"]
+[ext_resource type="PackedScene" uid="uid://c8vk6gyfivv7o" path="res://tutorial_tasks.tscn" id="6_vwn2x"]
+[ext_resource type="PackedScene" uid="uid://hdd7gqm6lo3u" path="res://fade_layer.tscn" id="8_0630d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4enfr"]
+size = Vector2(761, 45)
+
+[node name="GrabTutorial" type="Node2D" unique_id=994170591]
+script = ExtResource("1_p6p6w")
+
+[node name="Player" parent="." unique_id=1703604452 instance=ExtResource("1_onvm2")]
+z_index = 2
+position = Vector2(220, 361)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1016511651]
+collision_layer = 2
+collision_mask = 7
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=1024422670]
+offset_left = -48.0
+offset_top = 403.0
+offset_right = 697.0
+offset_bottom = 443.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1581206519 groups=["hold"]]
+position = Vector2(326, 427.5)
+shape = SubResource("RectangleShape2D_4enfr")
+
+[node name="Hold" parent="." unique_id=1192679127 instance=ExtResource("2_p6p6w")]
+position = Vector2(313, 252)
+hold_data = ExtResource("3_0630d")
+
+[node name="Hold2" parent="." unique_id=1736109792 instance=ExtResource("2_p6p6w")]
+position = Vector2(241, 91)
+hold_data = ExtResource("3_0630d")
+
+[node name="Hold3" parent="." unique_id=782351539 instance=ExtResource("2_p6p6w")]
+position = Vector2(176, 284)
+hold_data = ExtResource("3_0630d")
+
+[node name="Hold4" parent="." unique_id=1116387438 instance=ExtResource("2_p6p6w")]
+position = Vector2(223, 182)
+hold_data = ExtResource("3_0630d")
+
+[node name="Hold5" parent="." unique_id=1622963634 instance=ExtResource("2_p6p6w")]
+position = Vector2(197, -10)
+hold_data = ExtResource("3_0630d")
+
+[node name="Hold6" parent="." unique_id=909474519 instance=ExtResource("2_p6p6w")]
+position = Vector2(295, -29)
+hold_data = ExtResource("3_0630d")
+
+[node name="GoalHold" parent="." unique_id=1216788050 instance=ExtResource("2_p6p6w")]
+position = Vector2(241, -118)
+hold_data = ExtResource("4_4psfs")
+
+[node name="TutorialTasks" parent="." unique_id=1741045538 instance=ExtResource("6_vwn2x")]
+
+[node name="FadeLayer" parent="." unique_id=908999020 instance=ExtResource("8_0630d")]
+
+[node name="PauseMenu" parent="." unique_id=1774615308 instance=ExtResource("5_xfknr")]

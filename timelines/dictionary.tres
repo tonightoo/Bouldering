@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="DialogicGlossary" format=3 uid="uid://b8ifoafo1j3vb"]
+
+[ext_resource type="Script" uid="uid://80elcodyqohb" path="res://addons/dialogic/Modules/Glossary/glossary_resource.gd" id="1_g3sy5"]
+
+[resource]
+script = ExtResource("1_g3sy5")
+entries = {
+"Hold": {
+"alternatives": ["ホールド"],
+"case_sensitive": true,
+"name": "Hold",
+"text": "お前の頭上にある突起物だ！
+軟弱者め！",
+"title": "ホールド"
+},
+"Lunge": {
+"alternatives": ["ランジ"],
+"name": "Lunge",
+"text": "次のホールドに向かって飛びつくムーブのことだ！
+お前にはできんだろうがな！ハハハ！",
+"title": "ランジ"
+},
+"Pump": {
+"alternatives": ["パンプ"],
+"name": "Pump",
+"text": "筋肉を使いすぎて腕がパンパンになりホールドを掴めない状態のことだ！
+軟弱者め！",
+"title": "パンプ"
+},
+"Rest": {
+"alternatives": ["レスト"],
+"name": "Rest",
+"text": "登りながら片手を離して腕の疲労を回復させる技術だ！",
+"title": "レスト"
+},
+"パンプ": "Pump",
+"ホールド": "Hold",
+"ランジ": "Lunge",
+"レスト": "Rest"
+}

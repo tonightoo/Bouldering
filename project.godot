@@ -27,15 +27,24 @@ Dialogic="*uid://ds2q0uclmolvu"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"MainMenu": "res://timelines/MainMenu.dtl"
+"MainMenu": "res://timelines/MainMenu.dtl",
+"advanced_tutorial": "res://timelines/advanced_tutorial.dtl",
+"grab_tutorial": "res://timelines/grab_tutorial.dtl",
+"tutorial": "res://timelines/arm_move_tutorial.dtl"
 }
 layout/style_directory={}
 glossary/default_case_sensitive=true
 layout/style_list=[]
 layout/default_style="Default"
-variables={}
+variables={
+"is_arm_tutorial_done": false,
+"is_in_advanced_tutorial": false,
+"is_in_arm_tutorial": false,
+"is_in_grab_tutorial": false,
+"is_restart": false
+}
 extensions_folder="res://addons/dialogic_additions"
-text/letter_speed=0.01
+text/letter_speed=0.05
 text/initial_text_reveal_skippable=true
 text/text_reveal_skip_delay=0.1
 text/advance_delay=0.1
@@ -67,6 +76,10 @@ audio/channel_defaults={
 "volume": 0.0
 }
 }
+text/autoadvance_enabled=true
+text/autoadvance_per_word_delay=0
+text/input_action="dialogic_default_action"
+glossary/glossary_files=["uid://b8ifoafo1j3vb"]
 
 [editor_plugins]
 
