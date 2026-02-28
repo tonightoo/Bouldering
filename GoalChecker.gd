@@ -17,6 +17,8 @@ var goal_label: Label
 ## 最後に表示されていた時間
 var last_display_score := 0
 
+var is_goaled: bool = false
+
 ## ゴールしたかどうかを確認
 ## [br][br]
 ## 両手でゴールホールドを掴んでいるか確認し
@@ -61,6 +63,7 @@ func update_goal_ui(elapsed_time: float) -> void:
 		goal_label.scale = Vector2(1.5, 1.5)
 		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
 	elif elapsed_time >= config.GOAL_FREEZE_TIME:
+		is_goaled = true
 		goal_label.text = "Victory!"
 		goal_label.modulate = Color.GOLD
 

@@ -1,0 +1,7 @@
+if {is_restart} == true:
+	jump restart_point
+よし！これが最後だ！
+最後にランジをしてみろ！
+set {is_in_advanced_tutorial} = true
+label restart_point
+ランジ：一方向に両手を引いて貯める、離すとジャンプする

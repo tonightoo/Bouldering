@@ -58,6 +58,7 @@ layout_mode = 2
 theme_override_constants/outline_size = 0
 text = "Exit"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="mouse_entered" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
 [connection signal="pressed" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/RestartButton" to="." method="_on_restart_button_mouse_entered"]

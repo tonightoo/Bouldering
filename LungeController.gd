@@ -33,7 +33,7 @@ var current_input_direction: Vector2 = Vector2.ZERO
 ## 入力継続時間
 var input_charge_time: float = 0.0
 ## ランジのクールタイム残時間
-var lunge_cooldown_time: float = 0.0
+var lunge_cooldown_time: float = 2.0
 ## ランジ発動済みフラグ
 var has_lunged_in_charge: bool = false
 ## 前フレームの入力があったかどうか
@@ -95,7 +95,7 @@ func update(delta: float) -> void:
 			emit_signal("lunge_charge_reset")
 		
 		input_charge_time = 0.0
-		has_lunged_in_charge = false
+		#has_lunged_in_charge = false
 		current_input_direction = Vector2.ZERO
 		was_input_active = false
 

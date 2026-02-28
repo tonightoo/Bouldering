@@ -16,6 +16,7 @@ func _on_continue_button_pressed() -> void:
 	visible = false
 
 func _on_restart_button_pressed() -> void:
+	Dialogic.VAR.is_restart = true
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
