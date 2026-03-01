@@ -3,3 +3,4 @@
 	[signal arg="Start"]
 - End
 	[signal arg="End"]
+	join  center

@@ -25,16 +25,18 @@ var fall_velocity := 0.0
 var fall_gravity := 980.0  # 標準重力加速度
 var is_respawning := false  # リスポーン中か
 
-@onready var visual = $Visual
+@onready var visual_sprite = $VisualSprite
 @onready var grab_area = $Grab2d/CollisionShape2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	base_position = global_position
 	previous_position = global_position
-	visual.color = hold_data.color
-	visual.size = hold_data.size
-	visual.position = -hold_data.size * 0.5
+	#visual.color = hold_data.color
+	#visual.size = hold_data.size
+	#visual.position = -hold_data.size * 0.5
+	visual_sprite.texture = hold_data.texture
+	visual_sprite.scale = hold_data.size / visual_sprite.texture.get_size()
 	grab_area.shape.size = hold_data.size
 	grab_area.position = Vector2.ZERO
 

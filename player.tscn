@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://bcdkdymc37lpc"]
 
 [ext_resource type="Script" uid="uid://b64hkx1hjwaqa" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://ccbkdvoxk65o0" path="res://assets/images/fore-arm.png" id="2_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://bufx8pb350m3e" path="res://assets/images/body.png" id="2_dw050"]
+[ext_resource type="Texture2D" uid="uid://kdflq7kawtt4" path="res://assets/images/grab_hand.png" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://ckkivldck8nbi" path="res://fatigue_ui.tscn" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://q0u1cq4pr3o0" path="res://assets/images/open_hand.png" id="3_sweqy"]
+[ext_resource type="Texture2D" uid="uid://c1nwrd4jb6ciw" path="res://assets/images/grab_hand_right.png" id="4_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://ik4vvoy6kloc" path="res://assets/images/open_hand_right.png" id="5_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/head.png" id="9_b26j0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 16.0
@@ -10,6 +17,44 @@ height = 64.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4flbx"]
 radius = 5.0
 height = 10.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hs0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hqtel")
+}],
+"loop": true,
+"name": &"grab",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sweqy")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2hs0m")
+}],
+"loop": true,
+"name": &"grab",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_1jxqw")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
 
 [node name="Player" type="Node2D" unique_id=1703604452]
 script = ExtResource("1_4flbx")
@@ -20,6 +65,7 @@ linear_damp = 1.0
 angular_damp = 0.2
 
 [node name="ColorRect" type="ColorRect" parent="Body" unique_id=1173816805]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -31,6 +77,7 @@ offset_right = 16.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(1, 0.85490197, 0.7254902, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=1282312990]
 shape = SubResource("CapsuleShape2D_sh265")
@@ -41,6 +88,7 @@ position = Vector2(-16, -32)
 [node name="LeftUpperArm" type="Node2D" parent="Body/LeftShoulder" unique_id=121721875]
 
 [node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm" unique_id=651935558]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -50,12 +98,18 @@ offset_bottom = 4.0
 grow_vertical = 2
 color = Color(0.41960785, 1, 1, 1)
 
+[node name="VisualSprite" type="Sprite2D" parent="Body/LeftShoulder/LeftUpperArm" unique_id=1380089956]
+position = Vector2(15, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1jxqw")
+
 [node name="LeftElbow" type="Node2D" parent="Body/LeftShoulder/LeftUpperArm" unique_id=1120023881]
 position = Vector2(32, 0)
 
 [node name="LeftForeArm" type="Node2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow" unique_id=1331855061]
 
 [node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm" unique_id=1555240842]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -65,12 +119,18 @@ offset_bottom = 3.5
 grow_vertical = 2
 color = Color(1, 0.24705882, 1, 1)
 
+[node name="VisualSprite" type="Sprite2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm" unique_id=699682945]
+position = Vector2(10, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1jxqw")
+
 [node name="LeftHand" type="Area2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm" unique_id=709705635]
 position = Vector2(26, 0)
 collision_mask = 6
 monitorable = false
 
 [node name="ColorRect" type="ColorRect" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" unique_id=2139749518]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -84,12 +144,19 @@ color = Color(1, 1, 0.25490198, 1)
 position = Vector2(6, 0)
 shape = SubResource("CapsuleShape2D_4flbx")
 
+[node name="VisualSprite" type="AnimatedSprite2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" unique_id=1300789901]
+position = Vector2(10, 2)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_2hs0m")
+animation = &"open"
+
 [node name="RightShoulder" type="Node2D" parent="Body" unique_id=812598058]
 position = Vector2(16, -32)
 
 [node name="RightUpperArm" type="Node2D" parent="Body/RightShoulder" unique_id=230935008]
 
 [node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm" unique_id=1808987953]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -98,6 +165,12 @@ offset_right = 32.0
 offset_bottom = 4.0
 grow_vertical = 2
 color = Color(0.41960785, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="VisualSprite" type="Sprite2D" parent="Body/RightShoulder/RightUpperArm" unique_id=575284649]
+position = Vector2(15, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1jxqw")
 
 [node name="RightElbow" type="Node2D" parent="Body/RightShoulder/RightUpperArm" unique_id=512163662]
 position = Vector2(32, 0)
@@ -105,6 +178,7 @@ position = Vector2(32, 0)
 [node name="RightForeArm" type="Node2D" parent="Body/RightShoulder/RightUpperArm/RightElbow" unique_id=1629361651]
 
 [node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm" unique_id=348860731]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -113,6 +187,12 @@ offset_right = 26.0
 offset_bottom = 3.5
 grow_vertical = 2
 color = Color(1, 0.24705882, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="VisualSprite" type="Sprite2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm" unique_id=1595803871]
+position = Vector2(10, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1jxqw")
 
 [node name="RightHand" type="Area2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm" unique_id=2006382714]
 position = Vector2(26, 0)
@@ -120,6 +200,7 @@ collision_mask = 6
 monitorable = false
 
 [node name="ColorRect" type="ColorRect" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=696119971]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -128,10 +209,24 @@ offset_right = 12.0
 offset_bottom = 6.0
 grow_vertical = 2
 color = Color(1, 1, 0.25490198, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=108224228]
 position = Vector2(6, 0)
 shape = SubResource("CapsuleShape2D_4flbx")
+
+[node name="VisualSprite" type="AnimatedSprite2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=1768598991]
+position = Vector2(10, -2)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_dw050")
+animation = &"open"
+
+[node name="BodySprite" type="Sprite2D" parent="Body" unique_id=621112677]
+texture = ExtResource("2_dw050")
+
+[node name="HeadSprite" type="Sprite2D" parent="Body" unique_id=450175935]
+position = Vector2(0, -47)
+texture = ExtResource("9_b26j0")
 
 [node name="Camera2D" type="Camera2D" parent="Body" unique_id=1457155868]
 position_smoothing_enabled = true

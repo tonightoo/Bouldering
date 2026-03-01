@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HoldData" format=3 uid="uid://dndomdt8ohyth"]
+
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="1_0ufye"]
+[ext_resource type="Texture2D" uid="uid://brgbyq8h5xose" path="res://assets/images/Gaba8_red.png" id="2_ex3a5"]
+
+[resource]
+script = ExtResource("1_0ufye")
+size = Vector2(32, 32)
+color = Color(0.8784314, 0.8784314, 0.8784314, 1)
+texture = ExtResource("2_ex3a5")
+metadata/_custom_type_script = "uid://4ydhvgi6orw3"

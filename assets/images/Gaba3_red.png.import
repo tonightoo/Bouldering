@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b53f5yqn8nchd"
-path="res://.godot/imported/title_background.png-be2be8cf7a7c186f8ddc8e41b6fac671.ctex"
+uid="uid://bujhbpktgi23w"
+path="res://.godot/imported/Gaba3_red.png-e1576ac5c226ce7c14fec0db892ef0fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/background/title_background.png"
-dest_files=["res://.godot/imported/title_background.png-be2be8cf7a7c186f8ddc8e41b6fac671.ctex"]
+source_file="res://assets/images/Gaba3_red.png"
+dest_files=["res://.godot/imported/Gaba3_red.png-e1576ac5c226ce7c14fec0db892ef0fc.ctex"]
 
 [params]
 

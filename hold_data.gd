@@ -23,6 +23,7 @@ enum HoldType {
 @export var type: HoldType
 @export var size: Vector2
 @export var color: Color
+@export var texture: Texture2D
 
 # 疲労関係
 @export var fatigue_multiplier := 1.0

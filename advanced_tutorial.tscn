@@ -3,17 +3,29 @@
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_8cd5m"]
 [ext_resource type="Script" uid="uid://2lr0166k28pa" path="res://advanced_tutorial.gd" id="1_t6tux"]
 [ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://hold.tscn" id="2_t6tux"]
-[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba.tres" id="3_g3kpd"]
+[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="3_g3kpd"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="4_ntbl8"]
 [ext_resource type="PackedScene" uid="uid://c8vk6gyfivv7o" path="res://tutorial_tasks.tscn" id="5_vi8sh"]
 [ext_resource type="PackedScene" uid="uid://hdd7gqm6lo3u" path="res://fade_layer.tscn" id="6_joglp"]
+[ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="6_mgmxj"]
+[ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="7_ejowd"]
 [ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="7_mgmxj"]
+[ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="8_oyryc"]
+[ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="9_ejowd"]
+[ext_resource type="Texture2D" uid="uid://cglbrk5hxs8de" path="res://assets/images/background/gym_background.png" id="9_g3kpd"]
+[ext_resource type="Resource" uid="uid://bk1k6mhosu4w8" path="res://holds/Gaba6_red.tres" id="10_oyryc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejowd"]
 size = Vector2(761, 45)
 
 [node name="AdvancedTutorial" type="Node2D" unique_id=626894119]
 script = ExtResource("1_t6tux")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1318124716]
+texture_repeat = 2
+texture = ExtResource("9_g3kpd")
+region_enabled = true
+region_rect = Rect2(0, 0, 2000, 2000)
 
 [node name="Player" parent="." unique_id=1703604452 instance=ExtResource("1_8cd5m")]
 z_index = 2
@@ -28,6 +40,7 @@ offset_left = -48.0
 offset_top = 403.0
 offset_right = 697.0
 offset_bottom = 443.0
+color = Color(0.49803922, 1, 0.83137256, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1548480952 groups=["hold"]]
@@ -40,23 +53,23 @@ hold_data = ExtResource("3_g3kpd")
 
 [node name="Hold2" parent="." unique_id=1712732783 instance=ExtResource("2_t6tux")]
 position = Vector2(241, 91)
-hold_data = ExtResource("3_g3kpd")
+hold_data = ExtResource("6_mgmxj")
 
 [node name="Hold3" parent="." unique_id=279980354 instance=ExtResource("2_t6tux")]
 position = Vector2(176, 284)
-hold_data = ExtResource("3_g3kpd")
+hold_data = ExtResource("7_ejowd")
 
 [node name="Hold4" parent="." unique_id=1611913036 instance=ExtResource("2_t6tux")]
 position = Vector2(223, 182)
-hold_data = ExtResource("3_g3kpd")
+hold_data = ExtResource("8_oyryc")
 
 [node name="Hold5" parent="." unique_id=1908202360 instance=ExtResource("2_t6tux")]
 position = Vector2(197, -10)
-hold_data = ExtResource("3_g3kpd")
+hold_data = ExtResource("9_ejowd")
 
 [node name="Hold6" parent="." unique_id=436543379 instance=ExtResource("2_t6tux")]
 position = Vector2(295, -29)
-hold_data = ExtResource("3_g3kpd")
+hold_data = ExtResource("10_oyryc")
 
 [node name="GoalHold" parent="." unique_id=1971003486 instance=ExtResource("2_t6tux")]
 position = Vector2(241, -118)
