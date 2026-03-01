@@ -17,7 +17,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Bouldering"
 run/main_scene="uid://cnqfcq6u6wl0v"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://uleen7khael3"
+config/macos_native_icon="res://assets/images/Gaba7_red.icns"
+config/windows_native_icon="res://assets/images/Gaba7_red.ico"
 
 [autoload]
 

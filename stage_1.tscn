@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_k3ug5"]
 [ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://hold.tscn" id="3_lce2v"]
-[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba.tres" id="4_u5qfc"]
+[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="4_u5qfc"]
 [ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="5_bvuje"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="6_bvuje"]
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="6_h16f0"]

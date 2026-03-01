@@ -53,6 +53,8 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var left_hand_target = $LeftHandTarget
 ## 左手の疲労度表示UI
 @onready var left_fatigue_ui = $Body/LeftFatigueUI
+## 左手の表示スプライト
+@onready var left_hand_sprite = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/VisualSprite
 
 ## 右肩
 @onready var right_shoulder = $Body/RightShoulder
@@ -68,6 +70,9 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var right_hand_target = $RightHandTarget
 ## 右手の疲労度表示UI
 @onready var right_fatigue_ui = $Body/RightFatigueUI
+## 右手の表示スプライト
+@onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
+
 
 ## ゴール設定Label
 @onready var goal_label = $CanvasLayer/GoalLabel
@@ -88,6 +93,8 @@ func _ready() -> void:
 	hand_controller.right_hand = right_hand
 	hand_controller.body = body
 	hand_controller.config = config
+	hand_controller.grabbed.connect(grab_hand_sprite)
+	hand_controller.released.connect(open_hand_sprite)
 
 	# IKSolver を生成して参照ノードをセット
 	ik_solver = IKSolver.new()
@@ -339,7 +346,7 @@ func apply_hold_movement() -> void:
 ## [br][br]
 ## [param progress] チャージ進捗（0～1）
 func _on_lunge_charge_updated(progress: float) -> void:
-	var body_rect = body.get_node("ColorRect") as ColorRect
+	var body_rect = body.get_node("BodySprite") as Sprite2D
 	if body_rect == null:
 		return
 	
@@ -373,8 +380,21 @@ func _on_lunge_charge_updated(progress: float) -> void:
 ## [br][br]
 ## グロー効果をリセットして通常状態に戻す。
 func _on_lunge_charge_reset() -> void:
-	var body_rect = body.get_node("ColorRect") as ColorRect
+	var body_rect = body.get_node("BodySprite") as Sprite2D
 	if body_rect == null:
 		return
 	
 	body_rect.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+
+func grab_hand_sprite(hand: String, area: Area2D) -> void:
+	if hand == "left":
+		left_hand_sprite.animation = StringName("grab")
+	elif hand == "right":
+		right_hand_sprite.animation = StringName("grab")
+
+func open_hand_sprite(hand: String) -> void:
+	if hand == "left":
+		left_hand_sprite.animation = StringName("open")
+	elif hand == "right":
+		right_hand_sprite.animation = StringName("open")

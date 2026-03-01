@@ -1,14 +1,21 @@
 extends CanvasLayer
 
+@onready var fade_animation = $FadeLayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$MenuContainer/StartButton.grab_focus()
-
+	fade_animation.connect_finished(on_fade_animation_finished)
 
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://arm_tutorial_stage.tscn")
+	fade_animation.play()
 
+func on_fade_animation_finished(anim_name: StringName) -> void:
+	next_scene()
+	
+func next_scene() -> void:
+	get_tree().change_scene_to_file("res://arm_tutorial_stage.tscn")	
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()

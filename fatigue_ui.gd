@@ -32,4 +32,4 @@ func _draw():
 	
 	draw_string(ThemeDB.fallback_font, pos + Vector2(0, -5), 
 				text + str(int(fatigue)) + "%", 
-				HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
+				HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.BLACK)

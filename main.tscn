@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cnqfcq6u6wl0v"]
 
 [ext_resource type="Script" uid="uid://do2vp2ueook35" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://b53f5yqn8nchd" path="res://images/background/title_background.png" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://b53f5yqn8nchd" path="res://assets/images/background/title_background.png" id="2_1bvp3"]
 [ext_resource type="FontFile" uid="uid://c8q66b1qnxv3a" path="res://assets/fonts/GN-KillGothic-U-KanaNA.ttf" id="2_h2yge"]
 [ext_resource type="FontFile" uid="uid://bi1fvbqocthsa" path="res://assets/fonts/Corporate-Logo-Bold-ver3.otf" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://hdd7gqm6lo3u" path="res://fade_layer.tscn" id="5_lquwl"]
 
 [node name="Main" type="CanvasLayer" unique_id=1857095617]
 script = ExtResource("1_ig7tw")
@@ -59,6 +60,8 @@ focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_fonts/font = ExtResource("3_1bvp3")
 theme_override_font_sizes/font_size = 24
 text = "Exit"
+
+[node name="FadeLayer" parent="." unique_id=908999020 instance=ExtResource("5_lquwl")]
 
 [connection signal="mouse_entered" from="MenuContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="MenuContainer/StartButton" to="." method="_on_start_button_pressed"]
