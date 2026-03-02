@@ -17,7 +17,7 @@ offset_right = 75.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.6036826, 0.8357438, 0.9415431, 1)
+color = Color(0.9372549, 0.9372549, 0.9372549, 1)
 
 [node name="MenuContainer" type="VBoxContainer" parent="." unique_id=534849026]
 anchors_preset = 8
