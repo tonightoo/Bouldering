@@ -35,11 +35,12 @@ extends Resource
 ## ランジ発動後のクールタイム（秒）
 @export var LUNGE_COOLDOWN: float = 0.5
 ## ランジの最小チャージ時間（この時間以上ためないとランジは発動しない）
-@export var LUNGE_MIN_CHARGE_TIME: float = 1.0
+@export var LUNGE_MIN_CHARGE_TIME: float = 0.5
 ## ランジのチャージ開始の閾値（この時間入力を続けたらチャージ開始）
-@export var LUNGE_CHARGE_START_THRESHOLD: float = 0.2
+@export var LUNGE_CHARGE_START_THRESHOLD: float = 0.5
 ## ランジの最大チャージ時間（この時間以上ためてもLUNGE_FORCEは増えない）
-@export var LUNGE_MAX_CHARGE_TIME: float = 3.0
+@export var LUNGE_MAX_CHARGE_TIME: float = 2.0
+
 ## 落下ダメージの最大値（これ以上のダメージは発生しない）
 @export var FALL_DAMAGE_MAX: float = 50.0
 ## 落下ダメージの係数（落下速度 × この値 = ダメージ）
