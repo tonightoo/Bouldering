@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/upper-arm-right.png" id="6_urp6f"]
 [ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/head.png" id="9_b26j0"]
 [ext_resource type="Texture2D" uid="uid://b5n0vh8ev8hpa" path="res://assets/images/body-muscle.png" id="10_ivps1"]
+[ext_resource type="Texture2D" uid="uid://dbccag8s6fmi6" path="res://assets/images/charge.png" id="12_urp6f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 16.0
@@ -232,6 +233,11 @@ texture = ExtResource("10_ivps1")
 [node name="HeadSprite" type="Sprite2D" parent="Body" unique_id=450175935]
 position = Vector2(0, -47)
 texture = ExtResource("9_b26j0")
+
+[node name="ChargeSprite" type="Sprite2D" parent="Body" unique_id=1852315455]
+visible = false
+scale = Vector2(10, 10)
+texture = ExtResource("12_urp6f")
 
 [node name="Camera2D" type="Camera2D" parent="Body" unique_id=1457155868]
 position_smoothing_enabled = true

@@ -73,6 +73,8 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 ## 右手の表示スプライト
 @onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
 
+## ランジチャージ用のスプライト
+@onready var charge_sprite = $Body/ChargeSprite
 
 ## ゴール設定Label
 @onready var goal_label = $CanvasLayer/GoalLabel
@@ -355,24 +357,39 @@ func _on_lunge_charge_updated(progress: float) -> void:
 	var min_time_ratio = lunge_controller.input_charge_time / config.LUNGE_MIN_CHARGE_TIME
 	var max_time_ratio = (lunge_controller.input_charge_time - config.LUNGE_MIN_CHARGE_TIME) / (config.LUNGE_MAX_CHARGE_TIME - config.LUNGE_MIN_CHARGE_TIME)
 	var normalized_charge = clamp(max_time_ratio, 0.0, 1.0)
-	
+	#charge_sprite.visible = true
+
+	#var t = (config.LUNGE_MAX_CHARGE_TIME - lunge_controller.input_charge_time) / config.LUNGE_MAX_CHARGE_TIME
+	#var charge_ratio = lunge_controller.input_charge_time / config.LUNGE_MAX_CHARGE_TIME
+	#
+	#var circle_scale = config.LUNGE_SPRITE_MAX_SCALE * t
+	#charge_sprite.scale = Vector2(circle_scale, circle_scale)
+
 	# 色を段階的に変化させる：黄色(1,1,0.5) → オレンジ(1,0.6,0) → 赤(1,0,0)
 	var color: Color
 	if normalized_charge < 0.5:
 		# 黄色 → オレンジ
 		var t = normalized_charge * 2.0
-		color = Color(1.0, 1.0 - t * 0.4, 0.5 - t * 0.5, 1.0)
+		var cyan = Color(0.0, 0.8, 1.0, 1.0)
+		var light_cyan = Color(0.5, 1.0, 1.0, 1.0)
+		color = cyan.lerp(light_cyan, t)
 	else:
 		# オレンジ → 赤
 		var t = (normalized_charge - 0.5) * 2.0
-		color = Color(1.0, 0.6 - t * 0.6, 0.0, 1.0)
+		var light_cyan = Color(0.5, 1.0, 1.0, 1.0)
+		var white = Color(0.99, 1.0, 1.0, 1.0)
+		color = light_cyan.lerp(white, t)
 	
 	# MIN_CHARGE_TIME以上で点滅を開始
 	if lunge_controller.input_charge_time >= config.LUNGE_MIN_CHARGE_TIME:
 		# 点滅速度：MIN_CHARGE_TIMEで遅く、MAX_CHARGE_TIMEで速くなる
 		var pulse_speed = 5.0 + normalized_charge * 15.0  # 5～20
-		var pulse = sin(Time.get_ticks_msec() * 0.001 * pulse_speed) * 0.3 + 0.7
-		color.v *= pulse
+		var pulse = sin(Time.get_ticks_msec() * 0.001 * pulse_speed)# * 0.5 + 0.5
+		#color.v *= pulse
+		#color = Color.WHITE.lerp(color, pulse)
+		pulse = max(pulse, 0.0)
+		var white = Color(10.0, 10.0, 10.0, 1.0)
+		color = color.lerp(white, pulse)
 	
 	body_rect.self_modulate = color
 
@@ -383,7 +400,8 @@ func _on_lunge_charge_reset() -> void:
 	var body_rect = body.get_node("BodySprite") as Sprite2D
 	if body_rect == null:
 		return
-	
+
+	#charge_sprite.visible = false
 	body_rect.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 
