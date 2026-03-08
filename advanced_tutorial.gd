@@ -26,12 +26,13 @@ func _process(delta: float) -> void:
 		fade_animation.connect_finished(on_fade_animation_finished)
 		fade_animation.play()
 
+
 func on_fade_animation_finished(anim_name: StringName) -> void:
 	Dialogic.VAR.is_restart = false
 	next_scene()
 
 func next_scene() -> void:
-	get_tree().change_scene_to_file("res://stage_1.tscn")
+	get_tree().change_scene_to_file("res://main.tscn")
 
 func enter_advanced_tutorial() -> void:
 	tutorial_tasks.set_text(1, "両手を下に引いて溜め離す")

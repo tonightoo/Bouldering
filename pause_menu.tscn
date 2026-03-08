@@ -43,18 +43,30 @@ vertical_alignment = 1
 [node name="ContinueButton" type="Button" parent="MenuContainer" unique_id=960795379]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../RestartButton")
 theme_override_constants/outline_size = 0
 text = "Continue"
 
 [node name="RestartButton" type="Button" parent="MenuContainer" unique_id=1659987376]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+focus_neighbor_top = NodePath("../ContinueButton")
+focus_neighbor_bottom = NodePath("../TopButton")
 theme_override_constants/outline_size = 0
 text = "Restart"
+
+[node name="TopButton" type="Button" parent="MenuContainer" unique_id=1429383577]
+layout_mode = 2
+focus_neighbor_top = NodePath("../RestartButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+text = "Top"
 
 [node name="ExitButton" type="Button" parent="MenuContainer" unique_id=1037006230]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+focus_neighbor_top = NodePath("../TopButton")
+focus_neighbor_bottom = NodePath("../ContinueButton")
 theme_override_constants/outline_size = 0
 text = "Exit"
 
@@ -63,5 +75,7 @@ text = "Exit"
 [connection signal="pressed" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/RestartButton" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="MenuContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/TopButton" to="." method="_on_top_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/TopButton" to="." method="_on_top_button_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="MenuContainer/ExitButton" to="." method="_on_exit_button_pressed"]

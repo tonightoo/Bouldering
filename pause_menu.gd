@@ -20,6 +20,11 @@ func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
+func _on_top_button_pressed() -> void:
+	Dialogic.VAR.is_restart = true
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://main.tscn")
+
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
@@ -36,6 +41,8 @@ func _on_continue_button_mouse_entered() -> void:
 func _on_restart_button_mouse_entered() -> void:
 	$MenuContainer/RestartButton.grab_focus()
 
+func _on_top_button_mouse_entered() -> void:
+	$MenuContainer/TopButton.grab_focus()
 
 func _on_exit_button_mouse_entered() -> void:
 	$MenuContainer/ExitButton.grab_focus()
