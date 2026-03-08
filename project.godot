@@ -34,10 +34,13 @@ directories/dtl_directory={
 "grab_tutorial": "res://timelines/grab_tutorial.dtl",
 "tutorial": "res://timelines/arm_move_tutorial.dtl"
 }
-layout/style_directory={}
+layout/style_directory={
+"": "res://styles/bouldering.tres",
+"bouldering": "res://styles/bouldering.tres"
+}
 glossary/default_case_sensitive=true
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://styles/bouldering.tres"]
+layout/default_style="res://styles/bouldering.tres"
 variables={
 "is_arm_tutorial_done": false,
 "is_in_advanced_tutorial": false,
@@ -86,6 +89,10 @@ glossary/glossary_files=["uid://b8ifoafo1j3vb"]
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+
+[gui]
+
+theme/custom_font="uid://b0c166dxkvc62"
 
 [input]
 
