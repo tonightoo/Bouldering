@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dbmfambbv5dyv"]
 
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_k3ug5"]
+[ext_resource type="Texture2D" uid="uid://crgku3cijdu68" path="res://assets/images/background/gym_background_wood.png" id="1_vn1b6"]
+[ext_resource type="Texture2D" uid="uid://bxa3gfhyks04m" path="res://assets/images/mat.png" id="3_j81dk"]
 [ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://hold.tscn" id="3_lce2v"]
 [ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="4_u5qfc"]
 [ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="5_bvuje"]
@@ -8,11 +10,19 @@
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="6_h16f0"]
 [ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="7_h16f0"]
 [ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="8_bbwhg"]
+[ext_resource type="PackedScene" uid="uid://cyyg47uohl1fk" path="res://stage_effect.tscn" id="11_j81dk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijgqj"]
 size = Vector2(761, 45)
 
 [node name="Stage1" type="Node2D" unique_id=1342701377]
+
+[node name="Wall" type="Sprite2D" parent="." unique_id=312315987]
+texture_repeat = 2
+position = Vector2(212, -45)
+texture = ExtResource("1_vn1b6")
+region_enabled = true
+region_rect = Rect2(0, 0, 384, 900)
 
 [node name="Player" parent="." unique_id=393832685 instance=ExtResource("1_k3ug5")]
 z_index = 2
@@ -33,40 +43,48 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(326, 427.5)
 shape = SubResource("RectangleShape2D_ijgqj")
 
+[node name="MatSprite" type="Sprite2D" parent="StaticBody2D" unique_id=94214551]
+position = Vector2(321.00003, 416)
+scale = Vector2(2.035, 1)
+texture = ExtResource("3_j81dk")
+
 [node name="Hold" parent="." unique_id=256606341 instance=ExtResource("3_lce2v")]
-position = Vector2(313, 252)
+position = Vector2(313, 295)
 hold_data = ExtResource("4_u5qfc")
 
 [node name="Hold2" parent="." unique_id=985393406 instance=ExtResource("3_lce2v")]
-position = Vector2(241, 91)
+position = Vector2(241, 134)
 hold_data = ExtResource("4_u5qfc")
 
 [node name="Hold3" parent="." unique_id=1272165961 instance=ExtResource("3_lce2v")]
-position = Vector2(176, 284)
+position = Vector2(176, 327)
 hold_data = ExtResource("4_u5qfc")
 
 [node name="Hold4" parent="." unique_id=206953726 instance=ExtResource("3_lce2v")]
-position = Vector2(223, 182)
+position = Vector2(223, 225)
 hold_data = ExtResource("5_bvuje")
 
 [node name="Hold5" parent="." unique_id=568137714 instance=ExtResource("3_lce2v")]
-position = Vector2(197, -10)
+position = Vector2(197, 33)
 hold_data = ExtResource("4_u5qfc")
 
 [node name="Hold6" parent="." unique_id=2076309661 instance=ExtResource("3_lce2v")]
-position = Vector2(295, -29)
+position = Vector2(295, 14)
 hold_data = ExtResource("4_u5qfc")
 
 [node name="GoalHold" parent="." unique_id=999527449 instance=ExtResource("3_lce2v")]
-position = Vector2(276, -409)
+position = Vector2(276, -366)
 hold_data = ExtResource("6_bvuje")
 
 [node name="Hold7" parent="." unique_id=924525204 instance=ExtResource("3_lce2v")]
-position = Vector2(245, -211)
+position = Vector2(245, -168)
 hold_data = ExtResource("6_h16f0")
 
 [node name="Hold8" parent="." unique_id=2102444603 instance=ExtResource("3_lce2v")]
-position = Vector2(109, 197)
+position = Vector2(109, 240)
 hold_data = ExtResource("7_h16f0")
 
 [node name="PauseMenu" parent="." unique_id=1774615308 instance=ExtResource("8_bbwhg")]
+
+[node name="StageEffect" parent="." unique_id=1089961514 instance=ExtResource("11_j81dk")]
+display_stage_name = "Stage1"
