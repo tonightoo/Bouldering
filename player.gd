@@ -73,9 +73,6 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 ## 右手の表示スプライト
 @onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
 
-## ランジチャージ用のスプライト
-@onready var charge_sprite = $Body/ChargeSprite
-
 ## ゴール設定Label
 @onready var goal_label = $CanvasLayer/GoalLabel
 
