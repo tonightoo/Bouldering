@@ -108,7 +108,9 @@ func _ready() -> void:
 	hand_controller.body = body
 	hand_controller.config = config
 	hand_controller.grabbed.connect(grab_hand_sprite)
+	hand_controller.grabbed.connect(unlighten)
 	hand_controller.released.connect(open_hand_sprite)
+	hand_controller.released.connect(lighten)
 
 	# IKSolver を生成して参照ノードをセット
 	ik_solver = IKSolver.new()
@@ -443,8 +445,25 @@ func grab_hand_sprite(hand: String, area: Area2D) -> void:
 	elif hand == "right":
 		right_hand_sprite.animation = StringName("grab")
 
-func open_hand_sprite(hand: String) -> void:
+func open_hand_sprite(hand: String, area: Area2D) -> void:
 	if hand == "left":
 		left_hand_sprite.animation = StringName("open")
 	elif hand == "right":
 		right_hand_sprite.animation = StringName("open")
+
+
+func _on_hand_area_entered(area: Area2D) -> void:
+	if area.is_in_group("holdarea"):
+		var hold: HoldBehavior = area.get_parent()
+		hold.lighten()
+
+func _on_hand_area_exited(area: Area2D) -> void:
+	if area.is_in_group("holdarea"):
+		var hold: HoldBehavior = area.get_parent()
+		hold.unlighten()
+
+func lighten(name:String, area: Area2D) -> void:
+	_on_hand_area_entered(area)
+
+func unlighten(name: String, area: Area2D) -> void:
+	_on_hand_area_exited(area)

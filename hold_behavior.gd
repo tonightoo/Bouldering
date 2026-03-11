@@ -163,4 +163,14 @@ func flash() -> void:
 	tween.tween_property(visual_sprite, "scale", Vector2(1.5, 1.5), 0.2)
 	tween.tween_property(visual_sprite, "scale", Vector2.ONE, 0.3)
 	tween.tween_property(visual_sprite, "modulate", hold_data.color, 0.3)
-	
+
+func lighten() -> void:
+	var tween = create_tween()
+	# 0.1秒で白っぽく光らせる（自己発光感を出す）
+	tween.tween_property(visual_sprite, "modulate", Color(2.5, 2.5, 2.5), 0.1)
+
+
+func unlighten() -> void:
+	var tween = create_tween()
+	# 0.2秒かけて元の色に戻す
+	tween.tween_property(visual_sprite, "modulate", Color(1, 1, 1), 0.2)    

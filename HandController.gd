@@ -6,9 +6,9 @@ class_name HandController
 extends Node
 
 ## 左手がホールドを掴んだ時に発火（未使用）
-signal grabbed(hand: String, area)
+signal grabbed(hand: String, area: Area2D)
 ## 左手がホールドを離した時に発火（未使用）
-signal released(hand: String)
+signal released(hand: String, area: Area2D)
 
 ## 左手が現在掴んでいるホールド
 var grabbed_hold_left: Area2D = null
@@ -92,10 +92,10 @@ func release_left_grab() -> void:
 		if hold != null:
 			hold.grabbed_by_left = false
 
-	grabbed_hold_left = null
 	if left_hand_target and left_hand:
 		left_hand_target.global_position = left_hand.global_position
-	emit_signal("released", "left")
+	emit_signal("released", "left", grabbed_hold_left)
+	grabbed_hold_left = null
 	update_grab_state()
 
 ## 右手でホールドを離す
@@ -108,10 +108,10 @@ func release_right_grab() -> void:
 		if hold != null:
 			hold.grabbed_by_right = false
 
-	grabbed_hold_right = null
 	if right_hand_target and right_hand:
 		right_hand_target.global_position = right_hand.global_position
-	emit_signal("released", "right")
+	emit_signal("released", "right", grabbed_hold_right)
+	grabbed_hold_right = null
 	update_grab_state()
 
 ## 掴み状態を更新
