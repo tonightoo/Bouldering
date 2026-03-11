@@ -46,6 +46,15 @@ extends Resource
 ## 落下ダメージの係数（落下速度 × この値 = ダメージ）
 @export var FALL_DAMAGE_MULTIPLIER: float = 0.05
 
+## オブザベに使える時間
+@export var OBSERVATION_TIME_LIMIT: float = 20.0
+## オブザベ時のカメラスピード
+@export var OBSERVATION_CAMERA_SPEED: float = 150.0
+## オブザベ時の視界半径
+@export var OBSERVATION_VISION_RADIUS: float = 50.0
+## オブザベ時の暗さ(暗い 0.0~1.0 明るい)
+@export var OBSERVATION_DARKNESS: float = 0.2
+
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
 var RIGHT_ARM_MAX_LEN := RIGHT_UPPER_ARM_LEN + RIGHT_FORE_ARM_LEN

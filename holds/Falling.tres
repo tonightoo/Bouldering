@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="1_p6vxj"]
 [ext_resource type="Texture2D" uid="uid://fqcjixwpw1iv" path="res://assets/images/Gaba1_gray.png" id="2_y4tdf"]
+[ext_resource type="Texture2D" uid="uid://dfa04chatxbb8" path="res://assets/images/Gaba1_white.png" id="3_oo4cf"]
 
 [resource]
 script = ExtResource("1_p6vxj")
@@ -9,6 +10,7 @@ type = 2
 size = Vector2(26, 10)
 color = Color(0.4745098, 0.33333334, 0.28235295, 1)
 texture = ExtResource("2_y4tdf")
+unknown_texture = ExtResource("3_oo4cf")
 fall_time = 5.0
 respawn_time = 2.0
 metadata/_custom_type_script = "uid://4ydhvgi6orw3"

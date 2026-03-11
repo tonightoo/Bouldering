@@ -12,10 +12,12 @@ const HandController = preload("res://HandController.gd")
 const IKSolver = preload("res://IKSolver.gd")
 ## 疲労管理
 const FatigueManager = preload("res://FatigueManager.gd")
-## ゴールチェッカー（クリア文判定及びUI揺示）
+## ゴールチェッカー
 const GoalChecker = preload("res://GoalChecker.gd")
-## ランジとていて下ちなど）
+## ランジコントローラ
 const LungeController = preload("res://LungeController.gd")
+## オブザベーションコントローラ
+const ObservationController = preload("res://ObservationController.gd")
 
 ## ハンドコントローラーインスタンス
 var hand_controller: HandController = null
@@ -27,7 +29,8 @@ var fatigue_manager: FatigueManager = null
 var goal_checker: GoalChecker = null
 ## ランジコントローラーインスタンス
 var lunge_controller: LungeController = null
-
+## オブザベーションコントローラーインスタンス
+var observation_controller: ObservationController = null
 ## 左手のターゲット位置への速度度
 var left_hand_velocity: Vector2 = Vector2.ZERO
 ## 右手のターゲット位置への速度度
@@ -35,6 +38,9 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 
 ## プレイヤー設定
 @export var config: PlayerConfig
+
+## オブザベーションが必要かどうか
+@export var is_need_observation: bool = false
 
 ## プレイヤーボディ
 @onready var body = $Body
@@ -73,15 +79,24 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 ## 右手の表示スプライト
 @onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
 
-## ゴール設定Label
-@onready var goal_label = $CanvasLayer/GoalLabel
+## 画面中央表示用ラベル
+@onready var message_label = $CanvasLayer/CenterMessageLabel
+## 画面右上表示用ラベル
+@onready var topright_message_label = $CanvasLayer/TopRightMessageLabel
+
+## カメラ
+@onready var camera = $Body/Camera2D
+## オブザベ中にかかる暗闇効果
+@onready var dark_screen = $DarkScreen
+## オブザベ中に使用する視界
+@onready var spot_light = $ObservationVision
 
 ## ゲームを初期化
 ## [br][br]
 ## 設定を設定し、各種マネージャークラスを生成し毎々に必要な参照を渡す。
 func _ready() -> void:
 	config = PlayerConfig.new()
-	goal_label.text = ""
+	message_label.text = ""
 
 	# HandController を生成して参照ノードをセット
 	hand_controller = HandController.new()
@@ -120,7 +135,7 @@ func _ready() -> void:
 	add_child(goal_checker)
 	goal_checker.config = config
 	goal_checker.hand_controller = hand_controller
-	goal_checker.goal_label = goal_label
+	goal_checker.goal_label = message_label
 
 	# LungeController を生成して参照ノードをセット
 	lunge_controller = LungeController.new()
@@ -136,6 +151,20 @@ func _ready() -> void:
 	# ランジチャージシグナルに接続
 	lunge_controller.lunge_charge_updated.connect(_on_lunge_charge_updated)
 	lunge_controller.lunge_charge_reset.connect(_on_lunge_charge_reset)
+	
+	# ObservationControllerを生成して参照ノードをセット
+	observation_controller = ObservationController.new()
+	add_child(observation_controller)
+	observation_controller.config = config
+	observation_controller.observation_time_remaining = config.OBSERVATION_TIME_LIMIT
+	observation_controller.camera = camera
+	observation_controller.is_observation = is_need_observation
+	observation_controller.darkness = dark_screen
+	observation_controller.spotlight = spot_light
+	observation_controller.message_label = topright_message_label
+
+	if is_need_observation:
+		observation_controller.enable_observation()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
@@ -145,6 +174,13 @@ func _ready() -> void:
 ## [br][br]
 ## [param delta] フレーム時間
 func _process(delta: float) -> void:
+	if observation_controller.is_observation:
+		return
+
+	bouldering_process(delta)
+
+
+func bouldering_process(delta: float) -> void:
 
 	if Input.is_action_pressed("LeftHold"):
 		hand_controller.try_grab(left_hand, true)
@@ -222,9 +258,8 @@ func _process(delta: float) -> void:
 			config.RIGHT_FORE_ARM_LEN,
 			-1.0,
 			delta
-		)
-
-
+		)	
+	
 
 
 ## 手のターゲット位置を更新

@@ -45,7 +45,7 @@ offset_bottom = 443.0
 color = Color(0.49803922, 1, 0.83137256, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1581206519 groups=["hold"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1581206519]
 position = Vector2(326, 427.5)
 shape = SubResource("RectangleShape2D_4enfr")
 
