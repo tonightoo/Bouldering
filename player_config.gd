@@ -1,7 +1,7 @@
 class_name PlayerConfig
 extends Resource
 
-@export var HAND_MAX_SPEED: float = 300.0   # 最高速度
+@export var HAND_MAX_SPEED: float = 350.0   # 最高速度
 @export var HAND_ACCEL: float = 1000.0      # 加速力
 @export var HAND_DECEL: float = 2500.0      # 減速力
 @export var LEFT_UPPER_ARM_LEN: float = 32.0
