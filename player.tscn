@@ -318,3 +318,8 @@ offset_left = -40.0
 offset_bottom = 17.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
+
+[connection signal="area_entered" from="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" to="." method="_on_hand_area_entered"]
+[connection signal="area_exited" from="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" to="." method="_on_hand_area_exited"]
+[connection signal="area_entered" from="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" to="." method="_on_hand_area_entered"]
+[connection signal="area_exited" from="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" to="." method="_on_hand_area_exited"]

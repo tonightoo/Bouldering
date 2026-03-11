@@ -90,6 +90,10 @@ glossary/glossary_files=["uid://b8ifoafo1j3vb"]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
+[global_group]
+
+hand=""
+
 [gui]
 
 theme/custom_font="uid://b0c166dxkvc62"
