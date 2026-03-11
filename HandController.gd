@@ -48,7 +48,7 @@ func try_grab(hand: Area2D, is_left: bool) -> void:
 		return
 	var areas = hand.get_overlapping_areas()
 	for a in areas:
-		if not a.is_in_group("hold"):
+		if not a.is_in_group("holdarea"):
 			continue
 
 		var hold = a.get_parent() as HoldBehavior

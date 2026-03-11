@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="1_y5vbn"]
 [ext_resource type="Texture2D" uid="uid://dspeyww6veslf" path="res://assets/images/Gaba8_blue.png" id="2_88fsy"]
+[ext_resource type="Texture2D" uid="uid://corp563tc1a3f" path="res://assets/images/Gaba8_white.png" id="3_aylvh"]
 
 [resource]
 script = ExtResource("1_y5vbn")
@@ -9,6 +10,7 @@ type = 1
 size = Vector2(32, 32)
 color = Color(0.30980393, 0.7647059, 0.96862745, 1)
 texture = ExtResource("2_88fsy")
+unknown_texture = ExtResource("3_aylvh")
 move_dir = Vector2(1, 0)
 move_amplitude = 50.0
 move_period = 8.0

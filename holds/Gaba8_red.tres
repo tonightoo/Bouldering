@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="1_0ufye"]
 [ext_resource type="Texture2D" uid="uid://brgbyq8h5xose" path="res://assets/images/Gaba8_red.png" id="2_ex3a5"]
+[ext_resource type="Texture2D" uid="uid://corp563tc1a3f" path="res://assets/images/Gaba8_white.png" id="3_fcxqa"]
 
 [resource]
 script = ExtResource("1_0ufye")
 size = Vector2(32, 32)
 color = Color(0.8784314, 0.8784314, 0.8784314, 1)
 texture = ExtResource("2_ex3a5")
+unknown_texture = ExtResource("3_fcxqa")
 metadata/_custom_type_script = "uid://4ydhvgi6orw3"

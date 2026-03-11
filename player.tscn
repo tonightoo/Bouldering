@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/upper-arm-right.png" id="6_urp6f"]
 [ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/head.png" id="9_b26j0"]
 [ext_resource type="Texture2D" uid="uid://b5n0vh8ev8hpa" path="res://assets/images/body-muscle.png" id="10_ivps1"]
+[ext_resource type="Texture2D" uid="uid://h7xxhfl7k8ao" path="res://assets/images/point_light.webp" id="13_urp6f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 16.0
@@ -283,9 +284,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
+[node name="ObservationVision" type="PointLight2D" parent="." unique_id=1201653189]
+texture = ExtResource("13_urp6f")
+
+[node name="DarkScreen" type="CanvasModulate" parent="." unique_id=1323873756]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=345617044]
 
-[node name="GoalLabel" type="Label" parent="CanvasLayer" unique_id=357262225]
+[node name="CenterMessageLabel" type="Label" parent="CanvasLayer" unique_id=357262225]
 z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
@@ -303,3 +309,12 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 96
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TopRightMessageLabel" type="Label" parent="CanvasLayer" unique_id=1818315085]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 17.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32

@@ -10,6 +10,7 @@ func _ready() -> void:
 	tween.connect("finished", slide_out)
 	tween.tween_property(stage_label, "position", final_position, 1.5)
 
+
 func slide_out() -> void:
 	await get_tree().create_timer(2.0).timeout
 	var tween = create_tween()

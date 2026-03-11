@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vofd"]
 
-[node name="Hold" type="Node2D" unique_id=1192679127]
+[node name="Hold" type="Node2D" unique_id=1192679127 groups=["hold"]]
 script = ExtResource("1_gf57l")
 
 [node name="Visual" type="ColorRect" parent="." unique_id=154159876]
@@ -25,7 +25,7 @@ grow_vertical = 2
 
 [node name="VisualSprite" type="Sprite2D" parent="." unique_id=1665824389]
 
-[node name="Grab2d" type="Area2D" parent="." unique_id=226275522 groups=["hold"]]
+[node name="Grab2d" type="Area2D" parent="." unique_id=226275522 groups=["holdarea"]]
 collision_layer = 4
 collision_mask = 0
 

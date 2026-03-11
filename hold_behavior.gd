@@ -3,6 +3,9 @@ extends Node2D
 
 @export var hold_data: HoldData
 
+@export var is_observed: bool = false
+@export var is_confirmed: bool = false
+var is_currently_visible: bool = false
 var grabbed_time := 0.0
 var grabbed_goal_time := 0.0
 var grabbed_by_left := false
@@ -35,7 +38,8 @@ func _ready() -> void:
 	#visual.color = hold_data.color
 	#visual.size = hold_data.size
 	#visual.position = -hold_data.size * 0.5
-	visual_sprite.texture = hold_data.texture
+	#visual_sprite.texture = hold_data.texture
+	visual_sprite.texture = hold_data.unknown_texture
 	visual_sprite.scale = hold_data.size / visual_sprite.texture.get_size()
 	grab_area.shape.size = hold_data.size
 	grab_area.position = Vector2.ZERO
@@ -51,7 +55,7 @@ func _process(delta: float) -> void:
 	elif hold_data.type == HoldData.HoldType.GOAL_RIGHT and grabbed_by_right:
 		grabbed_goal_time += delta
 	elif hold_data.type == HoldData.HoldType.GOAL_LEFT and grabbed_by_left: 
-		grabbed_goal_time += delta	
+		grabbed_goal_time += delta
 	else:
 		grabbed_goal_time = 0.0
 	
@@ -128,3 +132,35 @@ func respawn() -> void:
 func get_movement_delta() -> Vector2:
 	return position_delta
 		
+
+func update_visibility(is_observation: bool) -> void:
+	if is_observation:
+		if is_currently_visible:
+			visual_sprite.modulate.a = 1.0
+			is_observed = true
+		elif is_observed and not is_currently_visible:
+			visual_sprite.modulate.a = 0.3
+		else:
+			visual_sprite.modulate.a = 0.0
+	else:
+		if is_confirmed:
+			visual_sprite.modulate.a = 1.0
+		elif is_observed:
+			visual_sprite.modulate.a = 1.0
+		else:
+			visual_sprite.modulate.a = 0.0
+
+func confirm() -> void:
+	is_confirmed = true
+	visual_sprite.texture = hold_data.texture
+	flash()
+	
+func flash() -> void:
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.tween_property(visual_sprite, "modulate", Color.WHITE, 0.1)
+	tween.tween_property(visual_sprite, "scale", Vector2(1.5, 1.5), 0.2)
+	tween.tween_property(visual_sprite, "scale", Vector2.ONE, 0.3)
+	tween.tween_property(visual_sprite, "modulate", hold_data.color, 0.3)
+	
