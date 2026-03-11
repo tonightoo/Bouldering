@@ -61,6 +61,8 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var left_fatigue_ui = $Body/LeftFatigueUI
 ## 左手の表示スプライト
 @onready var left_hand_sprite = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/VisualSprite
+## 左手のチョークパーティクル
+@onready var left_chalk_particle = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/ChalkParticle
 
 ## 右肩
 @onready var right_shoulder = $Body/RightShoulder
@@ -78,6 +80,8 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var right_fatigue_ui = $Body/RightFatigueUI
 ## 右手の表示スプライト
 @onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
+## 右手のチョークパーティクル
+@onready var right_chalk_particle = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/ChalkParticle
 
 ## 画面中央表示用ラベル
 @onready var message_label = $CanvasLayer/CenterMessageLabel
@@ -184,10 +188,10 @@ func _process(delta: float) -> void:
 
 func bouldering_process(delta: float) -> void:
 
-	if Input.is_action_pressed("LeftHold"):
+	if Input.is_action_just_pressed("LeftHold"):
 		hand_controller.try_grab(left_hand, true)
 	
-	if Input.is_action_pressed("RightHold"):
+	if Input.is_action_just_pressed("RightHold"):
 		hand_controller.try_grab(right_hand, false)
 
 	if not Input.is_action_pressed("LeftHold") and hand_controller.grabbed_hold_left != null:
@@ -442,15 +446,17 @@ func _on_lunge_charge_reset() -> void:
 func grab_hand_sprite(hand: String, area: Area2D) -> void:
 	if hand == "left":
 		left_hand_sprite.animation = StringName("grab")
+		left_chalk_particle.emitting = true
 	elif hand == "right":
 		right_hand_sprite.animation = StringName("grab")
+		right_chalk_particle.emitting = true
+	
 
 func open_hand_sprite(hand: String, area: Area2D) -> void:
 	if hand == "left":
 		left_hand_sprite.animation = StringName("open")
 	elif hand == "right":
 		right_hand_sprite.animation = StringName("open")
-
 
 func _on_hand_area_entered(area: Area2D) -> void:
 	if area.is_in_group("holdarea"):

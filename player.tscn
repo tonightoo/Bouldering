@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://q0u1cq4pr3o0" path="res://assets/images/open_hand.png" id="3_sweqy"]
 [ext_resource type="Texture2D" uid="uid://c1nwrd4jb6ciw" path="res://assets/images/grab_hand_right.png" id="4_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://ik4vvoy6kloc" path="res://assets/images/open_hand_right.png" id="5_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://qewc1e8h6as4" path="res://assets/images/chalk.png" id="6_bwjto"]
 [ext_resource type="Texture2D" uid="uid://cqply0w4g3x4a" path="res://assets/images/fore-arm-right.png" id="6_ivps1"]
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/upper-arm-right.png" id="6_urp6f"]
 [ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/head.png" id="9_b26j0"]
@@ -40,6 +41,15 @@ animations = [{
 "name": &"open",
 "speed": 5.0
 }]
+
+[sub_resource type="Curve" id="Curve_bwjto"]
+_limits = [0.2, 2.0, 0.0, 1.0]
+_data = [Vector2(0.015243895, 0.21810448), 0.0, 0.0, 0, 0, Vector2(0.9786586, 1.9999999), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_606se"]
+offsets = PackedFloat32Array(0, 0.0033112583, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.3137255, 1, 1, 1, 0)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
 animations = [{
@@ -155,6 +165,28 @@ scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_2hs0m")
 animation = &"open"
 
+[node name="ChalkParticle" type="CPUParticles2D" parent="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" unique_id=269788165]
+position = Vector2(6, 0)
+emitting = false
+amount = 10
+texture = ExtResource("6_bwjto")
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+lifetime_randomness = 0.5
+spread = 80.0
+gravity = Vector2(-60, -60)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = 10.0
+angular_velocity_max = 30.0
+damping_min = 100.0
+damping_max = 100.0
+angle_max = 360.0
+scale_amount_curve = SubResource("Curve_bwjto")
+color_ramp = SubResource("Gradient_606se")
+
 [node name="RightShoulder" type="Node2D" parent="Body" unique_id=812598058]
 position = Vector2(16, -24)
 
@@ -226,6 +258,28 @@ scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_dw050")
 animation = &"open"
 
+[node name="ChalkParticle" type="CPUParticles2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=1264890147]
+position = Vector2(6, 0)
+emitting = false
+amount = 10
+texture = ExtResource("6_bwjto")
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+lifetime_randomness = 0.5
+spread = 80.0
+gravity = Vector2(60, -60)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = 10.0
+angular_velocity_max = 30.0
+damping_min = 100.0
+damping_max = 100.0
+angle_max = 360.0
+scale_amount_curve = SubResource("Curve_bwjto")
+color_ramp = SubResource("Gradient_606se")
+
 [node name="BodySprite" type="Sprite2D" parent="Body" unique_id=621112677]
 position = Vector2(0, -9)
 texture = ExtResource("10_ivps1")
@@ -285,6 +339,7 @@ grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
 [node name="ObservationVision" type="PointLight2D" parent="." unique_id=1201653189]
+visible = false
 texture = ExtResource("13_urp6f")
 
 [node name="DarkScreen" type="CanvasModulate" parent="." unique_id=1323873756]

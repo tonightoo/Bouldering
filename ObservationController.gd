@@ -14,7 +14,6 @@ var message_label: Label
 func _ready() -> void:
 	pass
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not is_observation:
@@ -41,6 +40,7 @@ func disable_observation() -> void:
 func enable_observation() -> void:
 	darkness.color = Color(config.OBSERVATION_DARKNESS, config.OBSERVATION_DARKNESS, config.OBSERVATION_DARKNESS, 1.0)
 	if spotlight:
+		spotlight.visible = true
 		spotlight.enabled = true
 		spotlight.texture_scale = config.OBSERVATION_VISION_RADIUS / 100.0
 		spotlight.color = Color.WHITE
