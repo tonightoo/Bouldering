@@ -63,6 +63,9 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var left_hand_sprite = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/VisualSprite
 ## 左手のチョークパーティクル
 @onready var left_chalk_particle = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/ChalkParticle
+## 左手の腕の長さのリミット
+var left_arm_length_limit: float
+
 
 ## 右肩
 @onready var right_shoulder = $Body/RightShoulder
@@ -82,6 +85,8 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
 ## 右手のチョークパーティクル
 @onready var right_chalk_particle = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/ChalkParticle
+## 右手の腕の長さのリミット
+var right_arm_length_limit: float
 
 ## 画面中央表示用ラベル
 @onready var message_label = $CanvasLayer/CenterMessageLabel
@@ -94,6 +99,10 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var dark_screen = $DarkScreen
 ## オブザベ中に使用する視界
 @onready var spot_light = $ObservationVision
+
+## 速度
+var body_velocity: Vector2 = Vector2.ZERO
+var last_body_velocity: Vector2 = Vector2.ZERO
 
 ## ゲームを初期化
 ## [br][br]
@@ -171,6 +180,9 @@ func _ready() -> void:
 
 	if is_need_observation:
 		observation_controller.enable_observation()
+		
+	left_arm_length_limit = config.LEFT_ARM_MAX_LEN
+	right_arm_length_limit = config.RIGHT_ARM_MAX_LEN
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
@@ -187,7 +199,7 @@ func _process(delta: float) -> void:
 
 
 func bouldering_process(delta: float) -> void:
-
+	print(body_velocity)
 	if Input.is_action_just_pressed("LeftHold"):
 		hand_controller.try_grab(left_hand, true)
 	
@@ -200,43 +212,49 @@ func bouldering_process(delta: float) -> void:
 	if not Input.is_action_pressed("RightHold") and hand_controller.grabbed_hold_right != null:
 		hand_controller.release_right_grab()
 
+
 	#if Input.is_action_just_released("LeftHold"):
 		#hand_controller.release_left_grab()
 
 	#if Input.is_action_just_released("RightHold"):
 		#hand_controller.release_right_grab()
 
+	# ホールドを掴んでいる場合、ボディの位置を左手・右手のホールドの移動に合わせて計算し適用する
 	apply_hold_movement()
-	
+
+	# ホールドを掴んでいる場合、ホールドの位置に手を動かす
 	hand_controller.update(delta)
+
+	# 両手の疲労度を状況に応じて増加・回復
 	fatigue_manager.update(delta)
 	left_fatigue_ui.fatigue = fatigue_manager.left_hand_fatigue
-	update_hand_target(delta)
 	right_fatigue_ui.fatigue = fatigue_manager.right_hand_fatigue
 	
+	# ユーザーの入力に応じて手の位置・体の位置を更新
+	update_hand_target(delta)
+	# ランジの入力状態や発動条件を確認し実行
 	lunge_controller.update(delta)
+
 	
 	goal_checker.check_goal_condition(delta)
 	if hand_controller.is_grabbing_something:
-		body.freeze = true
-	else:
-		body.freeze = false
+		body.linear_velocity = Vector2.ZERO
 	
-	if hand_controller.grabbed_hold_left == null:
-		ik_solver.solve_ik(
-			left_shoulder,
-			config.LEFT_UPPER_ARM_LEN,
-			left_elbow,
-			config.LEFT_FORE_ARM_LEN,
-			left_hand_target.global_position,
-			1.0
-		)
-	else:
+	ik_solver.solve_ik(
+		left_shoulder,
+		config.LEFT_UPPER_ARM_LEN,
+		left_elbow,
+		config.LEFT_FORE_ARM_LEN,
+		left_hand_target.global_position,
+		1.0
+	)
+	if hand_controller.grabbed_hold_left != null:
 		ik_solver.solve_reverse_ik(
 			left_hand_target,
 			left_shoulder,
 			left_elbow,
-			config.LEFT_ARM_MAX_LEN,
+			#config.LEFT_ARM_MAX_LEN,
+			left_arm_length_limit,
 			config.LEFT_ARM_MIN_LEN,
 			config.LEFT_UPPER_ARM_LEN,
 			config.LEFT_FORE_ARM_LEN,
@@ -244,21 +262,21 @@ func bouldering_process(delta: float) -> void:
 			delta
 		)
 		
-	if hand_controller.grabbed_hold_right == null:
-		ik_solver.solve_ik(
-			right_shoulder,
-			config.RIGHT_UPPER_ARM_LEN,
-			right_elbow,
-			config.RIGHT_FORE_ARM_LEN,
-			right_hand_target.global_position,
-			-1.0
-		)
-	else:
+	ik_solver.solve_ik(
+		right_shoulder,
+		config.RIGHT_UPPER_ARM_LEN,
+		right_elbow,
+		config.RIGHT_FORE_ARM_LEN,
+		right_hand_target.global_position,
+		-1.0
+	)
+	if hand_controller.grabbed_hold_right != null:
 		ik_solver.solve_reverse_ik(
 			right_hand_target,
 			right_shoulder,
 			right_elbow,
-			config.RIGHT_ARM_MAX_LEN,
+			#config.RIGHT_ARM_MAX_LEN,
+			right_arm_length_limit,
 			config.RIGHT_ARM_MIN_LEN,
 			config.RIGHT_UPPER_ARM_LEN,
 			config.RIGHT_FORE_ARM_LEN,
@@ -266,6 +284,7 @@ func bouldering_process(delta: float) -> void:
 			delta
 		)	
 	
+	#recalcurate_body_velocity(last_body_position, delta)
 
 
 ## 手のターゲット位置を更新
@@ -276,7 +295,6 @@ func bouldering_process(delta: float) -> void:
 ## [br][br]
 ## [param delta] フレーム時間
 func update_hand_target(delta):
-	#var target_vel := Vector2.ZERO
 	var left_dir = Vector2(
 		Input.get_action_strength("LeftRight") - Input.get_action_strength("LeftLeft"),
 		Input.get_action_strength("LeftDown")  - Input.get_action_strength("LeftUp")
@@ -294,7 +312,7 @@ func update_hand_target(delta):
 	left_hand_velocity = left_hand_velocity.limit_length(config.HAND_MAX_SPEED)
 
 	if right_dir.length() > 0:
-		right_dir = right_dir.normalized()
+		right_dir = right_dir.normalized()		
 		right_hand_velocity += right_dir * config.HAND_ACCEL * delta
 	else:
 		right_hand_velocity = right_hand_velocity.move_toward(Vector2.ZERO, config.HAND_DECEL * delta)
@@ -302,8 +320,9 @@ func update_hand_target(delta):
 	right_hand_velocity = right_hand_velocity.limit_length(config.HAND_MAX_SPEED)
 		
 	if hand_controller.grabbed_hold_left != null:
-		var force_dir: Vector2 = -left_dir
-		apply_body_from_hand(force_dir, delta)
+		#var force_dir: Vector2 = -left_dir
+		apply_velocity(true, left_dir, delta)
+		apply_body_from_hand(Vector2(0.0, -left_dir.y), delta)
 	else:
 		#left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
 		left_hand_target.global_position += left_hand_velocity * delta
@@ -314,8 +333,9 @@ func update_hand_target(delta):
 		)
 	
 	if hand_controller.grabbed_hold_right != null:
-		var force_dir: Vector2 = -right_dir
-		apply_body_from_hand(force_dir, delta)
+		#var force_dir: Vector2 = -right_dir
+		apply_velocity(false, right_dir, delta)
+		apply_body_from_hand(Vector2(0.0, -right_dir.y), delta)
 	#print("left:", left_hand_target.global_position)
 	#print("right:", right_hand_target.global_position)
 	else:
@@ -327,7 +347,8 @@ func update_hand_target(delta):
 			config.RIGHT_ARM_MAX_LEN
 		)
 	
-# IK functions moved to IKSolver
+	apply_rotation_power(delta)
+		
 
 ## 手からの力を使用してボディを移動
 ## [br][br]
@@ -342,11 +363,86 @@ func apply_body_from_hand(input: Vector2, delta: float) -> void:
 	
 	var force = Vector2(input.x, input.y)
 	force.y *= 1.2
-	body.global_position += force * 140.0 * delta
+	#body.global_position += force * 140.0 * delta
+	var distance = force * config.LIFT_UP_STRENGTH * delta
+	body.global_position += distance
+
+## 速度計算
+func apply_velocity(is_left: bool, input: Vector2, delta: float) -> void:
+	var hand_pos: Vector2
+	var elbow_pos: Vector2
+	var shoulder_pos: Vector2
+	if is_left:
+		hand_pos = left_hand.global_position
+		elbow_pos = left_elbow.global_position
+		shoulder_pos = left_shoulder.global_position
+	else:
+		hand_pos = right_hand.global_position
+		elbow_pos = right_elbow.global_position
+		shoulder_pos = right_shoulder.global_position
+
+	var lines = get_arm_direction_lines(hand_pos, elbow_pos)
+
+	## 左右入力による振り子運動の計算
+	#var pendulum_strength = input.dot(lines["tangent"])
+	apply_pendulum_velocity(lines["tangent"], -input.x, delta)
+	apply_gravity(lines["tangent"], delta)
+	apply_air_resistence()
+	cancel_tangent_velocity(lines["tangent"], delta)
+	clamp_body_velocity(delta)
+	
+	body.global_position += body_velocity * delta
+
+## 現在の手・肘の位置から手の接線・垂線を計算し返す
+func get_arm_direction_lines(hand_pos: Vector2, elbow_pos: Vector2) -> Dictionary:
+	var perpendicular: Vector2 = (hand_pos - elbow_pos).normalized()	
+	var tangent = Vector2(-perpendicular.y, perpendicular.x)
+
+	return {
+		"perpendicular": perpendicular,
+		"tangent": tangent
+	}
+
+## 振り子運動の力を速度に適用
+func apply_pendulum_velocity(direction: Vector2, strength: float, delta: float) -> void:		
+	var force: Vector2 = direction * strength * config.INPUT_FORCE_STRENGTH
+	body_velocity += force * delta
+
+## 重力を適用
+func apply_gravity(direction: Vector2,delta: float) -> void:
+	var strength: float = Vector2(0.0, config.GRAVITY).dot(direction)
+	var force: Vector2 = direction * strength
+	body_velocity += force * delta
+
+## 空気抵抗を適用
+func apply_air_resistence() -> void:
+	body_velocity *= config.AIR_RESISTANCE
+
+func cancel_tangent_velocity(direction: Vector2, delta: float) -> void:
+	var strength: float = body_velocity.dot(direction)
+	body_velocity = direction * strength
 
 
-# goal management is now handled by GoalChecker
+func clamp_body_velocity(delta: float) -> void:
+	var accel_limit_x = config.ACCEL_MAX_X * delta
+	if (body_velocity.x - last_body_velocity.x) > accel_limit_x:
+		body_velocity.x -= body_velocity.x - last_body_velocity.x - accel_limit_x
 
+	var accel_limit_y = config.ACCEL_MAX_Y * delta	
+	if (body_velocity.y - last_body_velocity.y) > accel_limit_y:
+		body_velocity.y -= body_velocity.y - last_body_velocity.y - accel_limit_y
+	
+	last_body_velocity = Vector2(body_velocity.x, body_velocity.y)
+
+		
+func apply_rotation_power(delta: float) -> void:
+	if not hand_controller.is_grabbing_something:
+		return
+	
+	var target_rotation = 0.0
+	body.rotation = lerp_angle(body.rotation, target_rotation, 0.002 * delta * config.GRAVITY)
+		
+		
 ## 掴んでいるホールドの移動をプレイヤーに適用
 ## [br][br]
 ## 両手が掴んでいるホールドの移動量を平均化し、プレイヤーボディにそれを反映させる。
@@ -376,7 +472,7 @@ func apply_hold_movement() -> void:
 	if hold_count > 0:
 		var average_movement = total_movement / hold_count
 		body.global_position += average_movement
-	
+		
 
 ## ランジチャージ進捗が更新された時のコールバック
 ## [br][br]
@@ -455,8 +551,12 @@ func grab_hand_sprite(hand: String, area: Area2D) -> void:
 func open_hand_sprite(hand: String, area: Area2D) -> void:
 	if hand == "left":
 		left_hand_sprite.animation = StringName("open")
+		if hand_controller.grabbed_hold_right == null:
+			body.linear_velocity = body_velocity
 	elif hand == "right":
 		right_hand_sprite.animation = StringName("open")
+		if hand_controller.grabbed_hold_left == null:
+			body.linear_velocity = body_velocity
 
 func _on_hand_area_entered(area: Area2D) -> void:
 	if area.is_in_group("holdarea"):

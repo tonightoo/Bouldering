@@ -55,6 +55,7 @@ func try_grab(hand: Area2D, is_left: bool) -> void:
 		# ホールドが使用不可なら掴めない
 		if hold and not hold.enabled:
 			continue
+
 		
 		if is_left:
 			grabbed_hold_left = a
