@@ -55,6 +55,18 @@ extends Resource
 ## オブザベ時の暗さ(暗い 0.0~1.0 明るい)
 @export var OBSERVATION_DARKNESS: float = 0.2
 
+## 空気抵抗
+@export var AIR_RESISTANCE: float = 0.98
+## 入力による力
+@export var INPUT_FORCE_STRENGTH: float = 600.0
+## 重力加速度
+@export var GRAVITY: float = 980.0
+## 腕の持ち上げ力
+@export var LIFT_UP_STRENGTH: float = 340.0
+## プレイヤーの加速制限値
+@export var ACCEL_MAX_X: float = 500
+@export var ACCEL_MAX_Y: float = 500
+
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
 var RIGHT_ARM_MAX_LEN := RIGHT_UPPER_ARM_LEN + RIGHT_FORE_ARM_LEN
