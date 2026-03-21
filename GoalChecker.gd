@@ -8,8 +8,8 @@ extends Node
 ## クリア設定完了時に発火
 signal victory_achieved
 
-## ゲーム設定（GOAL_FREEZE_TIME等を参照）
-var config: PlayerConfig
+## ステータス
+var status: PlayerStatus
 ## ハンドコントローラー（掴み状態を参照）
 var hand_controller: HandController
 ## ゴール表示用Label
@@ -37,8 +37,8 @@ func check_goal_condition(delta: float) -> void:
 			(hold_l.hold_data.type == HoldData.HoldType.GOAL_LEFT and 
 			hold_r.hold_data.type == HoldData.HoldType.GOAL_RIGHT)):
 			update_goal_ui(min(hold_l.grabbed_goal_time, hold_r.grabbed_goal_time))
-			if (hold_l.grabbed_goal_time >= config.GOAL_FREEZE_TIME and
-				hold_r.grabbed_goal_time >= config.GOAL_FREEZE_TIME):
+			if (hold_l.grabbed_goal_time >= status.get_goal_freeze_time() and
+				hold_r.grabbed_goal_time >= status.get_goal_freeze_time()):
 				victory()
 	else:
 		update_goal_ui(0.0)
@@ -54,7 +54,7 @@ func update_goal_ui(elapsed_time: float) -> void:
 	if elapsed_time <= 0.0:
 		goal_label.text = ""
 		last_display_score = -1
-	elif elapsed_time < config.GOAL_FREEZE_TIME and current_score != last_display_score:
+	elif elapsed_time < status.get_goal_freeze_time() and current_score != last_display_score:
 		last_display_score = current_score
 		goal_label.text = str(current_score)
 		goal_label.modulate = Color.WHITE
@@ -62,7 +62,7 @@ func update_goal_ui(elapsed_time: float) -> void:
 		var tween = goal_label.create_tween()
 		goal_label.scale = Vector2(1.5, 1.5)
 		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
-	elif elapsed_time >= config.GOAL_FREEZE_TIME:
+	elif elapsed_time >= status.get_goal_freeze_time(): 
 		is_goaled = true
 		goal_label.text = "Victory!"
 		goal_label.modulate = Color.GOLD
