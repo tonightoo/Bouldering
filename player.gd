@@ -39,6 +39,9 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 ## プレイヤー設定
 @export var config: PlayerConfig
 
+## プレイヤーの現在ステータス
+@export var status: PlayerStatus
+
 ## オブザベーションが必要かどうか
 @export var is_need_observation: bool = false
 
@@ -51,8 +54,12 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var left_elbow = $Body/LeftShoulder/LeftUpperArm/LeftElbow
 ## 左上腕
 @onready var left_upper_arm = $Body/LeftShoulder/LeftUpperArm
+## 左上腕のスプライト
+@onready var left_upper_arm_sprite = $Body/LeftShoulder/LeftUpperArm/VisualSprite
 ## 左前腕
 @onready var left_fore_arm = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm
+## 左前腕のスプライト
+@onready var left_fore_arm_sprite = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/VisualSprite
 ## 左手
 @onready var left_hand = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand
 ## 左手のターゲット位置（IKターゲット）
@@ -66,15 +73,18 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 ## 左手の腕の長さのリミット
 var left_arm_length_limit: float
 
-
 ## 右肩
 @onready var right_shoulder = $Body/RightShoulder
 ## 右肘
 @onready var right_elbow = $Body/RightShoulder/RightUpperArm/RightElbow
 ## 右上腕
 @onready var right_upper_arm = $Body/RightShoulder/RightUpperArm
+## 右上腕のスプライト
+@onready var right_upper_arm_sprite = $Body/RightShoulder/RightUpperArm/VisualSprite
 ## 右前腕
 @onready var right_fore_arm = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm
+## 右前腕のスプライト
+@onready var right_fore_arm_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/VisualSprite
 ## 右手
 @onready var right_hand = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand
 ## 右手のターゲット位置（IKターゲット）
@@ -109,7 +119,27 @@ var last_body_velocity: Vector2 = Vector2.ZERO
 ## 設定を設定し、各種マネージャークラスを生成し毎々に必要な参照を渡す。
 func _ready() -> void:
 	config = PlayerConfig.new()
+	status = PlayerStatus.new(config)
 	message_label.text = ""
+
+	# 手のサイズ・位置をステータスに応じて変更
+	left_upper_arm_sprite.scale.x = status.get_left_upper_arm_len() / left_upper_arm_sprite.texture.get_width()
+	left_upper_arm_sprite.position.x = status.get_left_upper_arm_len() / 2
+	left_elbow.position.x = status.get_left_upper_arm_len()
+	left_fore_arm_sprite.scale.x = status.get_left_fore_arm_len() / left_fore_arm_sprite.texture.get_width()
+	left_fore_arm_sprite.position.x = status.get_left_fore_arm_len() / 2 - status.get_left_elbow_overlap()
+	var left_hand_sprite_half_width = left_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * left_hand_sprite.scale.x / 2
+	left_hand.position.x = status.get_left_fore_arm_len() - status.get_left_elbow_overlap() + left_hand_sprite_half_width - status.get_left_hand_overlap()
+	print(left_fore_arm_sprite.position, left_hand.position)
+
+	right_upper_arm_sprite.scale.x = status.get_right_upper_arm_len() / right_upper_arm_sprite.texture.get_width()
+	right_upper_arm_sprite.position.x = status.get_right_upper_arm_len() / 2
+	right_elbow.position.x = status.get_right_upper_arm_len()
+	right_fore_arm_sprite.scale.x = status.get_right_fore_arm_len() / right_fore_arm_sprite.texture.get_width()
+	right_fore_arm_sprite.position.x = status.get_right_fore_arm_len() / 2 - status.get_right_elbow_overlap()
+	var right_hand_sprite_half_width = right_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * right_hand_sprite.scale.x / 2
+	right_hand.position.x = status.get_right_fore_arm_len() - status.get_right_elbow_overlap() + right_hand_sprite_half_width - status.get_right_hand_overlap()
+	print(right_fore_arm_sprite.position, right_hand.position)
 
 	# HandController を生成して参照ノードをセット
 	hand_controller = HandController.new()
@@ -119,7 +149,7 @@ func _ready() -> void:
 	hand_controller.left_hand = left_hand
 	hand_controller.right_hand = right_hand
 	hand_controller.body = body
-	hand_controller.config = config
+	hand_controller.status = status
 	hand_controller.grabbed.connect(grab_hand_sprite)
 	hand_controller.grabbed.connect(unlighten)
 	hand_controller.released.connect(open_hand_sprite)
@@ -128,13 +158,13 @@ func _ready() -> void:
 	# IKSolver を生成して参照ノードをセット
 	ik_solver = IKSolver.new()
 	add_child(ik_solver)
-	ik_solver.config = config
+	ik_solver.status = status
 	ik_solver.body = body
 
 	# FatigueManager を生成して参照ノードをセット
 	fatigue_manager = FatigueManager.new()
 	add_child(fatigue_manager)
-	fatigue_manager.config = config
+	fatigue_manager.status = status
 	fatigue_manager.hand_controller = hand_controller
 	# HandControllerに FatigueManager の参照を設定
 	hand_controller.fatigue_manager = fatigue_manager
@@ -144,18 +174,22 @@ func _ready() -> void:
 	fatigue_manager.right_shoulder = right_shoulder
 	fatigue_manager.left_hand = left_hand
 	fatigue_manager.right_hand = right_hand
+	
+	# fatigue_uiにもステータスをセット
+	left_fatigue_ui.status = status
+	right_fatigue_ui.status = status
 
 	# GoalChecker を生成して参照ノードをセット
 	goal_checker = GoalChecker.new()
 	add_child(goal_checker)
-	goal_checker.config = config
+	goal_checker.status = status
 	goal_checker.hand_controller = hand_controller
 	goal_checker.goal_label = message_label
 
 	# LungeController を生成して参照ノードをセット
 	lunge_controller = LungeController.new()
 	add_child(lunge_controller)
-	lunge_controller.config = config
+	lunge_controller.status = status
 	lunge_controller.hand_controller = hand_controller
 	lunge_controller.body = body
 	lunge_controller.left_shoulder = left_shoulder
@@ -170,8 +204,8 @@ func _ready() -> void:
 	# ObservationControllerを生成して参照ノードをセット
 	observation_controller = ObservationController.new()
 	add_child(observation_controller)
-	observation_controller.config = config
-	observation_controller.observation_time_remaining = config.OBSERVATION_TIME_LIMIT
+	observation_controller.status = status
+	observation_controller.observation_time_remaining = status.get_observation_time_limit()
 	observation_controller.camera = camera
 	observation_controller.is_observation = is_need_observation
 	observation_controller.darkness = dark_screen
@@ -181,8 +215,8 @@ func _ready() -> void:
 	if is_need_observation:
 		observation_controller.enable_observation()
 		
-	left_arm_length_limit = config.LEFT_ARM_MAX_LEN
-	right_arm_length_limit = config.RIGHT_ARM_MAX_LEN
+	left_arm_length_limit = status.get_left_arm_max_len()
+	right_arm_length_limit = status.get_right_arm_max_len()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
@@ -199,7 +233,6 @@ func _process(delta: float) -> void:
 
 
 func bouldering_process(delta: float) -> void:
-	print(body_velocity)
 	if Input.is_action_just_pressed("LeftHold"):
 		hand_controller.try_grab(left_hand, true)
 	
@@ -242,9 +275,9 @@ func bouldering_process(delta: float) -> void:
 	
 	ik_solver.solve_ik(
 		left_shoulder,
-		config.LEFT_UPPER_ARM_LEN,
+		status.get_left_upper_arm_len(),
 		left_elbow,
-		config.LEFT_FORE_ARM_LEN,
+		status.get_left_fore_arm_len() - status.get_left_elbow_overlap(),
 		left_hand_target.global_position,
 		1.0
 	)
@@ -255,18 +288,18 @@ func bouldering_process(delta: float) -> void:
 			left_elbow,
 			#config.LEFT_ARM_MAX_LEN,
 			left_arm_length_limit,
-			config.LEFT_ARM_MIN_LEN,
-			config.LEFT_UPPER_ARM_LEN,
-			config.LEFT_FORE_ARM_LEN,
+			status.get_left_arm_min_len(),
+			status.get_left_upper_arm_len(),
+			status.get_left_fore_arm_len() - status.get_left_elbow_overlap(),
 			1.0,
 			delta
 		)
 		
 	ik_solver.solve_ik(
 		right_shoulder,
-		config.RIGHT_UPPER_ARM_LEN,
+		status.get_right_upper_arm_len(),
 		right_elbow,
-		config.RIGHT_FORE_ARM_LEN,
+		status.get_right_fore_arm_len() - status.get_right_elbow_overlap(),
 		right_hand_target.global_position,
 		-1.0
 	)
@@ -277,9 +310,9 @@ func bouldering_process(delta: float) -> void:
 			right_elbow,
 			#config.RIGHT_ARM_MAX_LEN,
 			right_arm_length_limit,
-			config.RIGHT_ARM_MIN_LEN,
-			config.RIGHT_UPPER_ARM_LEN,
-			config.RIGHT_FORE_ARM_LEN,
+			status.get_right_arm_min_len(),
+			status.get_right_upper_arm_len(),
+			status.get_right_fore_arm_len() - status.get_right_elbow_overlap(),
 			-1.0,
 			delta
 		)	
@@ -305,19 +338,19 @@ func update_hand_target(delta):
 	)
 	if left_dir.length() > 0:
 		left_dir = left_dir.normalized()
-		left_hand_velocity += left_dir * config.HAND_ACCEL * delta
+		left_hand_velocity += left_dir * status.get_hand_accel() * delta
 	else:
-		left_hand_velocity = left_hand_velocity.move_toward(Vector2.ZERO, config.HAND_DECEL * delta)
+		left_hand_velocity = left_hand_velocity.move_toward(Vector2.ZERO, status.get_hand_decel() * delta)
 
-	left_hand_velocity = left_hand_velocity.limit_length(config.HAND_MAX_SPEED)
+	left_hand_velocity = left_hand_velocity.limit_length(status.get_hand_max_speed())
 
 	if right_dir.length() > 0:
 		right_dir = right_dir.normalized()		
-		right_hand_velocity += right_dir * config.HAND_ACCEL * delta
+		right_hand_velocity += right_dir * status.get_hand_accel() * delta
 	else:
-		right_hand_velocity = right_hand_velocity.move_toward(Vector2.ZERO, config.HAND_DECEL * delta)
+		right_hand_velocity = right_hand_velocity.move_toward(Vector2.ZERO, status.get_hand_decel() * delta)
 
-	right_hand_velocity = right_hand_velocity.limit_length(config.HAND_MAX_SPEED)
+	right_hand_velocity = right_hand_velocity.limit_length(status.get_hand_max_speed())
 		
 	if hand_controller.grabbed_hold_left != null:
 		#var force_dir: Vector2 = -left_dir
@@ -329,7 +362,7 @@ func update_hand_target(delta):
 		left_hand_target.global_position = ik_solver.clamp_to_circle(
 			left_shoulder.global_position,
 			left_hand_target.global_position,
-			config.LEFT_ARM_MAX_LEN
+			status.get_left_arm_max_len()
 		)
 	
 	if hand_controller.grabbed_hold_right != null:
@@ -344,7 +377,7 @@ func update_hand_target(delta):
 		right_hand_target.global_position = ik_solver.clamp_to_circle(
 			right_shoulder.global_position,
 			right_hand_target.global_position,
-			config.RIGHT_ARM_MAX_LEN
+			status.get_right_arm_max_len()
 		)
 	
 	apply_rotation_power(delta)
@@ -364,7 +397,7 @@ func apply_body_from_hand(input: Vector2, delta: float) -> void:
 	var force = Vector2(input.x, input.y)
 	force.y *= 1.2
 	#body.global_position += force * 140.0 * delta
-	var distance = force * config.LIFT_UP_STRENGTH * delta
+	var distance = force * status.get_lift_up_strength() * delta
 	body.global_position += distance
 
 ## 速度計算
@@ -405,18 +438,18 @@ func get_arm_direction_lines(hand_pos: Vector2, elbow_pos: Vector2) -> Dictionar
 
 ## 振り子運動の力を速度に適用
 func apply_pendulum_velocity(direction: Vector2, strength: float, delta: float) -> void:		
-	var force: Vector2 = direction * strength * config.INPUT_FORCE_STRENGTH
+	var force: Vector2 = direction * strength * status.get_input_force_strength()
 	body_velocity += force * delta
 
 ## 重力を適用
 func apply_gravity(direction: Vector2,delta: float) -> void:
-	var strength: float = Vector2(0.0, config.GRAVITY).dot(direction)
+	var strength: float = Vector2(0.0, status.get_gravity()).dot(direction)
 	var force: Vector2 = direction * strength
 	body_velocity += force * delta
 
 ## 空気抵抗を適用
 func apply_air_resistence() -> void:
-	body_velocity *= config.AIR_RESISTANCE
+	body_velocity *= status.get_air_resistance()
 
 func cancel_tangent_velocity(direction: Vector2, delta: float) -> void:
 	var strength: float = body_velocity.dot(direction)
@@ -424,11 +457,11 @@ func cancel_tangent_velocity(direction: Vector2, delta: float) -> void:
 
 
 func clamp_body_velocity(delta: float) -> void:
-	var accel_limit_x = config.ACCEL_MAX_X * delta
+	var accel_limit_x = status.get_accel_max_x() * delta
 	if (body_velocity.x - last_body_velocity.x) > accel_limit_x:
 		body_velocity.x -= body_velocity.x - last_body_velocity.x - accel_limit_x
 
-	var accel_limit_y = config.ACCEL_MAX_Y * delta	
+	var accel_limit_y = status.get_accel_max_y() * delta	
 	if (body_velocity.y - last_body_velocity.y) > accel_limit_y:
 		body_velocity.y -= body_velocity.y - last_body_velocity.y - accel_limit_y
 	
@@ -440,7 +473,7 @@ func apply_rotation_power(delta: float) -> void:
 		return
 	
 	var target_rotation = 0.0
-	body.rotation = lerp_angle(body.rotation, target_rotation, 0.002 * delta * config.GRAVITY)
+	body.rotation = lerp_angle(body.rotation, target_rotation, 0.002 * delta * status.get_gravity())
 		
 		
 ## 掴んでいるホールドの移動をプレイヤーに適用
@@ -488,8 +521,8 @@ func _on_lunge_charge_updated(progress: float) -> void:
 	
 	# チャージ進捗をMIN_CHARGETIMEからMAX_CHARGETIMEで正規化
 	# MIN_CHARGE_TIME以前は0、MAX_CHARGE_TIME以降は1になる
-	var min_time_ratio = lunge_controller.input_charge_time / config.LUNGE_MIN_CHARGE_TIME
-	var max_time_ratio = (lunge_controller.input_charge_time - config.LUNGE_MIN_CHARGE_TIME) / (config.LUNGE_MAX_CHARGE_TIME - config.LUNGE_MIN_CHARGE_TIME)
+	var min_time_ratio = lunge_controller.input_charge_time / status.get_lunge_min_charge_time()
+	var max_time_ratio = (lunge_controller.input_charge_time - status.get_lunge_min_charge_time()) / (status.get_lunge_max_charge_time() - status.get_lunge_min_charge_time())
 	var normalized_charge = clamp(max_time_ratio, 0.0, 1.0)
 	#charge_sprite.visible = true
 
@@ -515,7 +548,7 @@ func _on_lunge_charge_updated(progress: float) -> void:
 		color = light_cyan.lerp(white, t)
 	
 	# MIN_CHARGE_TIME以上で点滅を開始
-	if lunge_controller.input_charge_time >= config.LUNGE_MIN_CHARGE_TIME:
+	if lunge_controller.input_charge_time >= status.get_lunge_min_charge_time():
 		# 点滅速度：MIN_CHARGE_TIMEで遅く、MAX_CHARGE_TIMEで速くなる
 		var pulse_speed = 5.0 + normalized_charge * 15.0  # 5～20
 		var pulse = sin(Time.get_ticks_msec() * 0.001 * pulse_speed)# * 0.5 + 0.5

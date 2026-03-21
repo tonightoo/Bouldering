@@ -7,16 +7,16 @@ extends Node2D
 @export var y_offset := -40.0
 
 var fatigue := 0.0
-@export var config: PlayerConfig
+@export var status: PlayerStatus
 
 func _ready() -> void:
-	config = PlayerConfig.new()
+	pass
 
 func _process(_delta):
 	queue_redraw()
 
 func _draw():
-	var ratio := fatigue / config.MAX_FATIGUE
+	var ratio := fatigue / status.get_max_fatigue()
 	var color := Color.GREEN.lerp(Color.RED, ratio)
 
 	var pos := Vector2(-bar_width/2 + x_offset, y_offset)
@@ -31,5 +31,5 @@ func _draw():
 	var text := "Left:" if is_left else "Right:"
 	
 	draw_string(ThemeDB.fallback_font, pos + Vector2(0, -5), 
-				text + str(int(fatigue)) + "%", 
+				text + str(int(ratio * 100)) + "%", 
 				HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.BLACK)

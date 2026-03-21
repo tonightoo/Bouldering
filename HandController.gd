@@ -31,8 +31,8 @@ var grab_prohibition_time: float = 0.0
 var body: Node2D = null
 ## 疲労管理への参照（落下ダメージを通知）
 var fatigue_manager: FatigueManager = null
-## ゲーム設定（落下ダメージ設定用）
-var config: PlayerConfig = null
+## ステータス（落下ダメージ設定用）
+var status: PlayerStatus = null
 
 ## ホールドを掴もうとする
 ## [br][br]
@@ -156,7 +156,7 @@ func set_grab_prohibition(duration: float) -> void:
 ## [br][br]
 ## [param is_left] true なら左手、false なら右手
 func apply_fall_damage(is_left: bool) -> void:
-	if body == null or fatigue_manager == null or config == null:
+	if body == null or fatigue_manager == null or status == null:
 		return
 	
 	# プレイヤーボディのY方向速度（下向き=正の値）を取得
@@ -165,7 +165,7 @@ func apply_fall_damage(is_left: bool) -> void:
 	# 下に落ちている場合のみダメージ計算
 	if fall_velocity > 0.0:
 		# 落下速度をダメージに変換
-		var fall_damage = clamp(fall_velocity * config.FALL_DAMAGE_MULTIPLIER, 0.0, config.FALL_DAMAGE_MAX)
+		var fall_damage = clamp(fall_velocity * status.get_fall_damage_multiplier(), 0.0, status.get_fall_damage_max())
 		
 		if is_left:
 			fatigue_manager.left_hand_fall_damage = fall_damage
