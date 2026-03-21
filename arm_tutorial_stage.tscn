@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bxa3gfhyks04m" path="res://assets/images/mat.png" id="4_kd86l"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="5_xbkgr"]
 [ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="6_s447v"]
-[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="6_vgjrd"]
+[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://tutorial_pause_menu.tscn" id="6_vgjrd"]
 [ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="7_kd86l"]
 [ext_resource type="PackedScene" uid="uid://c8vk6gyfivv7o" path="res://tutorial_tasks.tscn" id="7_r5s75"]
 [ext_resource type="PackedScene" uid="uid://hdd7gqm6lo3u" path="res://fade_layer.tscn" id="8_8bht6"]

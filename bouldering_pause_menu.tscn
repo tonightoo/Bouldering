@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://u5avpbehg8q3"]
+
+[ext_resource type="Script" uid="uid://cmv7mo6g26m5k" path="res://bouldering_pause_menu.gd" id="1_87xov"]
+
+[node name="BoulderingPauseMenu" type="CanvasLayer" unique_id=697021380]
+script = ExtResource("1_87xov")
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1186275973]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.75
+offset_top = -121.25
+offset_right = 96.75
+offset_bottom = 121.25
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9372549, 0.9372549, 0.9372549, 1)
+
+[node name="MenuContainer" type="VBoxContainer" parent="." unique_id=564332271]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -50.5
+offset_right = 39.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="PauseLabel" type="Label" parent="MenuContainer" unique_id=1580645764]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.24115619, 0.24115601, 0.24115601, 1)
+text = "- Pause -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="MenuContainer" unique_id=1938420510]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../RestartBoulderingButton")
+theme_override_constants/outline_size = 0
+text = "Continue"
+
+[node name="RestartBoulderingButton" type="Button" parent="MenuContainer" unique_id=600935588]
+layout_mode = 2
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath("../RestartObservationButton")
+text = "RestartBouldering"
+
+[node name="RestartObservationButton" type="Button" parent="MenuContainer" unique_id=1266368566]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ContinueButton")
+focus_neighbor_bottom = NodePath("../TopButton")
+theme_override_constants/outline_size = 0
+text = "Restart Observation"
+
+[node name="TopButton" type="Button" parent="MenuContainer" unique_id=1377078880]
+layout_mode = 2
+focus_neighbor_top = NodePath("../RestartObservationButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+text = "Top"
+
+[node name="ExitButton" type="Button" parent="MenuContainer" unique_id=508436760]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../TopButton")
+focus_neighbor_bottom = NodePath("../ContinueButton")
+theme_override_constants/outline_size = 0
+text = "Exit"
+
+[connection signal="mouse_entered" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/RestartBoulderingButton" to="." method="_on_restart_bouldering_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/RestartBoulderingButton" to="." method="_on_restart_bouldering_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/RestartObservationButton" to="." method="_on_restart_observation_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/RestartObservationButton" to="." method="_on_restart_observation_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/TopButton" to="." method="_on_top_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/TopButton" to="." method="_on_top_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -4,9 +4,9 @@ extends Resource
 var config: PlayerConfig
 
 var power_level: int = 10
-var reach_level: int = 10
-var speed_level: int = 10
-var stamina_level: int = 10
+var reach_level: int = 11
+var speed_level: int = 1
+var stamina_level: int = 1
 var observation_level: int = 10
 
 func _init(_config: PlayerConfig) -> void:
@@ -19,22 +19,33 @@ func get_lift_up_strength() -> float:
 func get_lunge_force() -> float:
 	return config.LUNGE_FORCE + 100 * (power_level - 1)
 	
-func get_input_force_strength() -> float:
-	return config.INPUT_FORCE_STRENGTH * power_level
-
+func get_keep_up_strength() -> float:
+	return config.KEEP_UP_STRENGTH + 20 * (power_level - 1)
 
 # reach
 func get_left_upper_arm_len() -> float:
-	return config.LEFT_UPPER_ARM_LEN + 4 * (reach_level - 1)
+	if reach_level == 11:
+		return 96
+	else:
+		return config.LEFT_UPPER_ARM_LEN + 4 * (reach_level - 1)
 
 func get_left_fore_arm_len() -> float:
-	return config.LEFT_FORE_ARM_LEN + 4 * (reach_level - 1)
+	if reach_level == 11:
+		return 96
+	else:
+		return config.LEFT_FORE_ARM_LEN + 4 * (reach_level - 1)
 	
 func get_right_upper_arm_len() -> float:
-	return config.RIGHT_UPPER_ARM_LEN + 4 * (reach_level - 1)
+	if reach_level == 11:
+		return 96
+	else:
+		return config.RIGHT_UPPER_ARM_LEN + 4 * (reach_level - 1)
 
 func get_right_fore_arm_len() -> float:
-	return config.RIGHT_FORE_ARM_LEN + 4 * (reach_level - 1)
+	if reach_level == 11:
+		return 96
+	else:
+		return config.RIGHT_FORE_ARM_LEN + 4 * (reach_level - 1)
 
 # speed
 func get_hand_max_speed() -> float:
@@ -66,6 +77,8 @@ func get_observation_vision_radius() -> float:
 func get_observation_darkness() -> float:
 	return config.OBSERVATION_DARKNESS + 0.05 * (observation_level - 1)
 
+func get_input_force_strength() -> float:
+	return config.INPUT_FORCE_STRENGTH
 
 func get_hand_accel() -> float:
 	return config.HAND_ACCEL

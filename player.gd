@@ -4,6 +4,7 @@
 ## 各種マネージャークラス（HandController、IKSolver、
 ## FatigueManager、GoalChecker、LungeController）を一体管理し、
 ## 每フレームの処理を調整する。
+class_name Player
 extends Node2D
 
 ## ハンドコントローラー（掴み及びリリース管理）
@@ -114,6 +115,9 @@ var right_arm_length_limit: float
 var body_velocity: Vector2 = Vector2.ZERO
 var last_body_velocity: Vector2 = Vector2.ZERO
 
+var initial_position: Vector2 = Vector2.ZERO
+var is_initialize_next: bool = false
+
 ## ゲームを初期化
 ## [br][br]
 ## 設定を設定し、各種マネージャークラスを生成し毎々に必要な参照を渡す。
@@ -121,7 +125,8 @@ func _ready() -> void:
 	config = PlayerConfig.new()
 	status = PlayerStatus.new(config)
 	message_label.text = ""
-
+	
+	initial_position = Vector2(body.global_position.x, body.global_position.y)
 	# 手のサイズ・位置をステータスに応じて変更
 	left_upper_arm_sprite.scale.x = status.get_left_upper_arm_len() / left_upper_arm_sprite.texture.get_width()
 	left_upper_arm_sprite.position.x = status.get_left_upper_arm_len() / 2
@@ -231,8 +236,20 @@ func _process(delta: float) -> void:
 
 	bouldering_process(delta)
 
+func initialzie() -> void:
+	is_initialize_next = true
 
 func bouldering_process(delta: float) -> void:
+	if is_initialize_next:
+		body_velocity = Vector2.ZERO
+		last_body_velocity = Vector2.ZERO
+		body.linear_velocity = Vector2.ZERO
+		body.angular_velocity = 0.0
+		body.global_position = Vector2(initial_position.x, initial_position.y)
+		body.global_rotation = 0
+		is_initialize_next = false
+		return
+		
 	if Input.is_action_just_pressed("LeftHold"):
 		hand_controller.try_grab(left_hand, true)
 	
@@ -353,9 +370,10 @@ func update_hand_target(delta):
 	right_hand_velocity = right_hand_velocity.limit_length(status.get_hand_max_speed())
 		
 	if hand_controller.grabbed_hold_left != null:
-		#var force_dir: Vector2 = -left_dir
+		var force_dir: Vector2 = -left_dir
 		apply_velocity(true, left_dir, delta)
-		apply_body_from_hand(Vector2(0.0, -left_dir.y), delta)
+		#apply_body_from_hand(Vector2(0.0, -left_dir.y), delta)
+		apply_body_from_hand(force_dir, delta)
 	else:
 		#left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
 		left_hand_target.global_position += left_hand_velocity * delta
@@ -366,9 +384,10 @@ func update_hand_target(delta):
 		)
 	
 	if hand_controller.grabbed_hold_right != null:
-		#var force_dir: Vector2 = -right_dir
+		var force_dir: Vector2 = -right_dir
 		apply_velocity(false, right_dir, delta)
-		apply_body_from_hand(Vector2(0.0, -right_dir.y), delta)
+		#apply_body_from_hand(Vector2(0.0, -right_dir.y), delta)
+		apply_body_from_hand(force_dir, delta)
 	#print("left:", left_hand_target.global_position)
 	#print("right:", right_hand_target.global_position)
 	else:
@@ -397,7 +416,8 @@ func apply_body_from_hand(input: Vector2, delta: float) -> void:
 	var force = Vector2(input.x, input.y)
 	force.y *= 1.2
 	#body.global_position += force * 140.0 * delta
-	var distance = force * status.get_lift_up_strength() * delta
+	#var distance = force * status.get_lift_up_strength() * delta
+	var distance = Vector2(force.x * status.get_keep_up_strength(), force.y * status.get_lift_up_strength()) * delta
 	body.global_position += distance
 
 ## 速度計算

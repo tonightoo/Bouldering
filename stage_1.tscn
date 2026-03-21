@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dbmfambbv5dyv"]
 
+[ext_resource type="Script" uid="uid://cc7cax7nr5q44" path="res://stage_1.gd" id="1_i7m2u"]
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://player.tscn" id="1_k3ug5"]
 [ext_resource type="Texture2D" uid="uid://crgku3cijdu68" path="res://assets/images/background/gym_background_wood.png" id="1_vn1b6"]
 [ext_resource type="Texture2D" uid="uid://bxa3gfhyks04m" path="res://assets/images/mat.png" id="3_j81dk"]
@@ -9,13 +10,15 @@
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="6_bvuje"]
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="6_h16f0"]
 [ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="7_h16f0"]
-[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="8_bbwhg"]
+[ext_resource type="PackedScene" uid="uid://lwskrsrikca2" path="res://observation_pause_menu.tscn" id="11_af3qs"]
 [ext_resource type="PackedScene" uid="uid://cyyg47uohl1fk" path="res://stage_effect.tscn" id="11_j81dk"]
+[ext_resource type="PackedScene" uid="uid://u5avpbehg8q3" path="res://bouldering_pause_menu.tscn" id="13_af3qs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijgqj"]
 size = Vector2(761, 45)
 
 [node name="Stage1" type="Node2D" unique_id=1342701377]
+script = ExtResource("1_i7m2u")
 
 [node name="Wall" type="Sprite2D" parent="." unique_id=312315987]
 texture_repeat = 2
@@ -85,7 +88,9 @@ hold_data = ExtResource("6_h16f0")
 position = Vector2(109, 240)
 hold_data = ExtResource("7_h16f0")
 
-[node name="PauseMenu" parent="." unique_id=1774615308 instance=ExtResource("8_bbwhg")]
+[node name="ObservationPauseMenu" parent="." unique_id=572225310 instance=ExtResource("11_af3qs")]
 
 [node name="StageEffect" parent="." unique_id=1089961514 instance=ExtResource("11_j81dk")]
 display_stage_name = "Stage1"
+
+[node name="BoulderingPauseMenu" parent="." unique_id=697021380 instance=ExtResource("13_af3qs")]

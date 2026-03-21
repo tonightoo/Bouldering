@@ -50,8 +50,8 @@ func unvisible_message() -> void:
 
 func update_camera(delta: float) -> void:
 	var move_dir = Vector2(
-		Input.get_action_strength("LeftRight") - Input.get_action_strength("LeftLeft"),
-		Input.get_action_strength("LeftDown")  - Input.get_action_strength("LeftUp")
+		Input.get_action_strength("LeftRight") - Input.get_action_strength("LeftLeft") + Input.get_action_strength("RightRight") - Input.get_action_strength("RightLeft"),
+		Input.get_action_strength("LeftDown")  - Input.get_action_strength("LeftUp") + Input.get_action_strength("RightDown") - Input.get_action_strength("RightUp")
 	)
 	if move_dir.length() > 0:
 		camera.global_position += move_dir.normalized() * status.get_observation_camera_speed() * delta
