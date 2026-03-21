@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://hdd7gqm6lo3u" path="res://fade_layer.tscn" id="6_joglp"]
 [ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="6_mgmxj"]
 [ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="7_ejowd"]
-[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://pause_menu.tscn" id="7_mgmxj"]
+[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://tutorial_pause_menu.tscn" id="7_mgmxj"]
 [ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="8_oyryc"]
 [ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="9_ejowd"]
 [ext_resource type="Resource" uid="uid://bk1k6mhosu4w8" path="res://holds/Gaba6_red.tres" id="10_oyryc"]
