@@ -353,9 +353,10 @@ func update_hand_target(delta):
 	right_hand_velocity = right_hand_velocity.limit_length(status.get_hand_max_speed())
 		
 	if hand_controller.grabbed_hold_left != null:
-		#var force_dir: Vector2 = -left_dir
+		var force_dir: Vector2 = -left_dir
 		apply_velocity(true, left_dir, delta)
-		apply_body_from_hand(Vector2(0.0, -left_dir.y), delta)
+		#apply_body_from_hand(Vector2(0.0, -left_dir.y), delta)
+		apply_body_from_hand(force_dir, delta)
 	else:
 		#left_hand_target.global_position += left_dir * config.HAND_SPEED * delta
 		left_hand_target.global_position += left_hand_velocity * delta
@@ -366,9 +367,10 @@ func update_hand_target(delta):
 		)
 	
 	if hand_controller.grabbed_hold_right != null:
-		#var force_dir: Vector2 = -right_dir
+		var force_dir: Vector2 = -right_dir
 		apply_velocity(false, right_dir, delta)
-		apply_body_from_hand(Vector2(0.0, -right_dir.y), delta)
+		#apply_body_from_hand(Vector2(0.0, -right_dir.y), delta)
+		apply_body_from_hand(force_dir, delta)
 	#print("left:", left_hand_target.global_position)
 	#print("right:", right_hand_target.global_position)
 	else:
@@ -397,7 +399,8 @@ func apply_body_from_hand(input: Vector2, delta: float) -> void:
 	var force = Vector2(input.x, input.y)
 	force.y *= 1.2
 	#body.global_position += force * 140.0 * delta
-	var distance = force * status.get_lift_up_strength() * delta
+	#var distance = force * status.get_lift_up_strength() * delta
+	var distance = Vector2(force.x * status.get_keep_up_strength(), force.y * status.get_lift_up_strength()) * delta
 	body.global_position += distance
 
 ## 速度計算

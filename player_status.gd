@@ -3,11 +3,11 @@ extends Resource
 
 var config: PlayerConfig
 
-var power_level: int = 10
-var reach_level: int = 10
-var speed_level: int = 10
-var stamina_level: int = 10
-var observation_level: int = 10
+var power_level: int = 1
+var reach_level: int = 1
+var speed_level: int = 1
+var stamina_level: int = 1
+var observation_level: int = 1
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
@@ -19,9 +19,8 @@ func get_lift_up_strength() -> float:
 func get_lunge_force() -> float:
 	return config.LUNGE_FORCE + 100 * (power_level - 1)
 	
-func get_input_force_strength() -> float:
-	return config.INPUT_FORCE_STRENGTH * power_level
-
+func get_keep_up_strength() -> float:
+	return config.KEEP_UP_STRENGTH + 20 * (power_level - 1)
 
 # reach
 func get_left_upper_arm_len() -> float:
@@ -66,6 +65,8 @@ func get_observation_vision_radius() -> float:
 func get_observation_darkness() -> float:
 	return config.OBSERVATION_DARKNESS + 0.05 * (observation_level - 1)
 
+func get_input_force_strength() -> float:
+	return config.INPUT_FORCE_STRENGTH
 
 func get_hand_accel() -> float:
 	return config.HAND_ACCEL

@@ -60,6 +60,8 @@ extends Resource
 @export var GRAVITY: float = 980.0
 ## 腕の持ち上げ力
 @export var LIFT_UP_STRENGTH: float = 215.0
+## 左右のキープ力
+@export var KEEP_UP_STRENGTH: float = 215.0
 ## プレイヤーの加速制限値
 @export var ACCEL_MAX_X: float = 300
 @export var ACCEL_MAX_Y: float = 300
