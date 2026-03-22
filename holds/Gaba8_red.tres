@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_0ufye")
+rank = 3
 size = Vector2(32, 32)
 color = Color(0.8784314, 0.8784314, 0.8784314, 1)
 texture = ExtResource("2_ex3a5")

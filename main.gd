@@ -28,8 +28,8 @@ func to_tutorial_scene(anim_name: StringName) -> void:
 	get_tree().change_scene_to_file("res://arm_tutorial_stage.tscn")	
 
 func to_story_scene(anim_name: StringName) -> void:
-	get_tree().change_scene_to_file("res://stage_1.tscn")
-	
+	#get_tree().change_scene_to_file("res://stage_1.tscn")
+	get_tree().change_scene_to_file("res://stage.tscn")	
 
 func _on_start_button_pressed() -> void:
 	fade_animation.connect_finished(to_story_scene)

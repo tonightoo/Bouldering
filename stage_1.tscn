@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://lwskrsrikca2" path="res://observation_pause_menu.tscn" id="11_af3qs"]
 [ext_resource type="PackedScene" uid="uid://cyyg47uohl1fk" path="res://stage_effect.tscn" id="11_j81dk"]
 [ext_resource type="PackedScene" uid="uid://u5avpbehg8q3" path="res://bouldering_pause_menu.tscn" id="13_af3qs"]
+[ext_resource type="PackedScene" uid="uid://g45hbujq4xp" path="res://stage_generator.tscn" id="14_d63w1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijgqj"]
 size = Vector2(761, 45)
@@ -94,3 +95,5 @@ hold_data = ExtResource("7_h16f0")
 display_stage_name = "Stage1"
 
 [node name="BoulderingPauseMenu" parent="." unique_id=697021380 instance=ExtResource("13_af3qs")]
+
+[node name="StageGenerator" parent="." unique_id=1213333705 instance=ExtResource("14_d63w1")]

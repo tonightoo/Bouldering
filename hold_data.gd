@@ -19,8 +19,15 @@ enum HoldType {
 	GOAL_RIGHT,
 	GOAL_LEFT,
 }
+enum Rank {
+	S,
+	A,
+	B,
+	C,
+}
 
 @export var type: HoldType
+@export var rank: Rank
 @export var size: Vector2
 @export var color: Color
 @export var texture: Texture2D

@@ -3,8 +3,8 @@ extends Resource
 
 var config: PlayerConfig
 
-var power_level: int = 10
-var reach_level: int = 11
+var power_level: int = 1
+var reach_level: int = 1
 var speed_level: int = 1
 var stamina_level: int = 1
 var observation_level: int = 10
