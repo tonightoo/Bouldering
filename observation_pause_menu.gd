@@ -2,6 +2,12 @@ extends CanvasLayer
 
 var observation_controller: ObservationController
 
+@onready var continue_button: Button = $MenuContainer/ContinueButton
+@onready var end_observation_button: Button = $MenuContainer/EndObservationButton
+@onready var restart_button: Button = $MenuContainer/RestartButton
+@onready var top_button: Button = $MenuContainer/TopButton
+@onready var exit_button: Button = $MenuContainer/ExitButton
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -9,7 +15,7 @@ func _ready() -> void:
 
 func _input(event) -> void:
 	if event.is_action_pressed("ui_cancel") and observation_controller.is_observation:
-		$MenuContainer/ContinueButton.grab_focus()
+		continue_button.grab_focus()
 		toggle_pause()
 
 func _on_continue_button_pressed() -> void:
@@ -42,16 +48,16 @@ func toggle_pause() -> void:
 
 
 func _on_continue_button_mouse_entered() -> void:
-	$MenuContainer/ContinueButton.grab_focus()
+	continue_button.grab_focus()
 
 func _on_end_observation_button_mouse_entered() -> void:
-	$MenuContainer/EndObservationButton.grab_focus()
+	end_observation_button.grab_focus()
 	
 func _on_restart_button_mouse_entered() -> void:
-	$MenuContainer/RestartButton.grab_focus()
+	restart_button.grab_focus()
 
 func _on_top_button_mouse_entered() -> void:
-	$MenuContainer/TopButton.grab_focus()
+	top_button.grab_focus()
 
 func _on_exit_button_mouse_entered() -> void:
-	$MenuContainer/ExitButton.grab_focus()
+	exit_button.grab_focus()

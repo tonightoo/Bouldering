@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://g45hbujq4xp"]
+
+[ext_resource type="Script" uid="uid://cvn5d5ixyr3mf" path="res://stage_generator.gd" id="1_yjvpg"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="2_xssij"]
+[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="3_6lvvl"]
+[ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="4_jkq1i"]
+[ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="5_iegaf"]
+[ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="6_lmfa8"]
+[ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="7_2lx7u"]
+[ext_resource type="Resource" uid="uid://bk1k6mhosu4w8" path="res://holds/Gaba6_red.tres" id="8_4xrst"]
+[ext_resource type="Resource" uid="uid://deos5ytjxcdcx" path="res://holds/Gaba7_red.tres" id="9_3ip03"]
+[ext_resource type="Resource" uid="uid://dndomdt8ohyth" path="res://holds/Gaba8_red.tres" id="10_yjk24"]
+[ext_resource type="Resource" uid="uid://djfrj80qnn8ec" path="res://holds/Gaba9_red.tres" id="11_5o23p"]
+[ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="12_afs2p"]
+[ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="13_2xypf"]
+[ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="14_arhgc"]
+[ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="15_0fubx"]
+[ext_resource type="Texture2D" uid="uid://crgku3cijdu68" path="res://assets/images/background/gym_background_wood.png" id="16_6lvvl"]
+
+[sub_resource type="Curve2D" id="Curve2D_3hlyg"]
+
+[node name="StageGenerator" type="Node2D" unique_id=1213333705]
+script = ExtResource("1_yjvpg")
+c_rank_holds = Array[ExtResource("2_xssij")]([ExtResource("3_6lvvl"), ExtResource("4_jkq1i"), ExtResource("5_iegaf"), ExtResource("6_lmfa8"), ExtResource("7_2lx7u"), ExtResource("8_4xrst"), ExtResource("9_3ip03"), ExtResource("10_yjk24"), ExtResource("11_5o23p")])
+b_rank_holds = Array[ExtResource("2_xssij")]([ExtResource("12_afs2p"), ExtResource("13_2xypf"), ExtResource("14_arhgc")])
+goal_holds = Array[ExtResource("2_xssij")]([ExtResource("15_0fubx")])
+
+[node name="BackgroundTexture" type="TextureRect" parent="." unique_id=1596065021]
+texture_repeat = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("16_6lvvl")
+stretch_mode = 1
+
+[node name="RootPath" type="Path2D" parent="." unique_id=169243139]
+curve = SubResource("Curve2D_3hlyg")

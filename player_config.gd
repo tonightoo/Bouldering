@@ -66,6 +66,7 @@ extends Resource
 @export var ACCEL_MAX_X: float = 300
 @export var ACCEL_MAX_Y: float = 300
 
+
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
 var RIGHT_ARM_MAX_LEN := RIGHT_UPPER_ARM_LEN + RIGHT_FORE_ARM_LEN

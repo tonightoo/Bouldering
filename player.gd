@@ -248,6 +248,8 @@ func bouldering_process(delta: float) -> void:
 		body.global_position = Vector2(initial_position.x, initial_position.y)
 		body.global_rotation = 0
 		is_initialize_next = false
+		fatigue_manager.left_hand_fatigue = 0.0
+		fatigue_manager.right_hand_fatigue = 0.0
 		return
 		
 	if Input.is_action_just_pressed("LeftHold"):
