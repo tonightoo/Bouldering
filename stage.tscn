@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i76fu"]
 size = Vector2(761, 45)
 
-[node name="stage" type="Node2D" unique_id=2062118297]
+[node name="stage" type="Node2D" unique_id=2062118297 groups=["stage"]]
 script = ExtResource("1_1edn8")
 
 [node name="StageGenerator" parent="." unique_id=1213333705 instance=ExtResource("1_6eo5e")]

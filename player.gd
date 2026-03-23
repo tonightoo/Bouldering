@@ -118,6 +118,8 @@ var last_body_velocity: Vector2 = Vector2.ZERO
 var initial_position: Vector2 = Vector2.ZERO
 var is_initialize_next: bool = false
 
+signal cleared
+
 ## ゲームを初期化
 ## [br][br]
 ## 設定を設定し、各種マネージャークラスを生成し毎々に必要な参照を渡す。
@@ -190,6 +192,7 @@ func _ready() -> void:
 	goal_checker.status = status
 	goal_checker.hand_controller = hand_controller
 	goal_checker.goal_label = message_label
+	goal_checker.victory_achieved.connect(inform_cleared)
 
 	# LungeController を生成して参照ノードをセット
 	lunge_controller = LungeController.new()
@@ -628,3 +631,6 @@ func lighten(name:String, area: Area2D) -> void:
 
 func unlighten(name: String, area: Area2D) -> void:
 	_on_hand_area_exited(area)
+	
+func inform_cleared() -> void:
+	emit_signal("cleared")

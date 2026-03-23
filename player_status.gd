@@ -3,11 +3,13 @@ extends Resource
 
 var config: PlayerConfig
 
-var power_level: int = 1
-var reach_level: int = 1
-var speed_level: int = 1
-var stamina_level: int = 1
+var power_level: int = 10
+var reach_level: int = 10
+var speed_level: int = 10
+var stamina_level: int = 10
 var observation_level: int = 10
+
+var stage_level: int = 1
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
@@ -165,3 +167,33 @@ func get_right_arm_max_len() -> float:
 
 func get_right_arm_min_len() -> float:
 	return config.RIGHT_ARM_MIN_LEN
+
+func get_keep_direction_percentage() -> float:
+	return config.KEEP_DIRECTION_PERCENTANGE
+
+func get_candidate_num() -> int:
+	return config.CANDIDATE_NUM
+
+func get_hold_num() -> int:
+	return config.HOLD_NUM
+
+func get_initial_hold_distance() -> float:
+	return config.INITIAL_HOLD_DISTANCE
+
+func get_hold_distance_min() -> float:
+	return config.HOLD_DISTANCE_MIN
+
+func get_close_rate() -> float:
+	return config.CLOSE_RATE
+
+func get_c_rank_probability() ->float:
+	return config.C_RANK_PROBABILITY
+
+func get_b_rank_probability() -> float:
+	return config.B_RANK_PROBABILITY
+
+func get_a_rank_probability() -> float:
+	return config.A_RANK_PROBABILITY
+
+func get_s_rank_probability() -> float:
+	return config.S_RANK_PROBABILITY

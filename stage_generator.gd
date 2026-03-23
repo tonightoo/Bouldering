@@ -21,34 +21,14 @@ var current_point: Vector2
 # 乱数生成用クラス
 var rng: RandomNumberGenerator
 
-# 全体パス作成時 進行方向を変更しない確率
-const KEEP_DIRECTION_PERCENTANGE: float = 75.0
-# ホールド位置決定時の候補作成試行回数
-const CANDIDATE_NUM: int = 30
-# ホールドの最大数
-const HOLD_NUM: int = 30
-# 最初のホールドの地面からの高さ
-const INITIAL_HOLD_DISTANCE: float = 60.0
-# ホールド間の距離最低値
-const HOLD_DISTANCE_MIN: float = 100
-# パスとの近さの得点率に使用する値
-const CLOSE_RATE: float = 120
-# Cランクのホールド確率
-const C_RANK_PROBABILITY: float = 80.0
-# Bランクのホールド確率
-const B_RANK_PROBABILITY: float = 20.0
-# Aランクのホールド確率
-const A_RANK_PROBABILITY: float = 0.0
-# Sランクのホールド確率
-const S_RANK_PROBABILITY: float = 0.0
+var status: PlayerStatus
 
 # ホールド用のシーン
 var hold_scene = preload("res://hold.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	initialize()
-	calcurate()
+	pass
 
 func calcurate() -> void:
 	calcurate_main_bone()
@@ -60,13 +40,13 @@ func calcurate() -> void:
 		var hold = hold_scene.instantiate()
 		var hold_rand_value = rng.randf_range(0.0, 100.0)
 		var index: int
-		if hold_rand_value <= C_RANK_PROBABILITY:
+		if hold_rand_value <= status.get_c_rank_probability():
 			index = rng.randi_range(0, c_rank_holds.size() - 1)
 			hold.hold_data = c_rank_holds.get(index)
-		elif hold_rand_value <= C_RANK_PROBABILITY + B_RANK_PROBABILITY:
+		elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability():
 			index = rng.randi_range(0, b_rank_holds.size() - 1)
 			hold.hold_data = b_rank_holds.get(index)
-		elif hold_rand_value <= C_RANK_PROBABILITY + B_RANK_PROBABILITY + A_RANK_PROBABILITY:
+		elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability() + status.get_a_rank_probability():
 			index = rng.randi_range(0, a_rank_holds.size() - 1)
 			hold.hold_data = a_rank_holds.get(index)
 		else:
@@ -106,7 +86,7 @@ func calcurate_main_bone() -> void:
 		root_path.curve.add_point(next_point)
 		current_point = next_point
 		var random_value = rng.randf_range(0.0, 100.0)
-		if random_value < KEEP_DIRECTION_PERCENTANGE:
+		if random_value < status.get_keep_direction_percentage():
 			continue
 		current_angle = rng.randf_range(-180.0, 0.0)
 
@@ -115,18 +95,18 @@ func generate_holds() -> Array[Vector2]:
 	var determined_list: Array[Vector2]
 	var is_first_one: bool = true
 	active_list.append(Vector2.ZERO)
-	while(determined_list.size() <= HOLD_NUM):
+	while(determined_list.size() <= status.get_hold_num()):
 		if active_list.size() == 0:
 			break 
 		var current_center: Vector2 = active_list.get(0)
 		var hold_min_distance: float
 		if is_first_one:
-			hold_min_distance = INITIAL_HOLD_DISTANCE
+			hold_min_distance = status.get_initial_hold_distance()
 			is_first_one = false
 		else:
-			hold_min_distance = HOLD_DISTANCE_MIN
+			hold_min_distance = status.get_hold_distance_min()
 		
-		for i in range(CANDIDATE_NUM):
+		for i in range(status.get_candidate_num()):
 			var angle = rng.randf_range(-180.0, 0.0)
 			var distance: float
 			
@@ -141,7 +121,7 @@ func generate_holds() -> Array[Vector2]:
 				continue
 			var closest_point: Vector2 = root_path.curve.get_closest_point(candidate_point)
 			var distance_to_path: float = candidate_point.distance_to(closest_point)
-			var threshold: float = clamp(1.0 - distance_to_path / CLOSE_RATE, 0.0, 1.0)
+			var threshold: float = clamp(1.0 - distance_to_path / status.get_close_rate(), 0.0, 1.0)
 			var probability: float = rng.randf_range(0.0, 1.0)
 			if probability <= threshold:
 				determined_list.append(candidate_point)
@@ -152,7 +132,8 @@ func generate_holds() -> Array[Vector2]:
 	
 	return determined_list
 
-func initialize() -> void:
+func initialize(player_status: PlayerStatus) -> void:
+	status = player_status
 	root_path.curve.clear_points()
 	root_path.curve.add_point(Vector2.ZERO)
 	current_point = Vector2.ZERO
@@ -160,6 +141,7 @@ func initialize() -> void:
 	search_num = 10
 	step_length = 100
 	rng = RandomNumberGenerator.new()	
+	calcurate()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

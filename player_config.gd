@@ -66,6 +66,29 @@ extends Resource
 @export var ACCEL_MAX_X: float = 300
 @export var ACCEL_MAX_Y: float = 300
 
+# ステージ生成関係
+
+## 全体パス作成時 進行方向を変更しない確率
+const KEEP_DIRECTION_PERCENTANGE: float = 75.0
+## ホールド位置決定時の候補作成試行回数
+const CANDIDATE_NUM: int = 30
+## ホールドの最大数
+const HOLD_NUM: int = 30
+## 最初のホールドの地面からの高さ
+const INITIAL_HOLD_DISTANCE: float = 60.0
+## ホールド間の距離最低値
+const HOLD_DISTANCE_MIN: float = 100
+## パスとの近さの得点率に使用する値
+const CLOSE_RATE: float = 120
+## Cランクのホールド確率
+const C_RANK_PROBABILITY: float = 80.0
+## Bランクのホールド確率
+const B_RANK_PROBABILITY: float = 20.0
+## Aランクのホールド確率
+const A_RANK_PROBABILITY: float = 0.0
+## Sランクのホールド確率
+const S_RANK_PROBABILITY: float = 0.0
+
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
