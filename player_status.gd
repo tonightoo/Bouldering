@@ -11,6 +11,8 @@ var observation_level: int = 10
 
 var stage_level: int = 1
 
+var skill_list: Dictionary[int, SkillData]
+
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
 
@@ -197,3 +199,19 @@ func get_a_rank_probability() -> float:
 
 func get_s_rank_probability() -> float:
 	return config.S_RANK_PROBABILITY
+
+
+func get_normal_drop_rate() -> float:
+	return config.NORMAL_DROP_RATE
+
+func get_rare_drop_rate() -> float:
+	return config.RARE_DROP_RATE
+
+func get_epic_drop_rate() -> float:
+	return config.EPIC_DROP_RATE
+
+func get_legendary_drop_rate() -> float:
+	return config.LEGENDARY_DROP_RATE
+
+func get_skill_candidate_num() -> int:
+	return config.SKILL_CANDIDATE_NUM

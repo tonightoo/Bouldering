@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dcklocxclvjdp"]
+
+[ext_resource type="Script" uid="uid://hhlpl0d7v688" path="res://global_data.gd" id="1_utqkb"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="2_gsvy2"]
+[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="3_uurxe"]
+[ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="4_1t3qk"]
+[ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="5_01vml"]
+[ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="6_qybex"]
+[ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="7_bb6qh"]
+[ext_resource type="Resource" uid="uid://bk1k6mhosu4w8" path="res://holds/Gaba6_red.tres" id="8_i4u5o"]
+[ext_resource type="Resource" uid="uid://deos5ytjxcdcx" path="res://holds/Gaba7_red.tres" id="9_sye85"]
+[ext_resource type="Resource" uid="uid://dndomdt8ohyth" path="res://holds/Gaba8_red.tres" id="10_whhm8"]
+[ext_resource type="Resource" uid="uid://djfrj80qnn8ec" path="res://holds/Gaba9_red.tres" id="11_udpgt"]
+[ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="12_bfydg"]
+[ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="13_ggld4"]
+[ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="14_x2jsb"]
+[ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="15_le12h"]
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://skill_data.gd" id="16_uurxe"]
+[ext_resource type="Resource" uid="uid://cnm2e53qjmkex" path="res://skills/power_up.tres" id="17_1t3qk"]
+
+[node name="GlobalData" type="Node2D" unique_id=909786168]
+script = ExtResource("1_utqkb")
+c_rank_holds = Array[ExtResource("2_gsvy2")]([ExtResource("3_uurxe"), ExtResource("4_1t3qk"), ExtResource("5_01vml"), ExtResource("6_qybex"), ExtResource("7_bb6qh"), ExtResource("8_i4u5o"), ExtResource("9_sye85"), ExtResource("10_whhm8"), ExtResource("11_udpgt")])
+b_rank_holds = Array[ExtResource("2_gsvy2")]([ExtResource("12_bfydg"), ExtResource("13_ggld4"), ExtResource("14_x2jsb")])
+goal_holds = Array[ExtResource("2_gsvy2")]([ExtResource("15_le12h")])
+normal_skills = Array[ExtResource("16_uurxe")]([ExtResource("17_1t3qk")])

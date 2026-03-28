@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cq46kjr8ae2xh"]
+
+[ext_resource type="StyleBox" uid="uid://0vb5qdnac8jr" path="res://styles/skill_choice.tres" id="1_2ph55"]
+[ext_resource type="Script" uid="uid://57hywy8dj0k0" path="res://skill_selection.gd" id="1_if4hp"]
+
+[node name="SkillSelection" type="CanvasLayer" unique_id=1328279253]
+process_mode = 3
+script = ExtResource("1_if4hp")
+
+[node name="Panel" type="Panel" parent="." unique_id=147099576]
+process_mode = 3
+custom_minimum_size = Vector2(400, 360)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_2ph55")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=83978968]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -148.0
+offset_right = 180.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1658099651]
+process_mode = 3
+clip_contents = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/outline_size = 8
+text = "Skill Select"
+horizontal_alignment = 1
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

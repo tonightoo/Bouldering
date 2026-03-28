@@ -1,0 +1,67 @@
+extends Node
+
+@export_group("Player Database")
+@export var config: PlayerConfig
+@export var status: PlayerStatus
+
+@export_group("Hold Database")
+@export var c_rank_holds: Array[HoldData]
+@export var b_rank_holds: Array[HoldData]
+@export var a_rank_holds: Array[HoldData]
+@export var s_rank_holds: Array[HoldData]
+@export var goal_holds: Array[HoldData]
+
+@export_group("Skill Database")
+@export var normal_skills: Array[SkillData]
+@export var rare_skills: Array[SkillData]
+@export var epic_skills: Array[SkillData]
+@export var legendary_skills: Array[SkillData]
+
+var rng: RandomNumberGenerator
+
+func _ready() -> void:
+	config = PlayerConfig.new()
+	status = PlayerStatus.new(config)
+	rng = RandomNumberGenerator.new()
+
+func pick_up_one_hold() -> HoldData:
+	var hold_rand_value = rng.randf_range(0.0, 100.0)
+	var index: int
+	if hold_rand_value <= status.get_c_rank_probability():
+		index = rng.randi_range(0, c_rank_holds.size() - 1)
+		return c_rank_holds.get(index)
+	elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability():
+		index = rng.randi_range(0, b_rank_holds.size() - 1)
+		return b_rank_holds.get(index)
+	elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability() + status.get_a_rank_probability():
+		index = rng.randi_range(0, a_rank_holds.size() - 1)
+		return a_rank_holds.get(index)
+	else:
+		index = rng.randi_range(0, s_rank_holds.size() - 1)
+		return s_rank_holds.get(index)
+
+func pick_up_one_skill() -> SkillData:
+	var skill_rand_value = rng.randf_range(0.0, 100.0)
+	var index: int
+	if skill_rand_value <= status.get_normal_drop_rate():
+		index = rng.randi_range(0, normal_skills.size() - 1)
+		return normal_skills.get(index)
+	elif skill_rand_value <= status.get_rare_drop_rate():
+		index = rng.randi_range(0, rare_skills.size() - 1)
+		return rare_skills.get(index)
+	elif skill_rand_value <= status.get_epic_drop_rate():
+		index = rng.randi_range(0, epic_skills.size() - 1)
+		return epic_skills.get(index)
+	else:
+		index = rng.randi_range(0, legendary_skills.size() - 1)
+		return legendary_skills.get(index)
+		
+
+
+func get_rank_color(rank: SkillData.Rank) -> Color:
+	match rank:
+		SkillData.Rank.NORMAL: return Color("#4D65B4FF")
+		SkillData.Rank.RARE: return Color("#1EBC73FF")
+		SkillData.Rank.EPIC: return Color("#A884F3FF")
+		SkillData.Rank.LEGENDARY: return Color("#F9C22BFF")
+	return Color.WHITE

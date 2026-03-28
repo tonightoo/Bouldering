@@ -24,6 +24,7 @@ config/windows_native_icon="res://assets/images/Gaba7_red.ico"
 [autoload]
 
 Dialogic="*uid://ds2q0uclmolvu"
+GlobalData="*uid://dcklocxclvjdp"
 
 [dialogic]
 

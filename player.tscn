@@ -13,7 +13,54 @@
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/upper-arm-right.png" id="6_urp6f"]
 [ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/head.png" id="9_b26j0"]
 [ext_resource type="Texture2D" uid="uid://b5n0vh8ev8hpa" path="res://assets/images/body-muscle.png" id="10_ivps1"]
+[ext_resource type="Shader" uid="uid://bhb2fy5edoknh" path="res://shader/ScreenBlur.gdshader" id="13_606se"]
 [ext_resource type="Texture2D" uid="uid://h7xxhfl7k8ao" path="res://assets/images/point_light.webp" id="13_urp6f"]
+[ext_resource type="Texture2D" uid="uid://cpiwrshcxv033" path="res://assets/images/confetti.png" id="16_u1c27"]
+
+[sub_resource type="Gradient" id="Gradient_u1c27"]
+offsets = PackedFloat32Array(0, 0.15954416, 0.32478634, 0.4985755, 0.65242165, 0.8034188, 0.954416)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_op7ga"]
+gradient = SubResource("Gradient_u1c27")
+
+[sub_resource type="Curve" id="Curve_op7ga"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99204254, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pbfsw"]
+curve = SubResource("Curve_op7ga")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q13i1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(500, 20, 1)
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+velocity_pivot = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 120.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+angular_velocity_min = 359.99997
+angular_velocity_max = 1080.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+gravity = Vector3(0, 300, 0)
+linear_accel_min = -50.0
+linear_accel_max = 49.999996
+tangential_accel_min = -100.0
+tangential_accel_max = 99.99999
+damping_min = 5.0
+damping_max = 10.0
+scale_min = 0.5
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_pbfsw")
+color_initial_ramp = SubResource("GradientTexture1D_op7ga")
+turbulence_enabled = true
+turbulence_noise_strength = 0.2
+turbulence_noise_scale = 2.0
+turbulence_noise_speed_random = 0.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 16.0
@@ -70,6 +117,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u1c27"]
+shader = ExtResource("13_606se")
+shader_parameter/blur_amount = 2.0
+
 [node name="Player" type="Node2D" unique_id=1703604452]
 script = ExtResource("1_4flbx")
 
@@ -77,6 +128,19 @@ script = ExtResource("1_4flbx")
 collision_mask = 2
 linear_damp = 1.0
 angular_damp = 0.2
+
+[node name="ClearEffect" type="GPUParticles2D" parent="Body" unique_id=66902966]
+process_mode = 3
+texture_filter = 1
+position = Vector2(0, -300)
+emitting = false
+amount = 600
+texture = ExtResource("16_u1c27")
+lifetime = 6.0
+one_shot = true
+explosiveness = 0.8
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_q13i1")
 
 [node name="ColorRect" type="ColorRect" parent="Body" unique_id=1173816805]
 visible = false
@@ -288,6 +352,21 @@ texture = ExtResource("9_b26j0")
 
 [node name="Camera2D" type="Camera2D" parent="Body" unique_id=1457155868]
 position_smoothing_enabled = true
+
+[node name="BlurRect" type="ColorRect" parent="Body/Camera2D" unique_id=588169993]
+visible = false
+material = SubResource("ShaderMaterial_u1c27")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -801.0
+offset_top = -446.0
+offset_right = 766.0
+offset_bottom = 469.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="LeftFatigueUI" parent="Body" unique_id=1199585877 instance=ExtResource("2_onrkg")]
 z_index = 5

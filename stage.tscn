@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://lwskrsrikca2" path="res://observation_pause_menu.tscn" id="4_vsjsl"]
 [ext_resource type="PackedScene" uid="uid://cyyg47uohl1fk" path="res://stage_effect.tscn" id="5_jx6rg"]
 [ext_resource type="PackedScene" uid="uid://u5avpbehg8q3" path="res://bouldering_pause_menu.tscn" id="6_g8oy1"]
+[ext_resource type="PackedScene" uid="uid://cq46kjr8ae2xh" path="res://skill_selection.tscn" id="8_vsjsl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i76fu"]
 size = Vector2(761, 45)
@@ -47,3 +48,6 @@ texture = ExtResource("3_1edn8")
 display_stage_name = "Stage1"
 
 [node name="BoulderingPauseMenu" parent="." unique_id=697021380 instance=ExtResource("6_g8oy1")]
+
+[node name="SkillSelection" parent="." unique_id=1328279253 instance=ExtResource("8_vsjsl")]
+visible = false

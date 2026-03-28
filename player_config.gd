@@ -88,7 +88,16 @@ const B_RANK_PROBABILITY: float = 20.0
 const A_RANK_PROBABILITY: float = 0.0
 ## Sランクのホールド確率
 const S_RANK_PROBABILITY: float = 0.0
-
+## Normalスキルの排出確率
+const NORMAL_DROP_RATE: float = 100.0
+## Rareスキルの排出確率
+const RARE_DROP_RATE: float = 0.0
+## Epicスキルの排出確率
+const EPIC_DROP_RATE: float = 0.0
+## Legendaryスキルの排出確率
+const LEGENDARY_DROP_RATE: float = 0
+## 獲得スキル候補の数
+const SKILL_CANDIDATE_NUM: int = 3
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
