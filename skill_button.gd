@@ -27,13 +27,8 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	GlobalData.status.skill_list.set(skill_data.id, skill_data)
+	GlobalData.status.skill_list.append(skill_data)
 	skill_selected.emit()
-
-
-
-
-
 
 func _on_focus_entered() -> void:
 	panel.modulate = Color(1.5, 1.5, 1.5)

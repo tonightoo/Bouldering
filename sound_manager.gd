@@ -10,6 +10,7 @@ var audio_player: AudioStreamPlayer
 
 func _ready() -> void:
 	audio_player = AudioStreamPlayer.new()
+	audio_player.volume_db = -10.0
 	add_child(audio_player)
 
 # 再生用の共通関数

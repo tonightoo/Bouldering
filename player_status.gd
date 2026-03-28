@@ -3,83 +3,88 @@ extends Resource
 
 var config: PlayerConfig
 
-var power_level: int = 10
-var reach_level: int = 10
-var speed_level: int = 10
-var stamina_level: int = 10
-var observation_level: int = 10
+var power_level: int = 5
+var reach_level: int = 5
+var speed_level: int = 5
+var stamina_level: int = 5
+var observation_level: int = 5
 
 var stage_level: int = 1
 
-var skill_list: Dictionary[int, SkillData]
+var skill_list: Array[SkillData]
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
 
 # power
 func get_lift_up_strength() -> float:
-	return config.LIFT_UP_STRENGTH + 10 * (power_level - 1)
+	var level: int = power_level + count_id(skill_list, "power_up")
+	return config.LIFT_UP_STRENGTH + 10 * (level - 1)
 	
 func get_lunge_force() -> float:
-	return config.LUNGE_FORCE + 100 * (power_level - 1)
+	var level: int = power_level + count_id(skill_list, "power_up")
+	return config.LUNGE_FORCE + 100 * (level - 1)
 	
 func get_keep_up_strength() -> float:
-	return config.KEEP_UP_STRENGTH + 20 * (power_level - 1)
+	var level: int = power_level + count_id(skill_list, "power_up")
+	return config.KEEP_UP_STRENGTH + 20 * (level - 1)
 
 # reach
 func get_left_upper_arm_len() -> float:
-	if reach_level == 11:
-		return 96
-	else:
-		return config.LEFT_UPPER_ARM_LEN + 4 * (reach_level - 1)
+	var level: int = reach_level + count_id(skill_list, "reach_up")	
+	return config.LEFT_UPPER_ARM_LEN + 4 * (level - 1)
 
 func get_left_fore_arm_len() -> float:
-	if reach_level == 11:
-		return 96
-	else:
-		return config.LEFT_FORE_ARM_LEN + 4 * (reach_level - 1)
+	var level: int = reach_level + count_id(skill_list, "reach_up")	
+	return config.LEFT_FORE_ARM_LEN + 4 * (level - 1)
 	
 func get_right_upper_arm_len() -> float:
-	if reach_level == 11:
-		return 96
-	else:
-		return config.RIGHT_UPPER_ARM_LEN + 4 * (reach_level - 1)
+	var level: int = reach_level + count_id(skill_list, "reach_up")	
+	return config.RIGHT_UPPER_ARM_LEN + 4 * (level - 1)
 
 func get_right_fore_arm_len() -> float:
-	if reach_level == 11:
-		return 96
-	else:
-		return config.RIGHT_FORE_ARM_LEN + 4 * (reach_level - 1)
+	var level: int = reach_level + count_id(skill_list, "reach_up")	
+	return config.RIGHT_FORE_ARM_LEN + 4 * (level - 1)
 
 # speed
 func get_hand_max_speed() -> float:
-	return config.HAND_MAX_SPEED + 20 * (speed_level - 1)
+	var level: int = speed_level + count_id(skill_list, "speed_up")	
+	return config.HAND_MAX_SPEED + 20 * (level - 1)
 
 func get_lunge_max_charge_time() -> float:
-	return config.LUNGE_MAX_CHARGE_TIME - 0.3 * (speed_level - 1)
+	var level: int = speed_level + count_id(skill_list, "speed_up")	
+	return config.LUNGE_MAX_CHARGE_TIME - 0.3 * (level - 1)
 
 # stamina
 func get_max_fatigue() -> float:
-	return config.MAX_FATIGUE + 10 * (stamina_level - 1)
+	var level: int = stamina_level + count_id(skill_list, "stamina_up")	
+	return config.MAX_FATIGUE + 10 * (level - 1)
 	
 func get_fatigue_recovery_rate() -> float:
-	return config.FATIGUE_RECOVERY_RATE + 0.4 * (stamina_level - 1)
+	var level: int = stamina_level + count_id(skill_list, "stamina_up")	
+	return config.FATIGUE_RECOVERY_RATE + 0.4 * (level - 1)
 
 func get_fall_damage_max() -> float:
-	return config.FALL_DAMAGE_MAX - 5 * (stamina_level - 1)
+	var level: int = stamina_level + count_id(skill_list, "stamina_up")	
+	return config.FALL_DAMAGE_MAX - 5 * (level - 1)
 
 # observation
 func get_observation_time_limit() -> float:
-	return config.OBSERVATION_TIME_LIMIT + 1 * (observation_level - 1)
+	var level: int = observation_level + count_id(skill_list, "observation_up")	
+	return config.OBSERVATION_TIME_LIMIT + 1 * (level - 1)
 
 func get_observation_camera_speed() -> float:
-	return config.OBSERVATION_CAMERA_SPEED + 10 * (observation_level - 1) + 10 * (speed_level - 1)
+	var level: int = observation_level + count_id(skill_list, "observation_up")	
+	var s_level: int = speed_level + count_id(skill_list, "speed_up")	
+	return config.OBSERVATION_CAMERA_SPEED + 10 * (level - 1) + 10 * (s_level - 1)
 
 func get_observation_vision_radius() -> float:
-	return config.OBSERVATION_VISION_RADIUS + 5 * (observation_level - 1)
+	var level: int = observation_level + count_id(skill_list, "observation_up")	
+	return config.OBSERVATION_VISION_RADIUS + 5 * (level - 1)
 
 func get_observation_darkness() -> float:
-	return config.OBSERVATION_DARKNESS + 0.05 * (observation_level - 1)
+	var level: int = observation_level + count_id(skill_list, "observation_up")	
+	return config.OBSERVATION_DARKNESS + 0.05 * (level - 1)
 
 func get_input_force_strength() -> float:
 	return config.INPUT_FORCE_STRENGTH
@@ -215,3 +220,11 @@ func get_legendary_drop_rate() -> float:
 
 func get_skill_candidate_num() -> int:
 	return config.SKILL_CANDIDATE_NUM
+
+
+func count_id(array: Array, target_id: String) -> int:
+	var c = 0
+	for item in array:
+		if item.id == target_id:
+			c += 1
+	return c

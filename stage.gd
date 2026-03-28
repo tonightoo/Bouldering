@@ -7,21 +7,17 @@ extends Node2D
 @onready var stage_effect_label = $StageEffect/StageLabel
 @onready var stage_generator = $StageGenerator
 @onready var skill_selection = $SkillSelection
-var status: PlayerStatus
 
 signal cleared
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player.status = status
 	observation_pause_menu.observation_controller = player.observation_controller
 	bouldering_pause_menu.player = player
 	player.cleared.connect(inform_cleared)
-	stage_effect_label.text = "Stage" + str(status.stage_level)
-	stage_generator.initialize(player.status)
+	stage_effect_label.text = "Stage" + str(GlobalData.status.stage_level)
+	stage_generator.initialize()
 
-func initialize(next_status: PlayerStatus) -> void:
-	status = next_status
 
 func inform_cleared() -> void:
 	emit_signal("cleared")

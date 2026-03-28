@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-var status: PlayerStatus
 @onready var skill_container:VBoxContainer = $Panel/VBoxContainer
 
 signal skill_selected
@@ -8,9 +7,8 @@ signal skill_selected
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var skill_scene = preload("res://skill_button.tscn")
-	status = GlobalData.status
 	var buttons: Array[SkillButton]
-	for i in range(status.get_skill_candidate_num()):
+	for i in range(GlobalData.status.get_skill_candidate_num()):
 		var skill_button: SkillButton = skill_scene.instantiate()
 		skill_button.setup(GlobalData.pick_up_one_skill())
 		skill_button.custom_minimum_size = Vector2(360.0, 96.0)

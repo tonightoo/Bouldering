@@ -21,8 +21,6 @@ var current_point: Vector2
 # 乱数生成用クラス
 var rng: RandomNumberGenerator
 
-var status: PlayerStatus
-
 # ホールド用のシーン
 var hold_scene = preload("res://hold.tscn")
 
@@ -73,7 +71,7 @@ func calcurate_main_bone() -> void:
 		root_path.curve.add_point(next_point)
 		current_point = next_point
 		var random_value = rng.randf_range(0.0, 100.0)
-		if random_value < status.get_keep_direction_percentage():
+		if random_value < GlobalData.status.get_keep_direction_percentage():
 			continue
 		current_angle = rng.randf_range(-180.0, 0.0)
 
@@ -82,18 +80,18 @@ func generate_holds() -> Array[Vector2]:
 	var determined_list: Array[Vector2]
 	var is_first_one: bool = true
 	active_list.append(Vector2.ZERO)
-	while(determined_list.size() <= status.get_hold_num()):
+	while(determined_list.size() <= GlobalData.status.get_hold_num()):
 		if active_list.size() == 0:
 			break 
 		var current_center: Vector2 = active_list.get(0)
 		var hold_min_distance: float
 		if is_first_one:
-			hold_min_distance = status.get_initial_hold_distance()
+			hold_min_distance = GlobalData.status.get_initial_hold_distance()
 			is_first_one = false
 		else:
-			hold_min_distance = status.get_hold_distance_min()
+			hold_min_distance = GlobalData.status.get_hold_distance_min()
 		
-		for i in range(status.get_candidate_num()):
+		for i in range(GlobalData.status.get_candidate_num()):
 			var angle = rng.randf_range(-180.0, 0.0)
 			var distance: float
 			
@@ -108,7 +106,7 @@ func generate_holds() -> Array[Vector2]:
 				continue
 			var closest_point: Vector2 = root_path.curve.get_closest_point(candidate_point)
 			var distance_to_path: float = candidate_point.distance_to(closest_point)
-			var threshold: float = clamp(1.0 - distance_to_path / status.get_close_rate(), 0.0, 1.0)
+			var threshold: float = clamp(1.0 - distance_to_path / GlobalData.status.get_close_rate(), 0.0, 1.0)
 			var probability: float = rng.randf_range(0.0, 1.0)
 			if probability <= threshold:
 				determined_list.append(candidate_point)
@@ -119,8 +117,7 @@ func generate_holds() -> Array[Vector2]:
 	
 	return determined_list
 
-func initialize(player_status: PlayerStatus) -> void:
-	status = player_status
+func initialize() -> void:
 	root_path.curve.clear_points()
 	root_path.curve.add_point(Vector2.ZERO)
 	current_point = Vector2.ZERO

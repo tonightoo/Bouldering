@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_gbpgx")
-id = 4
+id = "speed_up"
 texture = ExtResource("2_0yyis")
 name = "SpeedUp"
 description = "スピードがアップする

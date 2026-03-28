@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_q12ia")
-id = 3
+id = "reverse_gravity"
 texture = ExtResource("2_qbs7c")
 name = "ReverseGravity"
 rank = 1
