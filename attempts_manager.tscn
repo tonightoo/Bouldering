@@ -12,4 +12,5 @@ script = ExtResource("1_1ohaq")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1744971813]
 process_mode = 3
 stream = ExtResource("3_ghdfs")
+volume_db = -10.0
 autoplay = true

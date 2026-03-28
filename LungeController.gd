@@ -13,8 +13,6 @@ signal lunge_charge_updated(progress: float)
 ## ランジチャージがリセットされた時に発火
 signal lunge_charge_reset()
 
-## ステータス
-var status: PlayerStatus
 ## ハンドコントローラー（掴み状態の確認用）
 var hand_controller: HandController
 ## プレイヤーボディ（速度付与用）
@@ -73,20 +71,20 @@ func update(delta: float) -> void:
 	)
 	
 	# 入力が十分に強いか判定
-	var is_input_active = (left_input.length() >= status.get_lunge_input_threshold() and
-	  right_input.length() >= status.get_lunge_input_threshold())
+	var is_input_active = (left_input.length() >= GlobalData.status.get_lunge_input_threshold() and
+	  right_input.length() >= GlobalData.status.get_lunge_input_threshold())
 	
 	if is_input_active:
 		current_input_direction = (-left_input - right_input).normalized()
 		input_charge_time += delta
 		
 		# チャージ開始の閾値を超えた場合のみチャージ進捗を報告
-		if input_charge_time >= status.get_lunge_charge_start_threshold():
+		if input_charge_time >= GlobalData.status.get_lunge_charge_start_threshold():
 			emit_signal("lunge_charge_updated", get_charge_progress())
 		was_input_active = true
 	else:
 		# 入力が弱くなった
-		if was_input_active and input_charge_time >= status.get_lunge_min_charge_time() and not has_lunged_in_charge and lunge_cooldown_time <= 0.0:
+		if was_input_active and input_charge_time >= GlobalData.status.get_lunge_min_charge_time() and not has_lunged_in_charge and lunge_cooldown_time <= 0.0:
 			# チャージ中に入力を離したのでランジ発動
 			trigger_lunge(current_input_direction)
 			has_lunged_in_charge = true
@@ -108,12 +106,12 @@ func update(delta: float) -> void:
 func are_arms_fully_extended() -> bool:
 	# 左腕の距離を計算
 	var left_distance = left_shoulder.global_position.distance_to(left_hand.global_position)
-	var left_max_len = status.get_left_arm_max_len()
+	var left_max_len = GlobalData.status.get_left_arm_max_len()
 	var left_extended = left_distance >= left_max_len * 0.95
 	
 	# 右腕の距離を計算
 	var right_distance = right_shoulder.global_position.distance_to(right_hand.global_position)
-	var right_max_len = status.get_right_arm_max_len()
+	var right_max_len = GlobalData.status.get_right_arm_max_len()
 	var right_extended = right_distance >= right_max_len * 0.95
 	
 	# 両腕が伸び切っていれば true
@@ -125,7 +123,7 @@ func are_arms_fully_extended() -> bool:
 ## [br][br]
 ## [return] 進捗度（0～1）
 func get_charge_progress() -> float:
-	return min(input_charge_time / status.get_lunge_charge_time(), 1.0)
+	return min(input_charge_time / GlobalData.status.get_lunge_charge_time(), 1.0)
 
 ## ランジを発動
 ## [br][br]
@@ -139,8 +137,8 @@ func trigger_lunge(input_direction: Vector2) -> void:
 	var lunge_direction = -input_direction.normalized()
 	
 	# チャージ時間に応じたフォースを計算
-	var charge_ratio = min(input_charge_time / status.get_lunge_max_charge_time(), 1.0)
-	var lunge_force = status.get_lunge_force() * charge_ratio
+	var charge_ratio = min(input_charge_time / GlobalData.status.get_lunge_max_charge_time(), 1.0)
+	var lunge_force = GlobalData.status.get_lunge_force() * charge_ratio
 	var lunge_velocity = lunge_direction * lunge_force
 	
 	# 両手をリリース（ホールドから離す）
@@ -154,7 +152,7 @@ func trigger_lunge(input_direction: Vector2) -> void:
 	body.linear_velocity += lunge_velocity
 	
 	# クールタイムを設定
-	lunge_cooldown_time = status.get_lunge_cooldown()
+	lunge_cooldown_time = GlobalData.status.get_lunge_cooldown()
 	
 	# チャージ状態をリセット
 	emit_signal("lunge_charge_reset")
@@ -162,4 +160,4 @@ func trigger_lunge(input_direction: Vector2) -> void:
 	# シグナルを発火
 	emit_signal("lunge_triggered", lunge_direction, lunge_force)
 	
-	print("Lunge triggered! Direction: ", lunge_direction, " Force: ", status.get_lunge_force())
+	print("Lunge triggered! Direction: ", lunge_direction, " Force: ", GlobalData.status.get_lunge_force())

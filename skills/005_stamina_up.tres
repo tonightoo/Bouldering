@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_03u8r")
-id = 5
+id = "stamina_up"
 texture = ExtResource("2_ci35i")
 name = "Stamina up"
 description = "スタミナがアップする

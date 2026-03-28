@@ -14,8 +14,6 @@ var left_hand_fatigue: float = 0.0
 ## 右手の疲労度（ 0.0 - MAX_FATIGUE ）
 var right_hand_fatigue: float = 0.0
 
-## ステータス
-var status: PlayerStatus
 ## ハンドコントローラー（掴み状態を参照）
 var hand_controller: HandController
 ## 左肘のNode2D
@@ -56,37 +54,37 @@ func update_left_fatigue(delta: float) -> void:
 		
 		# 疲労速度を計算
 		var fatigue_rate: float
-		if elbow_angle > status.get_bent_arm_threshold():
-			fatigue_rate = status.get_fatigue_rate_bent_arm()
+		if elbow_angle > GlobalData.status.get_bent_arm_threshold():
+			fatigue_rate = GlobalData.status.get_fatigue_rate_bent_arm()
 		else:
-			fatigue_rate = status.get_fatigue_rate_open_hand()
+			fatigue_rate = GlobalData.status.get_fatigue_rate_open_hand()
 
 		# 体が腕より高かったらより倍率上げる
 		if left_shoulder.global_position.y < left_hand.global_position.y:
 			var height_diff = clamp(
-				(left_shoulder.global_position.y - left_hand.global_position.y) / status.get_height_diff_max(),
+				(left_shoulder.global_position.y - left_hand.global_position.y) / GlobalData.status.get_height_diff_max(),
 				0.0,
 				1.0
 			)
 			
-			fatigue_rate += lerp(1.0, status.get_fatigue_rate_body_above(), height_diff) - 1.0
+			fatigue_rate += lerp(1.0, GlobalData.status.get_fatigue_rate_body_above(), height_diff) - 1.0
 
 		# 両手なら少し楽になる
 		if hand_controller.grabbed_hold_right != null:
-			fatigue_rate *= status.get_fatigue_both_hands_reduce_rate()
+			fatigue_rate *= GlobalData.status.get_fatigue_both_hands_reduce_rate()
 		
 		# 疲労度を増加
 		left_hand_fatigue += fatigue_rate * delta
 		# 落下速度によるダメージを追加
 		left_hand_fatigue += left_hand_fall_damage
 		left_hand_fall_damage = 0.0
-		left_hand_fatigue = min(left_hand_fatigue, status.get_max_fatigue())
-		if left_hand_fatigue >= status.get_max_fatigue():
+		left_hand_fatigue = min(left_hand_fatigue, GlobalData.status.get_max_fatigue())
+		if left_hand_fatigue >= GlobalData.status.get_max_fatigue():
 			hand_controller.release_left_grab()
 			emit_signal("fatigue_depleted", "left")
 	else:
 		# レスト中は回復
-		left_hand_fatigue -= status.get_fatigue_recovery_rate() * delta
+		left_hand_fatigue -= GlobalData.status.get_fatigue_recovery_rate() * delta
 		left_hand_fatigue = max(left_hand_fatigue, 0.0)
 
 ## 右手の疲労を更新
@@ -100,35 +98,35 @@ func update_right_fatigue(delta: float) -> void:
 		var elbow_angle = abs(right_elbow.rotation)
 		
 		var fatigue_rate: float
-		if elbow_angle > status.get_bent_arm_threshold():
-			fatigue_rate = status.get_fatigue_rate_bent_arm()
+		if elbow_angle > GlobalData.status.get_bent_arm_threshold():
+			fatigue_rate = GlobalData.status.get_fatigue_rate_bent_arm()
 		else:
-			fatigue_rate = status.get_fatigue_rate_open_hand()
+			fatigue_rate = GlobalData.status.get_fatigue_rate_open_hand()
 
 		# 体が腕より高かったらより倍率あげる
 		if right_shoulder.global_position.y < right_hand.global_position.y:
 			var height_diff = clamp(
-				(right_shoulder.global_position.y - right_hand.global_position.y) / status.get_height_diff_max(),
+				(right_shoulder.global_position.y - right_hand.global_position.y) / GlobalData.status.get_height_diff_max(),
 				0.0,
 				1.0
 			)
 			
-			fatigue_rate *= lerp(1.0, status.get_fatigue_rate_body_above(), height_diff)
+			fatigue_rate *= lerp(1.0, GlobalData.status.get_fatigue_rate_body_above(), height_diff)
 
 		# 両手なら少し楽になる
 		if hand_controller.grabbed_hold_left != null:
-			fatigue_rate *= status.get_fatigue_both_hands_reduce_rate()
+			fatigue_rate *= GlobalData.status.get_fatigue_both_hands_reduce_rate()
 
 		
 		right_hand_fatigue += fatigue_rate * delta
 		# 落下速度によるダメージを追加
 		right_hand_fatigue += right_hand_fall_damage
 		right_hand_fall_damage = 0.0
-		right_hand_fatigue = min(right_hand_fatigue, status.get_max_fatigue())
+		right_hand_fatigue = min(right_hand_fatigue, GlobalData.status.get_max_fatigue())
 		
-		if right_hand_fatigue >= status.get_max_fatigue():
+		if right_hand_fatigue >= GlobalData.status.get_max_fatigue():
 			hand_controller.release_right_grab()
 			emit_signal("fatigue_depleted", "right")
 	else:
-		right_hand_fatigue -= status.get_fatigue_recovery_rate() * delta
+		right_hand_fatigue -= GlobalData.status.get_fatigue_recovery_rate() * delta
 		right_hand_fatigue = max(right_hand_fatigue, 0.0)

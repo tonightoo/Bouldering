@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_mdsck")
-id = 2
+id = "reach_up"
 texture = ExtResource("2_g3fmq")
 name = "ReachUp"
 description = "リーチがアップする

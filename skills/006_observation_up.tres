@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_5x7t1")
-id = 6
+id = "observation_up"
 texture = ExtResource("2_erfyj")
 name = "Observation up"
 description = "オブザベ力がアップする

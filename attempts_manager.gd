@@ -2,13 +2,10 @@ extends Node2D
 
 
 var current_stage: Stage
-var status: PlayerStatus
 var stage_scene: PackedScene
 @onready var fade_animation = $FadeLayer
 
 func _ready() -> void:
-	var config = PlayerConfig.new()
-	status = PlayerStatus.new(config)
 	stage_scene = preload("res://stage.tscn")
 	#fade_animation.connect_finished(skill_select)
 	load_next_stage()
@@ -19,7 +16,6 @@ func load_next_stage():
 			node.queue_free()
 	
 	var next_stage = stage_scene.instantiate()
-	next_stage.initialize(status)
 	next_stage.cleared.connect(skill_select)
 	add_child(next_stage)
 	current_stage = next_stage
@@ -38,6 +34,6 @@ func skill_select() -> void:
 
 func move_next_stage() -> void:
 	get_tree().paused = false
-	status.stage_level += 1
+	GlobalData.status.stage_level += 1
 	load_next_stage()
 	

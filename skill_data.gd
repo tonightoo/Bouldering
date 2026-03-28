@@ -8,7 +8,7 @@ enum Rank {
 	LEGENDARY,
 }
 
-@export var id: int
+@export var id: String
 @export var texture: Texture2D
 @export var name: String = ""
 @export var rank: Rank = Rank.NORMAL

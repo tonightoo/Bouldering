@@ -26,34 +26,24 @@ func _ready() -> void:
 
 func pick_up_one_hold() -> HoldData:
 	var hold_rand_value = rng.randf_range(0.0, 100.0)
-	var index: int
 	if hold_rand_value <= status.get_c_rank_probability():
-		#index = rng.randi_range(0, c_rank_holds.size() - 1)
 		return c_rank_holds.pick_random()
 	elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability():
-		#index = rng.randi_range(0, b_rank_holds.size() - 1)
 		return b_rank_holds.pick_random()
 	elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability() + status.get_a_rank_probability():
-		#index = rng.randi_range(0, a_rank_holds.size() - 1)
 		return a_rank_holds.pick_random()
 	else:
-		#index = rng.randi_range(0, s_rank_holds.size() - 1)
 		return s_rank_holds.pick_random()
 
 func pick_up_one_skill() -> SkillData:
 	var skill_rand_value = rng.randf_range(0.0, 100.0)
-	var index: int
 	if skill_rand_value <= status.get_normal_drop_rate():
-		#index = rng.randi_range(0, normal_skills.size() - 1)
 		return normal_skills.pick_random()
 	elif skill_rand_value <= status.get_normal_drop_rate() + status.get_rare_drop_rate():
-		#index = rng.randi_range(0, rare_skills.size() - 1)
 		return rare_skills.pick_random()
 	elif skill_rand_value <= status.get_normal_drop_rate() + status.get_rare_drop_rate() + status.get_epic_drop_rate():
-		#index = rng.randi_range(0, epic_skills.size() - 1)
 		return epic_skills.pick_random()
 	else:
-		#index = rng.randi_range(0, legendary_skills.size() - 1)
 		return legendary_skills.pick_random()
 		
 

@@ -5,8 +5,6 @@
 class_name IKSolver
 extends Node
 
-## プレイヤーステータス
-var status: PlayerStatus
 ## プレイヤーボディ（肩の位置決定に使用）
 var body: Node2D
 
@@ -57,7 +55,7 @@ func solve_ik(
 	var elbow_bend:= PI - elbow_angle
 	#elbow_bend = clamp(elbow_bend, ELBOW_MIN, ELBOW_MAX)
 	var target_elbow_rotation = sign * elbow_bend
-	elbow.rotation = lerp_angle(elbow.rotation, target_elbow_rotation, status.get_smoothness())
+	elbow.rotation = lerp_angle(elbow.rotation, target_elbow_rotation, GlobalData.status.get_smoothness())
 
 	# shoulder angle
 	var shoulder_direction: float = shoulder_to_target.angle()
@@ -67,7 +65,7 @@ func solve_ik(
 	)
 	#var desired_local_angle = shoulder_direction - shoulder.global_rotation + shoulder.rotation
 	var target_shoulder_rotation = shoulder_direction - shoulder_angle * sign
-	shoulder.global_rotation = lerp_angle(shoulder.global_rotation, target_shoulder_rotation, status.get_smoothness())
+	shoulder.global_rotation = lerp_angle(shoulder.global_rotation, target_shoulder_rotation, GlobalData.status.get_smoothness())
 	#var parent_global := shoulder.get_parent().global_rotation
 	#var desired_local := desired_global - parent_global	
 	#desired_local_angle = clamp(desired_local_angle, SHOULDER_MIN, SHOULDER_MAX)

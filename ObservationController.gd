@@ -4,7 +4,6 @@ extends Node
 # オブザベの残り時間
 var observation_time_remaining: float
 var camera: Camera2D
-var status: PlayerStatus
 var is_observation: bool = false
 var darkness: CanvasModulate
 var spotlight: PointLight2D
@@ -38,11 +37,11 @@ func disable_observation() -> void:
 
 # オブザベ開始時の処理	
 func enable_observation() -> void:
-	darkness.color = Color(status.get_observation_darkness(), status.get_observation_darkness(), status.get_observation_darkness(), 1.0)
+	darkness.color = Color(GlobalData.status.get_observation_darkness(), GlobalData.status.get_observation_darkness(), GlobalData.status.get_observation_darkness(), 1.0)
 	if spotlight:
 		spotlight.visible = true
 		spotlight.enabled = true
-		spotlight.texture_scale = status.get_observation_vision_radius() / 100.0
+		spotlight.texture_scale = GlobalData.status.get_observation_vision_radius() / 100.0
 		spotlight.color = Color.WHITE
 
 func unvisible_message() -> void:
@@ -54,14 +53,14 @@ func update_camera(delta: float) -> void:
 		Input.get_action_strength("LeftDown")  - Input.get_action_strength("LeftUp") + Input.get_action_strength("RightDown") - Input.get_action_strength("RightUp")
 	)
 	if move_dir.length() > 0:
-		camera.global_position += move_dir.normalized() * status.get_observation_camera_speed() * delta
+		camera.global_position += move_dir.normalized() * GlobalData.status.get_observation_camera_speed() * delta
 		spotlight.global_position = camera.global_position
 	
 func update_visible_holds() -> void:
 	var camera_pos = camera.global_position
 	for hold in get_tree().get_nodes_in_group("hold"):
 		var distance = hold.global_position.distance_to(camera_pos)
-		hold.is_currently_visible = (distance <= status.get_observation_vision_radius())
+		hold.is_currently_visible = (distance <= GlobalData.status.get_observation_vision_radius())
 		hold.update_visibility(is_observation)
 
 func handle_confirmation_input() -> void:
