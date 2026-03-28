@@ -12,5 +12,5 @@ enum Rank {
 @export var texture: Texture2D
 @export var name: String = ""
 @export var rank: Rank = Rank.NORMAL
-@export var description: String = ""
+@export_multiline var description: String = ""
 @export var cool_time: float = 10.0

@@ -16,11 +16,17 @@
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="14_x2jsb"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="15_le12h"]
 [ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://skill_data.gd" id="16_uurxe"]
-[ext_resource type="Resource" uid="uid://cnm2e53qjmkex" path="res://skills/power_up.tres" id="17_1t3qk"]
+[ext_resource type="Resource" uid="uid://cnm2e53qjmkex" path="res://skills/001_power_up.tres" id="17_1t3qk"]
+[ext_resource type="Resource" uid="uid://o0hob8rsrldw" path="res://skills/002_reach_up.tres" id="18_01vml"]
+[ext_resource type="Resource" uid="uid://b1062uvfyoqss" path="res://skills/004_speed_up.tres" id="19_i4u5o"]
+[ext_resource type="Resource" uid="uid://5oc7pfemk20f" path="res://skills/003_reverse_gravity.tres" id="19_qybex"]
+[ext_resource type="Resource" uid="uid://bkpi2pigxq0l6" path="res://skills/005_stamina_up.tres" id="20_sye85"]
+[ext_resource type="Resource" uid="uid://ddfgvb0kx02u3" path="res://skills/006_observation_up.tres" id="21_whhm8"]
 
 [node name="GlobalData" type="Node2D" unique_id=909786168]
 script = ExtResource("1_utqkb")
 c_rank_holds = Array[ExtResource("2_gsvy2")]([ExtResource("3_uurxe"), ExtResource("4_1t3qk"), ExtResource("5_01vml"), ExtResource("6_qybex"), ExtResource("7_bb6qh"), ExtResource("8_i4u5o"), ExtResource("9_sye85"), ExtResource("10_whhm8"), ExtResource("11_udpgt")])
 b_rank_holds = Array[ExtResource("2_gsvy2")]([ExtResource("12_bfydg"), ExtResource("13_ggld4"), ExtResource("14_x2jsb")])
 goal_holds = Array[ExtResource("2_gsvy2")]([ExtResource("15_le12h")])
-normal_skills = Array[ExtResource("16_uurxe")]([ExtResource("17_1t3qk")])
+normal_skills = Array[ExtResource("16_uurxe")]([ExtResource("17_1t3qk"), ExtResource("18_01vml"), ExtResource("19_i4u5o"), ExtResource("20_sye85"), ExtResource("21_whhm8")])
+rare_skills = Array[ExtResource("16_uurxe")]([ExtResource("19_qybex")])

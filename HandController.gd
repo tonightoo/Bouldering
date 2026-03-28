@@ -56,7 +56,7 @@ func try_grab(hand: Area2D, is_left: bool) -> void:
 		if hold and not hold.enabled:
 			continue
 
-		
+		SoundManager.play_se("grab")
 		if is_left:
 			grabbed_hold_left = a
 			if left_hand_target:

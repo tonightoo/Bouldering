@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://o0hob8rsrldw"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://skill_data.gd" id="1_mdsck"]
+[ext_resource type="Texture2D" uid="uid://nmntfjo7n83m" path="res://assets/images/skill/Reach.png" id="2_g3fmq"]
+
+[resource]
+script = ExtResource("1_mdsck")
+id = 2
+texture = ExtResource("2_g3fmq")
+name = "ReachUp"
+description = "リーチがアップする
+もう一つ上のホールドへ！"
+metadata/_custom_type_script = "uid://dup46okboq4dh"

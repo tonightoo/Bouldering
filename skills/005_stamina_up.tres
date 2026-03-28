@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bkpi2pigxq0l6"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://skill_data.gd" id="1_03u8r"]
+[ext_resource type="Texture2D" uid="uid://h1mow7cy68q7" path="res://assets/images/skill/stamina.png" id="2_ci35i"]
+
+[resource]
+script = ExtResource("1_03u8r")
+id = 5
+texture = ExtResource("2_ci35i")
+name = "Stamina up"
+description = "スタミナがアップする
+落ちなければ負けない！"
+metadata/_custom_type_script = "uid://dup46okboq4dh"

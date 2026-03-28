@@ -89,9 +89,9 @@ const A_RANK_PROBABILITY: float = 0.0
 ## Sランクのホールド確率
 const S_RANK_PROBABILITY: float = 0.0
 ## Normalスキルの排出確率
-const NORMAL_DROP_RATE: float = 100.0
+const NORMAL_DROP_RATE: float = 90.0
 ## Rareスキルの排出確率
-const RARE_DROP_RATE: float = 0.0
+const RARE_DROP_RATE: float = 10.0
 ## Epicスキルの排出確率
 const EPIC_DROP_RATE: float = 0.0
 ## Legendaryスキルの排出確率
