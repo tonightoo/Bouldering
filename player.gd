@@ -110,6 +110,10 @@ var right_arm_length_limit: float
 @onready var dark_screen = $DarkScreen
 ## オブザベ中に使用する視界
 @onready var spot_light = $ObservationVision
+## クリア時のぼかし用
+@onready var blur_rect = $Body/Camera2D/BlurRect
+## クリア時のエフェクト
+@onready var clear_effect = $Body/ClearEffect
 
 ## 速度
 var body_velocity: Vector2 = Vector2.ZERO
@@ -193,6 +197,8 @@ func _ready() -> void:
 	goal_checker.hand_controller = hand_controller
 	goal_checker.goal_label = message_label
 	goal_checker.victory_achieved.connect(inform_cleared)
+	goal_checker.clear_effect = clear_effect
+	clear_effect.emitting = false
 
 	# LungeController を生成して参照ノードをセット
 	lunge_controller = LungeController.new()
@@ -341,6 +347,9 @@ func bouldering_process(delta: float) -> void:
 	
 	#recalcurate_body_velocity(last_body_position, delta)
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton:
+		print("device id:", event.device)
 
 ## 手のターゲット位置を更新
 ## [br][br]
@@ -604,6 +613,7 @@ func grab_hand_sprite(hand: String, area: Area2D) -> void:
 	elif hand == "right":
 		right_hand_sprite.animation = StringName("grab")
 		right_chalk_particle.emitting = true
+	Input.start_joy_vibration(0, 0.5, 0.8, 0.2)
 	
 
 func open_hand_sprite(hand: String, area: Area2D) -> void:

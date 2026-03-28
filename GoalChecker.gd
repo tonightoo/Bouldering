@@ -17,6 +17,8 @@ var goal_label: Label
 ## 最後に表示されていた時間
 var last_display_score := 0
 
+var clear_effect: GPUParticles2D
+
 var is_goaled: bool = false
 
 ## ゴールしたかどうかを確認
@@ -51,10 +53,10 @@ func check_goal_condition(delta: float) -> void:
 ## [param elapsed_time] ゴールホールド保持経過時間
 func update_goal_ui(elapsed_time: float) -> void:
 	var current_score = int(ceil(elapsed_time))
-	if elapsed_time <= 0.0:
+	if elapsed_time <= 0.0 and not is_goaled:
 		goal_label.text = ""
 		last_display_score = -1
-	elif elapsed_time < status.get_goal_freeze_time() and current_score != last_display_score:
+	elif elapsed_time < status.get_goal_freeze_time() and current_score != last_display_score and not is_goaled:
 		last_display_score = current_score
 		goal_label.text = str(current_score)
 		goal_label.modulate = Color.WHITE
@@ -64,12 +66,19 @@ func update_goal_ui(elapsed_time: float) -> void:
 		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
 	elif elapsed_time >= status.get_goal_freeze_time(): 
 		is_goaled = true
+		clear_effect.restart()
+		clear_effect.emitting = true
 		goal_label.text = "Victory!"
 		goal_label.modulate = Color.GOLD
-
+		goal_label.scale = Vector2(0.1, 0.1)
+		goal_label.pivot_offset = goal_label.size / 2
+		var tween = goal_label.create_tween()
+		tween.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.parallel().tween_property(goal_label, "scale", Vector2(1.0, 1.0), 1.0)
+		tween.parallel().tween_property(goal_label, "modulate:a", 1.0, 1.0)
+	
 ## クリア処理
 ## [br][br]
 ## クリアを発表し、シグナルを発火。
 func victory() -> void:
-	print("victory!")
 	emit_signal("victory_achieved")

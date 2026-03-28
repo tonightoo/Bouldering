@@ -6,6 +6,7 @@ extends Node2D
 @onready var bouldering_pause_menu = $BoulderingPauseMenu
 @onready var stage_effect_label = $StageEffect/StageLabel
 @onready var stage_generator = $StageGenerator
+@onready var skill_selection = $SkillSelection
 var status: PlayerStatus
 
 signal cleared

@@ -4,11 +4,11 @@ extends Node2D
 @onready var root_path: Path2D = $RootPath
 @onready var background_rect: TextureRect = $BackgroundTexture
 
-@export var c_rank_holds: Array[HoldData]
-@export var b_rank_holds: Array[HoldData]
-@export var a_rank_holds: Array[HoldData]
-@export var s_rank_holds: Array[HoldData]
-@export var goal_holds: Array[HoldData]
+#@export var c_rank_holds: Array[HoldData]
+#@export var b_rank_holds: Array[HoldData]
+#@export var a_rank_holds: Array[HoldData]
+#@export var s_rank_holds: Array[HoldData]
+#@export var goal_holds: Array[HoldData]
 
 # 全体パス作成時に使用する現在進行方向を示すアングル
 var current_angle: float
@@ -38,28 +38,15 @@ func calcurate() -> void:
 
 	for i in range(holds_coordinates.size() - 1):
 		var hold = hold_scene.instantiate()
-		var hold_rand_value = rng.randf_range(0.0, 100.0)
-		var index: int
-		if hold_rand_value <= status.get_c_rank_probability():
-			index = rng.randi_range(0, c_rank_holds.size() - 1)
-			hold.hold_data = c_rank_holds.get(index)
-		elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability():
-			index = rng.randi_range(0, b_rank_holds.size() - 1)
-			hold.hold_data = b_rank_holds.get(index)
-		elif hold_rand_value <= status.get_c_rank_probability() + status.get_b_rank_probability() + status.get_a_rank_probability():
-			index = rng.randi_range(0, a_rank_holds.size() - 1)
-			hold.hold_data = a_rank_holds.get(index)
-		else:
-			index = rng.randi_range(0, s_rank_holds.size() - 1)
-			hold.hold_data = s_rank_holds.get(index)
+		hold.hold_data = GlobalData.pick_up_one_hold()
 
 		hold.global_position = holds_coordinates.get(i)
 		add_child(hold)
 
 	# 必ず一番高いところはゴールにする
 	var goal_hold = hold_scene.instantiate()
-	var goal_index: int = rng.randi_range(0, goal_holds.size() - 1)
-	goal_hold.hold_data = goal_holds.get(goal_index)
+	var goal_index: int = rng.randi_range(0, GlobalData.goal_holds.size() - 1)
+	goal_hold.hold_data = GlobalData.goal_holds.get(goal_index)
 	goal_hold.global_position = holds_coordinates.get(holds_coordinates.size() - 1)
 	add_child(goal_hold)
 
