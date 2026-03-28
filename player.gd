@@ -113,7 +113,8 @@ var right_arm_length_limit: float
 ## クリア時のぼかし用
 @onready var blur_rect = $Body/Camera2D/BlurRect
 ## クリア時のエフェクト
-@onready var clear_effect = $Body/ClearEffect
+@onready var clear_effect_left = $Body/ClearEffectLeft
+@onready var clear_effect_right = $Body/ClearEffectRight
 
 ## 速度
 var body_velocity: Vector2 = Vector2.ZERO
@@ -197,8 +198,10 @@ func _ready() -> void:
 	goal_checker.hand_controller = hand_controller
 	goal_checker.goal_label = message_label
 	goal_checker.victory_achieved.connect(inform_cleared)
-	goal_checker.clear_effect = clear_effect
-	clear_effect.emitting = false
+	goal_checker.clear_effect_left = clear_effect_left
+	clear_effect_left.emitting = false
+	goal_checker.clear_effect_right = clear_effect_right
+	clear_effect_right.emitting = false	
 
 	# LungeController を生成して参照ノードをセット
 	lunge_controller = LungeController.new()

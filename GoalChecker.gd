@@ -17,7 +17,8 @@ var goal_label: Label
 ## 最後に表示されていた時間
 var last_display_score := 0
 
-var clear_effect: GPUParticles2D
+var clear_effect_left: GPUParticles2D
+var clear_effect_right: GPUParticles2D
 
 var is_goaled: bool = false
 
@@ -66,8 +67,10 @@ func update_goal_ui(elapsed_time: float) -> void:
 		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
 	elif elapsed_time >= status.get_goal_freeze_time(): 
 		is_goaled = true
-		clear_effect.restart()
-		clear_effect.emitting = true
+		clear_effect_left.restart()
+		clear_effect_left.emitting = true
+		clear_effect_right.restart()
+		clear_effect_right.emitting = true
 		goal_label.text = "Victory!"
 		goal_label.modulate = Color.GOLD
 		goal_label.scale = Vector2(0.1, 0.1)

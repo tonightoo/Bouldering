@@ -99,6 +99,7 @@ size_flags_horizontal = 4
 text = "説明1行目はこんな感じかな
 説明2行目はこんな感じだけど
 説明3行目もちゃんとはいるかな"
+autowrap_mode = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

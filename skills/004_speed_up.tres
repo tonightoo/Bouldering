@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://b1062uvfyoqss"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://skill_data.gd" id="1_gbpgx"]
+[ext_resource type="Texture2D" uid="uid://c1rkgo0a4t5c2" path="res://assets/images/skill/speed.png" id="2_0yyis"]
+
+[resource]
+script = ExtResource("1_gbpgx")
+id = 4
+texture = ExtResource("2_0yyis")
+name = "SpeedUp"
+description = "スピードがアップする
+より高みへ！"
+metadata/_custom_type_script = "uid://dup46okboq4dh"

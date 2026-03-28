@@ -21,10 +21,15 @@ config/icon="uid://uleen7khael3"
 config/macos_native_icon="res://assets/images/Gaba7_red.icns"
 config/windows_native_icon="res://assets/images/Gaba7_red.ico"
 
+[audio]
+
+driver/output_latency=5
+
 [autoload]
 
 Dialogic="*uid://ds2q0uclmolvu"
 GlobalData="*uid://dcklocxclvjdp"
+SoundManager="*uid://k0eh4pe3a7yo"
 
 [dialogic]
 
