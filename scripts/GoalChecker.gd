@@ -20,6 +20,9 @@ var clear_effect_right: GPUParticles2D
 
 var is_goaled: bool = false
 
+func _ready() -> void:
+	GlobalData.signals.gameover.connect(gameover)
+
 ## ゴールしたかどうかを確認
 ## [br][br]
 ## 両手でゴールホールドを掴んでいるか確認し
@@ -44,9 +47,7 @@ func check_goal_condition(delta: float) -> void:
 	else:
 		update_goal_ui(0.0)
 
-func check_gameover(delta: float) -> void:
-	if GlobalData.status.remaining_life > 0:
-		return
+func gameover() -> void:
 	GlobalData.status.pause_enabled = false
 	goal_label.text = "Loser"
 	goal_label.modulate = Color.DARK_RED
@@ -60,7 +61,7 @@ func check_gameover(delta: float) -> void:
 	await get_tree().create_timer(2.0).timeout
 	GlobalData.status.pause_enabled = true
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
-
+	
 
 ## ゴール設定 UI を更新
 ## [br][br]
@@ -69,7 +70,7 @@ func check_gameover(delta: float) -> void:
 ## [br][br]
 ## [param elapsed_time] ゴールホールド保持経過時間
 func update_goal_ui(elapsed_time: float) -> void:
-	if GlobalData.status.remaining_life <= 0:
+	if GlobalData.status.is_gameover:
 		return
 	var current_score = int(ceil(elapsed_time))
 	if elapsed_time <= 0.0 and not is_goaled:

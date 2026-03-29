@@ -28,11 +28,13 @@ func _process(delta: float) -> void:
 	pass
 
 func on_skill_selected() -> void:
+	GlobalData.status.pause_enabled = false
 	skill_selected.emit()
 
 
 func _on_visibility_changed() -> void:
 	if visible:
+		GlobalData.status.pause_enabled = false
 		for button in skill_container.get_children():
 			if button is SkillButton:
 				button.grab_focus()

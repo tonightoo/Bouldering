@@ -6,6 +6,20 @@
 layer = 3
 script = ExtResource("1_yx38c")
 
+[node name="LimitTimer" type="Timer" parent="." unique_id=235699926]
+one_shot = true
+autostart = true
+
+[node name="LimitTimerLabel" type="Label" parent="." unique_id=847230700]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 17.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=710029392]
 custom_minimum_size = Vector2(0, 96)
 offset_right = 40.0
