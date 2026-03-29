@@ -14,9 +14,16 @@ var remaining_life: int = 3
 var pause_enabled: bool = true
 
 var skill_list: Array[SkillData]
+var is_gameover: bool = false
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
+
+func initialize() -> void:
+	is_gameover = false
+	skill_list.clear()
+	remaining_life = get_max_life()
+	recalcurate()
 
 func recalcurate() -> void:
 	power_level = config.POWER_BASE_LEVEL + count_id(skill_list, "power_up")
@@ -24,7 +31,6 @@ func recalcurate() -> void:
 	speed_level = config.SPEED_BASE_LEVEL + count_id(skill_list, "speed_up")	
 	stamina_level = config.STAMINA_BASE_LEVEL + count_id(skill_list, "stamina_up")	
 	observation_level = config.OBSERVATION_BASE_LEVEL + count_id(skill_list, "observation_up")	
-	remaining_life = config.MAX_LIFE
 
 # power
 func get_lift_up_strength() -> float:
@@ -220,6 +226,11 @@ func get_max_life() -> int:
 func set_remaining_life(new_life: int) -> void:
 	remaining_life = clamp(new_life, 0, get_max_life())
 	GlobalData.signals.life_changed.emit()
+	if remaining_life == 0:
+		is_gameover = true
+
+func get_limit_time() -> float:
+	return config.BASE_STAGE_TIME_LIMIT
 
 func count_id(array: Array, target_id: String) -> int:
 	var c = 0

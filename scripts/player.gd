@@ -225,8 +225,9 @@ func _ready() -> void:
 ## [br][br]
 ## [param delta] フレーム時間
 func _process(delta: float) -> void:
-	goal_checker.check_gameover(delta)
-	
+	if GlobalData.status.is_gameover:
+		GlobalData.signals.gameover.emit()
+
 	if observation_controller.is_observation:
 		return
 

@@ -31,8 +31,7 @@ func to_tutorial_scene(anim_name: StringName) -> void:
 func to_story_scene(anim_name: StringName) -> void:
 	#get_tree().change_scene_to_file("res://stage_1.tscn")
 	#get_tree().change_scene_to_file("res://stage.tscn")	
-	GlobalData.status.skill_list.clear()
-	GlobalData.status.recalcurate()
+	GlobalData.status.initialize()
 	get_tree().change_scene_to_file("res://scenes/attempts_manager.tscn")
 
 func _on_start_button_pressed() -> void:

@@ -5,7 +5,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if GlobalData.status.remaining_life <= 0:
+	if GlobalData.status.is_gameover:
 		return
 	var tween = create_tween()
 	var final_position = Vector2(477.0, 291.5)
