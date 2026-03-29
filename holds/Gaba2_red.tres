@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="HoldData" format=3 uid="uid://dda3puxdkpq86"]
 
-[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://hold_data.gd" id="1_gfgrs"]
-[ext_resource type="Texture2D" uid="uid://ds3d650peg5nx" path="res://assets/images/Gaba2_red.png" id="2_0pii5"]
-[ext_resource type="Texture2D" uid="uid://drvr27ecdk32t" path="res://assets/images/Gaba2_white.png" id="3_fymkb"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/hold_data.gd" id="1_gfgrs"]
+[ext_resource type="Texture2D" uid="uid://ds3d650peg5nx" path="res://assets/images/holds/Gaba2_red.png" id="2_0pii5"]
+[ext_resource type="Texture2D" uid="uid://drvr27ecdk32t" path="res://assets/images/holds/Gaba2_white.png" id="3_fymkb"]
 
 [resource]
 script = ExtResource("1_gfgrs")

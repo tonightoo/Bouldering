@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://g45hbujq4xp"]
+
+[ext_resource type="Script" uid="uid://cvn5d5ixyr3mf" path="res://scripts/stage_generator.gd" id="1_e6n43"]
+[ext_resource type="Texture2D" uid="uid://crgku3cijdu68" path="res://assets/images/background/gym_background_wood.png" id="2_llqeb"]
+
+[sub_resource type="Curve2D" id="Curve2D_3hlyg"]
+
+[node name="StageGenerator" type="Node2D" unique_id=1213333705]
+script = ExtResource("1_e6n43")
+
+[node name="BackgroundTexture" type="TextureRect" parent="." unique_id=1596065021]
+texture_repeat = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_llqeb")
+stretch_mode = 1
+
+[node name="RootPath" type="Path2D" parent="." unique_id=169243139]
+curve = SubResource("Curve2D_3hlyg")

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dcklocxclvjdp"]
+
+[ext_resource type="Script" uid="uid://hhlpl0d7v688" path="res://scripts/global_data.gd" id="1_3u8yy"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/hold_data.gd" id="2_jh0ns"]
+[ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="3_vvp13"]
+[ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="4_52n8v"]
+[ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="5_86y6w"]
+[ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="6_3dl3g"]
+[ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="7_6vm3y"]
+[ext_resource type="Resource" uid="uid://bk1k6mhosu4w8" path="res://holds/Gaba6_red.tres" id="8_h3t4a"]
+[ext_resource type="Resource" uid="uid://deos5ytjxcdcx" path="res://holds/Gaba7_red.tres" id="9_fuol3"]
+[ext_resource type="Resource" uid="uid://dndomdt8ohyth" path="res://holds/Gaba8_red.tres" id="10_yigfa"]
+[ext_resource type="Resource" uid="uid://djfrj80qnn8ec" path="res://holds/Gaba9_red.tres" id="11_xegd7"]
+[ext_resource type="Resource" uid="uid://b88a4t3tn1bvw" path="res://holds/Falling.tres" id="12_uwdrk"]
+[ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="13_kk0tg"]
+[ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="14_4lvrv"]
+[ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="15_ea2y8"]
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="16_p7ea1"]
+[ext_resource type="Resource" uid="uid://cnm2e53qjmkex" path="res://skills/001_power_up.tres" id="17_js40u"]
+[ext_resource type="Resource" uid="uid://o0hob8rsrldw" path="res://skills/002_reach_up.tres" id="18_xy3dq"]
+[ext_resource type="Resource" uid="uid://b1062uvfyoqss" path="res://skills/004_speed_up.tres" id="19_sqicn"]
+[ext_resource type="Resource" uid="uid://bkpi2pigxq0l6" path="res://skills/005_stamina_up.tres" id="20_w22vk"]
+[ext_resource type="Resource" uid="uid://ddfgvb0kx02u3" path="res://skills/006_observation_up.tres" id="21_ads5g"]
+[ext_resource type="Resource" uid="uid://5oc7pfemk20f" path="res://skills/003_reverse_gravity.tres" id="22_ioxdv"]
+
+[node name="GlobalData" type="Node2D" unique_id=909786168]
+script = ExtResource("1_3u8yy")
+c_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("3_vvp13"), ExtResource("4_52n8v"), ExtResource("5_86y6w"), ExtResource("6_3dl3g"), ExtResource("7_6vm3y"), ExtResource("8_h3t4a"), ExtResource("9_fuol3"), ExtResource("10_yigfa"), ExtResource("11_xegd7")])
+b_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("12_uwdrk"), ExtResource("13_kk0tg"), ExtResource("14_4lvrv")])
+goal_holds = Array[ExtResource("2_jh0ns")]([ExtResource("15_ea2y8")])
+normal_skills = Array[ExtResource("16_p7ea1")]([ExtResource("17_js40u"), ExtResource("18_xy3dq"), ExtResource("19_sqicn"), ExtResource("20_w22vk"), ExtResource("21_ads5g")])
+rare_skills = Array[ExtResource("16_p7ea1")]([ExtResource("22_ioxdv")])

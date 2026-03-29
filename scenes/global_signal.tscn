@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c3tv172hvi8ul"]
+
+[ext_resource type="Script" uid="uid://c48ctemagmwmj" path="res://global_signal.gd" id="1_8yi86"]
+
+[node name="GlobalSignal" type="Node2D" unique_id=1936029623]
+script = ExtResource("1_8yi86")
