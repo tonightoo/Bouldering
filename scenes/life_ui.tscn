@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://gily858mo382"]
+
+[ext_resource type="Script" uid="uid://d0wun7yb4bjik" path="res://life_ui.gd" id="1_yx38c"]
+
+[node name="LifeUI" type="CanvasLayer" unique_id=1626733848]
+layer = 3
+script = ExtResource("1_yx38c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=710029392]
+custom_minimum_size = Vector2(0, 96)
+offset_right = 40.0
+offset_bottom = 40.0

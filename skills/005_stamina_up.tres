@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bkpi2pigxq0l6"]
 
-[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://skill_data.gd" id="1_03u8r"]
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_03u8r"]
 [ext_resource type="Texture2D" uid="uid://h1mow7cy68q7" path="res://assets/images/skill/stamina.png" id="2_ci35i"]
 
 [resource]

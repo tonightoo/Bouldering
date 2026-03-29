@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dqvja64txc7ja"]
+
+[ext_resource type="Script" uid="uid://4e107atpetyb" path="res://scripts/GoalChecker.gd" id="1_l7p3n"]
+
+[node name="GoalChecker" type="CanvasLayer" unique_id=738104241]
+layer = 5
+script = ExtResource("1_l7p3n")
