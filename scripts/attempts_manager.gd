@@ -31,6 +31,7 @@ func skill_select() -> void:
 	get_tree().paused = true
 	current_stage.player.blur_rect.visible = true
 	current_stage.skill_selection.visible = true
+	current_stage.player.adjust_keys_scale(1.0)
 
 func move_next_stage() -> void:
 	get_tree().paused = false

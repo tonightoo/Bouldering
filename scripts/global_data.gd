@@ -12,6 +12,7 @@ extends Node
 @export var goal_holds: Array[HoldData]
 
 @export_group("Skill Database")
+@export var empty_skill: SkillData
 @export var normal_skills: Array[SkillData]
 @export var rare_skills: Array[SkillData]
 @export var epic_skills: Array[SkillData]
@@ -51,10 +52,10 @@ func pick_up_one_skill() -> SkillData:
 		
 
 
-func get_rank_color(rank: SkillData.Rank) -> Color:
+func get_rank_color(rank: SkillData.SkillRank) -> Color:
 	match rank:
-		SkillData.Rank.NORMAL: return Color("#4D65B4FF")
-		SkillData.Rank.RARE: return Color("#1EBC73FF")
-		SkillData.Rank.EPIC: return Color("#A884F3FF")
-		SkillData.Rank.LEGENDARY: return Color("#F9C22BFF")
+		SkillData.SkillRank.NORMAL: return Color("#4D65B4FF")
+		SkillData.SkillRank.RARE: return Color("#1EBC73FF")
+		SkillData.SkillRank.EPIC: return Color("#A884F3FF")
+		SkillData.SkillRank.LEGENDARY: return Color("#F9C22BFF")
 	return Color.WHITE
