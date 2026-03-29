@@ -44,12 +44,14 @@ func _on_pressed() -> void:
 
 	if skill_data.type == SkillData.SkillType.ACTIVE:
 		self.z_index = 10
+		var shift_center = global_position - (size * 0.1 / 2)
 		tween.tween_property(self, "scale", Vector2(1.1, 1.1), 0.5)
-		tween.tween_property(self, "global_position", center_pos, 0.5)
+		tween.tween_property(self, "global_position", shift_center, 0.5)
 		skill_selected.emit()
 	else:
+		var center_target = center_pos - size
 		tween.tween_property(self, "scale", Vector2(2.0, 2.0), 0.5)
-		tween.tween_property(self, "global_position", center_pos, 0.5)
+		tween.tween_property(self, "global_position", center_target, 0.5)
 		tween.tween_property(self, "modulate:a", 0.0, 0.5)
 		await tween.finished
 		skill_selected.emit()

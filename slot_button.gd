@@ -12,14 +12,6 @@ func _ready():
 	focus_entered.connect(_on_focus_entered)
 	focus_exited.connect(_on_focus_exited)
 
-func disconnect_signal() -> void:
-	mouse_entered.disconnect(_on_mouse_entered)
-	mouse_exited.disconnect(_on_mouse_exited)
-	button_down.disconnect(_on_button_down)
-	button_up.disconnect(_on_button_up)
-	focus_entered.disconnect(_on_focus_entered)
-	focus_exited.disconnect(_on_focus_exited)
-
 func _on_mouse_entered():
 	modulate = Color(2.0, 2.0, 2.0)
 
