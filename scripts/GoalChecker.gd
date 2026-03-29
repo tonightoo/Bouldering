@@ -86,6 +86,7 @@ func update_goal_ui(elapsed_time: float) -> void:
 		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
 	elif elapsed_time >= GlobalData.status.get_goal_freeze_time() and not is_goaled: 
 		is_goaled = true
+		GlobalData.status.pause_enabled = false
 		clear_effect_left.restart()
 		clear_effect_left.emitting = true
 		clear_effect_right.restart()

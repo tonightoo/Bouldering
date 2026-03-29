@@ -82,14 +82,21 @@ offset_bottom = 44.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SkillNameLabel" type="Label" parent="HBoxContainer/BackgroundPanel/VBoxContainer" unique_id=2013800816]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BackgroundPanel/VBoxContainer" unique_id=596263871]
+layout_mode = 2
+
+[node name="SkillNameLabel" type="Label" parent="HBoxContainer/BackgroundPanel/VBoxContainer/HBoxContainer" unique_id=2013800816]
 process_mode = 3
-custom_minimum_size = Vector2(248, 20)
+custom_minimum_size = Vector2(228, 20)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 8
 theme_override_styles/focus = SubResource("StyleBoxFlat_xokeq")
 text = "スキル名"
+
+[node name="SkillTypeLabel" type="Label" parent="HBoxContainer/BackgroundPanel/VBoxContainer/HBoxContainer" unique_id=1045959256]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
 
 [node name="SkillDescriptionLabel" type="Label" parent="HBoxContainer/BackgroundPanel/VBoxContainer" unique_id=313379348]
 process_mode = 3

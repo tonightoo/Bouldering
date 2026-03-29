@@ -11,4 +11,5 @@ name = "ReverseGravity"
 rank = 1
 description = "5秒間重力を逆にする
 上に落ちる～"
+type = 0
 metadata/_custom_type_script = "uid://dup46okboq4dh"

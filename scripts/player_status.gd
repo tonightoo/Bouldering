@@ -16,12 +16,24 @@ var pause_enabled: bool = true
 var skill_list: Array[SkillData]
 var is_gameover: bool = false
 
+var skill_slots: Dictionary[String, SkillData]
+
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
 
 func initialize() -> void:
 	is_gameover = false
 	skill_list.clear()
+	skill_slots = {
+		"square_action": GlobalData.empty_skill,
+		"triangle_action": GlobalData.empty_skill,
+		"circle_action": GlobalData.empty_skill,
+		"cross_action": GlobalData.empty_skill,
+		"up_action": GlobalData.empty_skill,
+		"down_action": GlobalData.empty_skill,
+		"left_action": GlobalData.empty_skill,
+		"right_action": GlobalData.empty_skill,
+	}
 	remaining_life = get_max_life()
 	recalcurate()
 
@@ -31,6 +43,7 @@ func recalcurate() -> void:
 	speed_level = config.SPEED_BASE_LEVEL + count_id(skill_list, "speed_up")	
 	stamina_level = config.STAMINA_BASE_LEVEL + count_id(skill_list, "stamina_up")	
 	observation_level = config.OBSERVATION_BASE_LEVEL + count_id(skill_list, "observation_up")	
+	pause_enabled = true
 
 # power
 func get_lift_up_strength() -> float:

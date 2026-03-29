@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bvh0ncc5yn0ja"]
+
+[ext_resource type="PackedScene" uid="uid://l1nba3sqlq1c" path="res://scenes/key_slots.tscn" id="1_db2t2"]
+[ext_resource type="Script" uid="uid://d4exw4oploo0q" path="res://scripts/key_selection.gd" id="1_rc450"]
+[ext_resource type="Texture2D" uid="uid://u4rhgp0y4uut" path="res://assets/images/arrow_key.png" id="2_8nipv"]
+[ext_resource type="Texture2D" uid="uid://cduj068tyqj7w" path="res://assets/images/action_key.png" id="3_rc450"]
+
+[node name="KeySelection" type="CanvasLayer" unique_id=1252891297]
+process_mode = 3
+layer = 5
+script = ExtResource("1_rc450")
+
+[node name="ArrowKeys" parent="." unique_id=1570455564 instance=ExtResource("1_db2t2")]
+custom_minimum_size = Vector2(192, 192)
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -197.0
+offset_right = 197.0
+offset_bottom = -5.0
+grow_horizontal = 1
+grow_vertical = 0
+slot_texture = ExtResource("2_8nipv")
+
+[node name="Spacer" type="Control" parent="." unique_id=1359082328]
+process_mode = 3
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 326.0
+offset_top = 74.0
+offset_right = 826.0
+offset_bottom = 574.0
+
+[node name="ActionKeys" parent="." unique_id=2079704974 instance=ExtResource("1_db2t2")]
+custom_minimum_size = Vector2(192, 192)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -197.0
+offset_top = -197.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+slot_texture = ExtResource("3_rc450")

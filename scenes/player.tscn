@@ -16,6 +16,7 @@
 [ext_resource type="Shader" uid="uid://bhb2fy5edoknh" path="res://shader/ScreenBlur.gdshader" id="13_606se"]
 [ext_resource type="Texture2D" uid="uid://h7xxhfl7k8ao" path="res://assets/images/point_light.webp" id="13_urp6f"]
 [ext_resource type="Texture2D" uid="uid://cpiwrshcxv033" path="res://assets/images/confetti.png" id="16_u1c27"]
+[ext_resource type="PackedScene" uid="uid://bvh0ncc5yn0ja" path="res://scenes/key_selection.tscn" id="17_qfm1y"]
 
 [sub_resource type="Gradient" id="Gradient_u1c27"]
 offsets = PackedFloat32Array(0, 0.15954416, 0.32478634, 0.4985755, 0.65242165, 0.8034188, 0.954416)
@@ -486,6 +487,10 @@ offset_left = -40.0
 offset_bottom = 17.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
+
+[node name="KeySelection" parent="." unique_id=1252891297 instance=ExtResource("17_qfm1y")]
+process_mode = 0
+layer = 1
 
 [connection signal="area_entered" from="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" to="." method="_on_hand_area_entered"]
 [connection signal="area_exited" from="Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand" to="." method="_on_hand_area_exited"]

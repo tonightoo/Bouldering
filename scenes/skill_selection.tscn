@@ -2,6 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://0vb5qdnac8jr" path="res://styles/skill_choice.tres" id="1_2ph55"]
 [ext_resource type="Script" uid="uid://57hywy8dj0k0" path="res://scripts/skill_selection.gd" id="1_if4hp"]
+[ext_resource type="PackedScene" uid="uid://bvh0ncc5yn0ja" path="res://scenes/key_selection.tscn" id="3_33d8g"]
 
 [node name="SkillSelection" type="CanvasLayer" unique_id=1328279253]
 process_mode = 3
@@ -46,5 +47,8 @@ layout_mode = 2
 theme_override_constants/outline_size = 8
 text = "Skill Select"
 horizontal_alignment = 1
+
+[node name="KeySelection" parent="." unique_id=1252891297 instance=ExtResource("3_33d8g")]
+visible = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

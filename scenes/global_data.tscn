@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://l2hyc2foerpo" path="res://holds/MoveHorizontal.tres" id="13_kk0tg"]
 [ext_resource type="Resource" uid="uid://bls1g36jg3u56" path="res://holds/MoveVertical.tres" id="14_4lvrv"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="15_ea2y8"]
+[ext_resource type="Resource" uid="uid://cxlyu3wpcryg3" path="res://skills/000_empty.tres" id="16_jh0ns"]
 [ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="16_p7ea1"]
 [ext_resource type="Resource" uid="uid://cnm2e53qjmkex" path="res://skills/001_power_up.tres" id="17_js40u"]
 [ext_resource type="Resource" uid="uid://o0hob8rsrldw" path="res://skills/002_reach_up.tres" id="18_xy3dq"]
@@ -28,5 +29,6 @@ script = ExtResource("1_3u8yy")
 c_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("3_vvp13"), ExtResource("4_52n8v"), ExtResource("5_86y6w"), ExtResource("6_3dl3g"), ExtResource("7_6vm3y"), ExtResource("8_h3t4a"), ExtResource("9_fuol3"), ExtResource("10_yigfa"), ExtResource("11_xegd7")])
 b_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("12_uwdrk"), ExtResource("13_kk0tg"), ExtResource("14_4lvrv")])
 goal_holds = Array[ExtResource("2_jh0ns")]([ExtResource("15_ea2y8")])
+empty_skill = ExtResource("16_jh0ns")
 normal_skills = Array[ExtResource("16_p7ea1")]([ExtResource("17_js40u"), ExtResource("18_xy3dq"), ExtResource("19_sqicn"), ExtResource("20_w22vk"), ExtResource("21_ads5g")])
 rare_skills = Array[ExtResource("16_p7ea1")]([ExtResource("22_ioxdv")])

@@ -110,6 +110,8 @@ var right_arm_length_limit: float
 @onready var clear_effect_left = $Body/ClearEffectLeft
 @onready var clear_effect_right = $Body/ClearEffectRight
 
+@onready var keys = $KeySelection
+
 ## 速度
 var body_velocity: Vector2 = Vector2.ZERO
 var last_body_velocity: Vector2 = Vector2.ZERO
@@ -217,6 +219,17 @@ func _ready() -> void:
 	left_arm_length_limit = GlobalData.status.get_left_arm_max_len()
 	right_arm_length_limit = GlobalData.status.get_right_arm_max_len()
 
+	adjust_keys_scale(0.6)
+
+func adjust_keys_scale(scale: float) -> void:
+	keys.arrow_keys.scale = Vector2(scale, scale)
+	keys.arrow_keys.pivot_offset = keys.arrow_keys.size / 2
+	keys.arrow_keys.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	keys.action_keys.scale = Vector2(scale, scale)
+	keys.action_keys.pivot_offset = keys.action_keys.size / 2
+	keys.action_keys.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	keys.make_it_readonly()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
 ## [br][br]
@@ -227,6 +240,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if GlobalData.status.is_gameover:
 		GlobalData.signals.gameover.emit()
+
+	for action_key in GlobalData.status.skill_slots.keys():
+		if Input.is_action_just_pressed(action_key):
+			var skill: SkillData = GlobalData.status.skill_slots[action_key]
+			var skill_name: String = skill.id
+			if has_method(skill_name):
+				call(skill_name)
 
 	if observation_controller.is_observation:
 		return
@@ -260,7 +280,6 @@ func bouldering_process(delta: float) -> void:
 		
 	if not Input.is_action_pressed("RightHold") and hand_controller.grabbed_hold_right != null:
 		hand_controller.release_right_grab()
-
 
 	#if Input.is_action_just_released("LeftHold"):
 		#hand_controller.release_left_grab()

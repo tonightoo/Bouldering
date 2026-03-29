@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cxlyu3wpcryg3"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_tbhfk"]
+[ext_resource type="Texture2D" uid="uid://uov5h3614jq" path="res://assets/images/skill/empty.png" id="2_51g6k"]
+
+[resource]
+script = ExtResource("1_tbhfk")
+id = "0"
+texture = ExtResource("2_51g6k")
+name = "Empty"
+description = "Empty"
+cool_time = 0.0
+metadata/_custom_type_script = "uid://dup46okboq4dh"
