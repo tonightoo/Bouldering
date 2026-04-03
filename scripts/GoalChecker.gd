@@ -85,21 +85,25 @@ func update_goal_ui(elapsed_time: float) -> void:
 		goal_label.scale = Vector2(1.5, 1.5)
 		tween.tween_property(goal_label, "scale", Vector2(1, 1), 0.2).set_trans(Tween.TRANS_BACK)
 	elif elapsed_time >= GlobalData.status.get_goal_freeze_time() and not is_goaled: 
-		is_goaled = true
-		GlobalData.status.pause_enabled = false
-		clear_effect_left.restart()
-		clear_effect_left.emitting = true
-		clear_effect_right.restart()
-		clear_effect_right.emitting = true
-		goal_label.text = "Victory!"
-		goal_label.modulate = Color.GOLD
-		goal_label.scale = Vector2(0.1, 0.1)
-		goal_label.pivot_offset = goal_label.size / 2
-		var tween = goal_label.create_tween()
-		tween.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-		tween.parallel().tween_property(goal_label, "scale", Vector2(1.0, 1.0), 1.0)
-		tween.parallel().tween_property(goal_label, "modulate:a", 1.0, 1.0)
+		display_clear_performance()
+
+func display_clear_performance() -> void:
+	is_goaled = true
+	GlobalData.status.pause_enabled = false
+	clear_effect_left.restart()
+	clear_effect_left.emitting = true
+	clear_effect_right.restart()
+	clear_effect_right.emitting = true
+	goal_label.text = "Victory!"
+	goal_label.modulate = Color.GOLD
+	goal_label.scale = Vector2(0.1, 0.1)
+	goal_label.pivot_offset = goal_label.size / 2
+	var tween = goal_label.create_tween()
+	tween.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(goal_label, "scale", Vector2(1.0, 1.0), 1.0)
+	tween.parallel().tween_property(goal_label, "modulate:a", 1.0, 1.0)
 	
+
 ## クリア処理
 ## [br][br]
 ## クリアを発表し、シグナルを発火。

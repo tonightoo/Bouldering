@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cduj068tyqj7w" path="res://assets/images/action_key.png" id="1_kk3d6"]
 [ext_resource type="Texture2D" uid="uid://uov5h3614jq" path="res://assets/images/skill/empty.png" id="2_3fioh"]
 [ext_resource type="PackedScene" uid="uid://b21x8bpmqmqe6" path="res://scenes/slot_button.tscn" id="3_wfrcu"]
+[ext_resource type="Texture2D" uid="uid://cqgynia18eumx" path="res://assets/images/cooltime.png" id="5_mr4wp"]
 
 [node name="KeySlots" type="Control" unique_id=1570455564]
 process_mode = 3
@@ -35,59 +36,192 @@ grow_vertical = 2
 texture = ExtResource("1_kk3d6")
 expand_mode = 2
 
-[node name="LeftButton" parent="SlotsSprite" unique_id=1463492137 instance=ExtResource("3_wfrcu")]
+[node name="Left" type="Panel" parent="SlotsSprite" unique_id=535555063]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = -64.0
+offset_bottom = 64.0
+
+[node name="LeftButton" parent="SlotsSprite/Left" unique_id=1463492137 instance=ExtResource("3_wfrcu")]
 process_mode = 3
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -64.0
-offset_right = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
 grow_horizontal = 1
 grow_vertical = 1
-focus_neighbor_top = NodePath("../UpButton")
-focus_neighbor_right = NodePath("../RightButton")
-focus_neighbor_bottom = NodePath("../DownButton")
+focus_neighbor_top = NodePath("../../Up/UpButton")
+focus_neighbor_right = NodePath("../../Right/RightButton")
+focus_neighbor_bottom = NodePath("../../Down/DownButton")
 texture_normal = ExtResource("2_3fioh")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="RightButton" parent="SlotsSprite" unique_id=1754166380 instance=ExtResource("3_wfrcu")]
-process_mode = 3
-custom_minimum_size = Vector2(64, 64)
+[node name="LeftProgressBar" type="TextureProgressBar" parent="SlotsSprite/Left" unique_id=1442614928]
+visible = false
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("5_mr4wp")
+
+[node name="LeftLabel" type="Label" parent="SlotsSprite/Left" unique_id=147147520]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="Panel" parent="SlotsSprite" unique_id=1702216860]
+layout_mode = 0
 offset_left = 64.0
-offset_right = 64.0
-focus_neighbor_left = NodePath("../LeftButton")
-focus_neighbor_top = NodePath("../UpButton")
-focus_neighbor_bottom = NodePath("../DownButton")
-texture_normal = ExtResource("2_3fioh")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="UpButton" parent="SlotsSprite" unique_id=940764587 instance=ExtResource("3_wfrcu")]
-process_mode = 3
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-offset_top = -64.0
-offset_bottom = -64.0
-focus_neighbor_left = NodePath("../LeftButton")
-focus_neighbor_right = NodePath("../RightButton")
-focus_neighbor_bottom = NodePath("../DownButton")
-texture_normal = ExtResource("2_3fioh")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="DownButton" parent="SlotsSprite" unique_id=111139598 instance=ExtResource("3_wfrcu")]
-process_mode = 3
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-offset_top = 64.0
+offset_right = 128.0
 offset_bottom = 64.0
-focus_neighbor_left = NodePath("../LeftButton")
-focus_neighbor_top = NodePath("../UpButton")
-focus_neighbor_right = NodePath("../RightButton")
+
+[node name="RightButton" parent="SlotsSprite/Right" unique_id=1754166380 instance=ExtResource("3_wfrcu")]
+process_mode = 3
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+focus_neighbor_left = NodePath("../../Left/LeftButton")
+focus_neighbor_top = NodePath("../../Up/UpButton")
+focus_neighbor_bottom = NodePath("../../Down/DownButton")
 texture_normal = ExtResource("2_3fioh")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="RightProgressBar" type="TextureProgressBar" parent="SlotsSprite/Right" unique_id=1153043589]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("5_mr4wp")
+
+[node name="RightLabel" type="Label" parent="SlotsSprite/Right" unique_id=636722488]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Up" type="Panel" parent="SlotsSprite" unique_id=1452678776]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 64.0
+
+[node name="UpButton" parent="SlotsSprite/Up" unique_id=940764587 instance=ExtResource("3_wfrcu")]
+process_mode = 3
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+focus_neighbor_left = NodePath("../../Left/LeftButton")
+focus_neighbor_right = NodePath("../../Right/RightButton")
+focus_neighbor_bottom = NodePath("../../Down/DownButton")
+texture_normal = ExtResource("2_3fioh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="UpProgressBar" type="TextureProgressBar" parent="SlotsSprite/Up" unique_id=1805435878]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("5_mr4wp")
+
+[node name="UpLabel" type="Label" parent="SlotsSprite/Up" unique_id=1338762183]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Down" type="Panel" parent="SlotsSprite" unique_id=1999101561]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="DownButton" parent="SlotsSprite/Down" unique_id=111139598 instance=ExtResource("3_wfrcu")]
+process_mode = 3
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+focus_neighbor_left = NodePath("../../Left/LeftButton")
+focus_neighbor_top = NodePath("../../Up/UpButton")
+focus_neighbor_right = NodePath("../../Right/RightButton")
+texture_normal = ExtResource("2_3fioh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="DownProgressBar" type="TextureProgressBar" parent="SlotsSprite/Down" unique_id=236173564]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("5_mr4wp")
+
+[node name="DownLabel" type="Label" parent="SlotsSprite/Down" unique_id=2054395122]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

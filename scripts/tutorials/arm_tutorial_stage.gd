@@ -33,7 +33,7 @@ func on_fade_animation_finished(anim_name: StringName) -> void:
 
 func next_scene() -> void:
 	Dialogic.VAR.is_restart = false
-	get_tree().change_scene_to_file("res://scenes/grab_tutorial.tscn")
+	get_tree().change_scene_to_file("res://scenes/tutorials/grab_tutorial.tscn")
 
 			
 func _input(event: InputEvent) -> void:

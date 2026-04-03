@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SkillVictory" format=3 uid="uid://w1gq0046s4rb"]
+
+[ext_resource type="Script" uid="uid://dwanajjfx08j5" path="res://scripts/skills/skill_victory.gd" id="1_kaqp4"]
+
+[resource]
+script = ExtResource("1_kaqp4")
+cooldown_time = 0.0
+metadata/_custom_type_script = "uid://dwanajjfx08j5"

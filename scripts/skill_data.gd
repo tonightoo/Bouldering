@@ -20,3 +20,4 @@ enum SkillType {
 @export_multiline var description: String = ""
 @export var cool_time: float = 10.0
 @export var type: SkillType = SkillType.PASSIVE
+@export var logic: SkillLogic = SkillLogic.new()

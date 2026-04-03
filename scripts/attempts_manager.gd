@@ -10,6 +10,12 @@ func _ready() -> void:
 	#fade_animation.connect_finished(skill_select)
 	load_next_stage()
 
+func _process(delta: float) -> void:
+	for action_key in GlobalData.status.skill_slots.keys():
+		if Input.is_action_just_pressed(action_key):
+			var skill: SkillData = GlobalData.status.skill_slots[action_key]
+			skill.logic.execute(action_key, current_stage.player, current_stage)
+
 func load_next_stage():
 	if get_tree().has_group("stage"):
 		for node in get_tree().get_nodes_in_group("stage"):
@@ -25,6 +31,9 @@ func load_next_stage():
 	#fade_animation.play()
 	
 func skill_select() -> void:
+	for skill_key in GlobalData.status.skill_slots.keys():
+		GlobalData.status.skill_slots[skill_key].logic.next_usable_time = 0.0
+	current_stage.player.keys.update_cooltime()
 	Engine.time_scale = 0.2
 	await get_tree().create_timer(0.6).timeout	
 	Engine.time_scale = 1.0

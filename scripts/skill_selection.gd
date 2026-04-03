@@ -55,6 +55,7 @@ func on_skill_selected(skill: SkillData) -> void:
 func on_active_skill_selected(skill: SkillData) -> void:
 	key_selection.skill_data = skill
 	key_selection.visible = true
+	key_selection.update_sprites()
 
 func _on_visibility_changed() -> void:
 	if visible:
@@ -69,5 +70,6 @@ func _on_visibility_changed_for_keys() -> void:
 		key_selection.arrow_keys.left_button.grab_focus()
 
 func on_clicked(action_name: String) -> void:
-	GlobalData.status.skill_slots[action_name] = key_selection.skill_data
+	GlobalData.status.skill_slots[action_name] = key_selection.skill_data.duplicate(true)
+	GlobalData.status.skill_slots[action_name].logic = key_selection.skill_data.logic.duplicate(true)
 	key_selection.key_selected.emit()

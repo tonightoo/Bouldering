@@ -75,6 +75,9 @@ extends Resource
 @export var ACCEL_MAX_X: float = 300
 @export var ACCEL_MAX_Y: float = 300
 
+## プレイヤーが本来向いているべき方向
+@export var INITIAL_ROTATION: float = 0.0
+
 # ステージ生成関係
 
 ## 全体パス作成時 進行方向を変更しない確率
@@ -98,13 +101,13 @@ const A_RANK_PROBABILITY: float = 0.0
 ## Sランクのホールド確率
 const S_RANK_PROBABILITY: float = 0.0
 ## Normalスキルの排出確率
-const NORMAL_DROP_RATE: float = 50.0
+const NORMAL_DROP_RATE: float = 00.0
 ## Rareスキルの排出確率
-const RARE_DROP_RATE: float = 50.0
+const RARE_DROP_RATE: float = 100.0
 ## Epicスキルの排出確率
 const EPIC_DROP_RATE: float = 0.0
 ## Legendaryスキルの排出確率
-const LEGENDARY_DROP_RATE: float = 0
+const LEGENDARY_DROP_RATE: float = 0.0
 ## 獲得スキル候補の数
 const SKILL_CANDIDATE_NUM: int = 3
 ## タイムリミットの基礎値
