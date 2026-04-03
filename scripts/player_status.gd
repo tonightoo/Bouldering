@@ -18,6 +18,9 @@ var is_gameover: bool = false
 
 var skill_slots: Dictionary[String, SkillData]
 
+var gravity_bonus: float = 0.0
+
+
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
 
@@ -36,6 +39,9 @@ func initialize() -> void:
 	}
 	remaining_life = get_max_life()
 	recalcurate()
+
+func reset_bonus() -> void:
+	gravity_bonus = 0.0
 
 func recalcurate() -> void:
 	power_level = config.POWER_BASE_LEVEL + count_id(skill_list, "power_up")
@@ -166,7 +172,7 @@ func get_air_resistance() -> float:
 
 
 func get_gravity() -> float:
-	return config.GRAVITY
+	return config.GRAVITY + gravity_bonus
 
 
 func get_accel_max_x() -> float:
@@ -174,6 +180,12 @@ func get_accel_max_x() -> float:
 
 func get_accel_max_y() -> float:
 	return config.ACCEL_MAX_Y
+
+func get_initial_rotation() -> float:
+	if get_gravity() >= 0:
+		return config.INITIAL_ROTATION
+	else:
+		return PI
 
 func get_left_arm_max_len() -> float:
 	return get_left_upper_arm_len() + get_left_fore_arm_len() - get_left_elbow_overlap()

@@ -38,7 +38,7 @@ func on_fade_animation_finished(anim_name: StringName) -> void:
 
 func next_scene() -> void:
 	Dialogic.VAR.is_restart = false
-	get_tree().change_scene_to_file("res://scenes/advanced_tutorial.tscn")
+	get_tree().change_scene_to_file("res://scenes/tutorials/advanced_tutorial.tscn")
 	
 func enter_grab_tutorial() -> void:
 	tutorial_tasks.set_text(1, "左手で掴む E or L1")

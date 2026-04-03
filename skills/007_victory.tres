@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://c01wp3i7ssdim"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_s7n1e"]
+[ext_resource type="Resource" uid="uid://w1gq0046s4rb" path="res://scripts/skills/resources/victory.tres" id="1_wtaue"]
+[ext_resource type="Texture2D" uid="uid://ckn6s2yary4l4" path="res://assets/images/skill/victory.png" id="2_lrgsg"]
+
+[resource]
+script = ExtResource("1_s7n1e")
+id = "victory"
+texture = ExtResource("2_lrgsg")
+name = "Victory"
+rank = 3
+description = "左右対称なVのポーズで発動できると無条件勝利
+V それは究極の勝利のポーズ"
+cool_time = 0.0
+type = 0
+logic = ExtResource("1_wtaue")
+metadata/_custom_type_script = "uid://dup46okboq4dh"

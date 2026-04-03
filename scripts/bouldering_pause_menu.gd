@@ -26,7 +26,7 @@ func _on_continue_button_pressed() -> void:
 	visible = false
 
 func _on_restart_bouldering_button_pressed() -> void:
-	player.initialize()
+	player.enabled_initialize()
 	GlobalData.status.set_remaining_life(GlobalData.status.remaining_life - 1)
 	get_tree().paused = false
 	visible = false

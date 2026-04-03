@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SkillReverseGravity" format=3 uid="uid://djy18tpbr5277"]
+
+[ext_resource type="Script" uid="uid://twyx5upwa4cm" path="res://scripts/skills/skill_reverse_gravity.gd" id="1_wtwdi"]
+
+[resource]
+script = ExtResource("1_wtwdi")
+cooldown_time = 10.0
+metadata/_custom_type_script = "uid://twyx5upwa4cm"

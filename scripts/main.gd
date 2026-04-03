@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 
 func to_tutorial_scene(anim_name: StringName) -> void:
 	GlobalData.status.skill_list.clear()
-	get_tree().change_scene_to_file("res://scenes/arm_tutorial_stage.tscn")	
+	get_tree().change_scene_to_file("res://scenes/tutorials/arm_tutorial_stage.tscn")	
 
 func to_story_scene(anim_name: StringName) -> void:
 	#get_tree().change_scene_to_file("res://stage_1.tscn")

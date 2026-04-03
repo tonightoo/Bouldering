@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dcbhl5msnxfs7"]
 
-[ext_resource type="Script" uid="uid://h7qu5qerkmqa" path="res://scripts/arm_tutorial_stage.gd" id="1_oe5qm"]
+[ext_resource type="Script" uid="uid://h7qu5qerkmqa" path="res://scripts/tutorials/arm_tutorial_stage.gd" id="1_oe5qm"]
 [ext_resource type="PackedScene" uid="uid://bcdkdymc37lpc" path="res://scenes/player.tscn" id="2_r5s75"]
 [ext_resource type="PackedScene" uid="uid://b4poucd0ncyin" path="res://scenes/hold.tscn" id="3_8bht6"]
 [ext_resource type="Texture2D" uid="uid://crgku3cijdu68" path="res://assets/images/background/gym_background_wood.png" id="3_inykr"]

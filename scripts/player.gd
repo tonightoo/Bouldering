@@ -99,13 +99,16 @@ var right_arm_length_limit: float
 @onready var topright_message_label = $CanvasLayer/TopRightMessageLabel
 
 ## カメラ
-@onready var camera = $Body/Camera2D
+@onready var camera = $Camera2D
+
 ## オブザベ中にかかる暗闇効果
 @onready var dark_screen = $DarkScreen
 ## オブザベ中に使用する視界
 @onready var spot_light = $ObservationVision
 ## クリア時のぼかし用
-@onready var blur_rect = $Body/Camera2D/BlurRect
+@onready var blur_rect = $CanvasLayer/BlurRect
+## ヴィネット用
+@onready var vignette_rect = $CanvasLayer/VignetteRect
 ## クリア時のエフェクト
 @onready var clear_effect_left = $Body/ClearEffectLeft
 @onready var clear_effect_right = $Body/ClearEffectRight
@@ -136,7 +139,6 @@ func _ready() -> void:
 	left_fore_arm_sprite.position.x = GlobalData.status.get_left_fore_arm_len() / 2 - GlobalData.status.get_left_elbow_overlap()
 	var left_hand_sprite_half_width = left_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * left_hand_sprite.scale.x / 2
 	left_hand.position.x = GlobalData.status.get_left_fore_arm_len() - GlobalData.status.get_left_elbow_overlap() + left_hand_sprite_half_width - GlobalData.status.get_left_hand_overlap()
-	print(left_fore_arm_sprite.position, left_hand.position)
 
 	right_upper_arm_sprite.scale.x = GlobalData.status.get_right_upper_arm_len() / right_upper_arm_sprite.texture.get_width()
 	right_upper_arm_sprite.position.x = GlobalData.status.get_right_upper_arm_len() / 2
@@ -145,7 +147,6 @@ func _ready() -> void:
 	right_fore_arm_sprite.position.x = GlobalData.status.get_right_fore_arm_len() / 2 - GlobalData.status.get_right_elbow_overlap()
 	var right_hand_sprite_half_width = right_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * right_hand_sprite.scale.x / 2
 	right_hand.position.x = GlobalData.status.get_right_fore_arm_len() - GlobalData.status.get_right_elbow_overlap() + right_hand_sprite_half_width - GlobalData.status.get_right_hand_overlap()
-	print(right_fore_arm_sprite.position, right_hand.position)
 
 	# HandController を生成して参照ノードをセット
 	hand_controller = HandController.new()
@@ -241,32 +242,32 @@ func _process(delta: float) -> void:
 	if GlobalData.status.is_gameover:
 		GlobalData.signals.gameover.emit()
 
-	for action_key in GlobalData.status.skill_slots.keys():
-		if Input.is_action_just_pressed(action_key):
-			var skill: SkillData = GlobalData.status.skill_slots[action_key]
-			var skill_name: String = skill.id
-			if has_method(skill_name):
-				call(skill_name)
-
 	if observation_controller.is_observation:
 		return
 
 	bouldering_process(delta)
 
-func initialize() -> void:
+func enabled_initialize() -> void:
 	is_initialize_next = true
+
+func initialize() -> void:
+	body_velocity = Vector2.ZERO
+	last_body_velocity = Vector2.ZERO
+	body.linear_velocity = Vector2.ZERO
+	body.angular_velocity = 0.0
+	body.global_position = Vector2(initial_position.x, initial_position.y)
+	body.global_rotation = 0
+	is_initialize_next = false
+	fatigue_manager.left_hand_fatigue = 0.0
+	fatigue_manager.right_hand_fatigue = 0.0
+	body.gravity_scale = 1.0
+	camera.rotation = 0.0
+	vignette_rect.visible = false
+	GlobalData.status.reset_bonus()
 
 func bouldering_process(delta: float) -> void:
 	if is_initialize_next:
-		body_velocity = Vector2.ZERO
-		last_body_velocity = Vector2.ZERO
-		body.linear_velocity = Vector2.ZERO
-		body.angular_velocity = 0.0
-		body.global_position = Vector2(initial_position.x, initial_position.y)
-		body.global_rotation = 0
-		is_initialize_next = false
-		fatigue_manager.left_hand_fatigue = 0.0
-		fatigue_manager.right_hand_fatigue = 0.0
+		initialize()
 		return
 		
 	if Input.is_action_just_pressed("LeftHold"):
@@ -352,7 +353,12 @@ func bouldering_process(delta: float) -> void:
 			delta
 		)	
 	check_current_position()
+	keys.update_cooltime()
+	update_camera()
 	#recalcurate_body_velocity(last_body_position, delta)
+
+func update_camera() -> void:
+	camera.global_position = body.global_position
 
 func check_current_position() -> void:
 	if body.global_position.x >= 2000 or \
@@ -380,6 +386,7 @@ func update_hand_target(delta):
 	)
 	if left_dir.length() > 0:
 		left_dir = left_dir.normalized()
+		left_dir = left_dir.rotated(camera.rotation)
 		left_hand_velocity += left_dir * GlobalData.status.get_hand_accel() * delta
 	else:
 		left_hand_velocity = left_hand_velocity.move_toward(Vector2.ZERO, GlobalData.status.get_hand_decel() * delta)
@@ -388,6 +395,7 @@ func update_hand_target(delta):
 
 	if right_dir.length() > 0:
 		right_dir = right_dir.normalized()		
+		right_dir = right_dir.rotated(camera.rotation)
 		right_hand_velocity += right_dir * GlobalData.status.get_hand_accel() * delta
 	else:
 		right_hand_velocity = right_hand_velocity.move_toward(Vector2.ZERO, GlobalData.status.get_hand_decel() * delta)
@@ -516,9 +524,11 @@ func clamp_body_velocity(delta: float) -> void:
 func apply_rotation_power(delta: float) -> void:
 	if not hand_controller.is_grabbing_something:
 		return
-	
-	var target_rotation = 0.0
-	body.rotation = lerp_angle(body.rotation, target_rotation, 0.002 * delta * GlobalData.status.get_gravity())
+	body.rotation = lerp_angle(
+		body.rotation, 
+		GlobalData.status.get_initial_rotation(), 
+		0.002 * delta * abs(GlobalData.status.get_gravity())
+	)
 		
 		
 ## 掴んでいるホールドの移動をプレイヤーに適用
