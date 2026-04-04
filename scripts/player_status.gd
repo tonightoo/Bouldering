@@ -1,6 +1,7 @@
 class_name PlayerStatus
 extends Resource
 
+
 var config: PlayerConfig
 
 var power_level: int = 5
@@ -20,6 +21,9 @@ var skill_slots: Dictionary[String, SkillData]
 
 var gravity_bonus: float = 0.0
 
+# おなら関係
+var is_triggered_fart_lunge: bool = false
+var fart_num: int
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
@@ -50,6 +54,7 @@ func recalcurate() -> void:
 	stamina_level = config.STAMINA_BASE_LEVEL + count_id(skill_list, "stamina_up")	
 	observation_level = config.OBSERVATION_BASE_LEVEL + count_id(skill_list, "observation_up")	
 	pause_enabled = true
+	fart_num = 0
 
 # power
 func get_lift_up_strength() -> float:
@@ -247,6 +252,9 @@ func get_skill_candidate_num() -> int:
 
 func get_max_life() -> int:
 	return config.MAX_LIFE
+
+func get_fart_force() -> float:
+	return config.FART_FORCE * pow(0.8, fart_num)
 
 func set_remaining_life(new_life: int) -> void:
 	remaining_life = clamp(new_life, 0, get_max_life())
