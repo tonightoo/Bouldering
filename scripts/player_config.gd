@@ -113,6 +113,8 @@ const SKILL_CANDIDATE_NUM: int = 3
 ## タイムリミットの基礎値
 const BASE_STAGE_TIME_LIMIT: float = 300
 
+## おならの力
+const FART_FORCE: float = 1000.0
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0

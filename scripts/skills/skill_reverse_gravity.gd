@@ -28,7 +28,7 @@ func execute(key: String, player: Player, stage: Stage):
 	tween.tween_property(player.vignette_rect.material, "shader_parameter/vignette_opacity", 0.9, 0.05)
 	tween.tween_property(player.camera, "zoom", Vector2(1.1, 1.1), 0.1)
 	var target_rotation = player.camera.rotation + PI
-	tween.parallel().tween_property(player.body, "rotation", target_rotation, 0.1)
+	#tween.parallel().tween_property(player.body, "rotation", target_rotation, 0.1)
 	tween.parallel().tween_property(player.camera, "rotation", target_rotation, 0.18).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(player.camera, "zoom", Vector2(1.0, 1.0), 0.1)
 	start_cooldown()
@@ -44,7 +44,7 @@ func restore_gravity(player: Player) -> void:
 	var tween = player.camera.create_tween()
 	tween.tween_property(player.camera, "zoom", Vector2(1.1, 1.1), 0.1)
 	var target_rotation = player.camera.rotation + PI
-	tween.parallel().tween_property(player.body, "rotation", target_rotation, 0.1)
+	#tween.parallel().tween_property(player.body, "rotation", target_rotation, 0.1)
 	tween.parallel().tween_property(player.camera, "rotation", target_rotation, 0.18).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(player.camera, "zoom", Vector2(1.0, 1.0), 0.1)
 	

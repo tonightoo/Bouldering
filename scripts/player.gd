@@ -113,6 +113,8 @@ var right_arm_length_limit: float
 @onready var clear_effect_left = $Body/ClearEffectLeft
 @onready var clear_effect_right = $Body/ClearEffectRight
 
+@onready var fart_particle = $Body/FartParticle
+
 @onready var keys = $KeySelection
 
 ## 速度
@@ -303,6 +305,7 @@ func bouldering_process(delta: float) -> void:
 	update_hand_target(delta)
 	# ランジの入力状態や発動条件を確認し実行
 	lunge_controller.update(delta)
+	apply_fart_skill()
 
 	
 	goal_checker.check_goal_condition(delta)
@@ -467,8 +470,8 @@ func apply_velocity(is_left: bool, input: Vector2, delta: float) -> void:
 		elbow_pos = right_elbow.global_position
 		shoulder_pos = right_shoulder.global_position
 
-	var lines = get_arm_direction_lines(hand_pos, elbow_pos)
-
+	var lines = get_arm_direction_lines(hand_pos, body.global_position)
+	
 	## 左右入力による振り子運動の計算
 	#var pendulum_strength = input.dot(lines["tangent"])
 	apply_pendulum_velocity(lines["tangent"], -input.x, delta)
@@ -665,3 +668,16 @@ func unlighten(name: String, area: Area2D) -> void:
 	
 func inform_cleared() -> void:
 	emit_signal("cleared")
+	
+func apply_fart_skill() -> void:
+	if not GlobalData.status.is_triggered_fart_lunge:
+		return
+	var direction: Vector2 = -body.global_transform.y
+	var force:Vector2 = direction * GlobalData.status.get_fart_force()
+
+	if hand_controller.is_grabbing_something:
+		body_velocity += force
+	else:
+		body.linear_velocity += force
+
+	GlobalData.status.is_triggered_fart_lunge = false

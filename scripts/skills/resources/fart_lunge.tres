@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SkillFartLunge" format=3 uid="uid://du7fplatv3cd3"]
+
+[ext_resource type="Script" uid="uid://bwqyfy5p58vet" path="res://scripts/skills/skill_fart_lunge.gd" id="1_qytvd"]
+
+[resource]
+script = ExtResource("1_qytvd")
+cooldown_time = 60.0
+metadata/_custom_type_script = "uid://bwqyfy5p58vet"
