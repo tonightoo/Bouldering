@@ -5,6 +5,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalData.set_character()
 	$MenuContainer/StartButton.grab_focus()
 	animate_logo()
 
@@ -30,9 +31,9 @@ func to_tutorial_scene(anim_name: StringName) -> void:
 
 func to_story_scene(anim_name: StringName) -> void:
 	#get_tree().change_scene_to_file("res://stage_1.tscn")
-	#get_tree().change_scene_to_file("res://stage.tscn")	
-	GlobalData.status.initialize()
-	get_tree().change_scene_to_file("res://scenes/attempts_manager.tscn")
+	#get_tree().change_scene_to_file("res://stage.tscn")
+	#get_tree().change_scene_to_file("res://scenes/attempts_manager.tscn")
+	get_tree().change_scene_to_file("res://scenes/character_selection.tscn")
 
 func _on_start_button_pressed() -> void:
 	fade_animation.connect_finished(to_story_scene)

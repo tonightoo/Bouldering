@@ -397,7 +397,7 @@ shape = SubResource("CapsuleShape2D_4flbx")
 position = Vector2(0, -2)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_dw050")
-animation = &"open"
+animation = &"grab"
 
 [node name="ChalkParticle" type="CPUParticles2D" parent="Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand" unique_id=1264890147]
 position = Vector2(6, 0)

@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://bxa3gfhyks04m" path="res://assets/images/mat.png" id="4_kd86l"]
 [ext_resource type="Resource" uid="uid://c1s8urr202uoj" path="res://holds/Goal.tres" id="5_xbkgr"]
 [ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="6_s447v"]
-[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://scenes/tutorial_pause_menu.tscn" id="6_vgjrd"]
+[ext_resource type="PackedScene" uid="uid://buyi6bsggwctb" path="res://scenes/tutorials/tutorial_pause_menu.tscn" id="6_vgjrd"]
 [ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="7_kd86l"]
-[ext_resource type="PackedScene" uid="uid://c8vk6gyfivv7o" path="res://scenes/tutorial_tasks.tscn" id="7_r5s75"]
+[ext_resource type="PackedScene" uid="uid://c8vk6gyfivv7o" path="res://scenes/tutorials/tutorial_tasks.tscn" id="7_r5s75"]
 [ext_resource type="PackedScene" uid="uid://hdd7gqm6lo3u" path="res://scenes/fade_layer.tscn" id="8_8bht6"]
 [ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="8_inykr"]
 [ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="9_op5m3"]
@@ -58,30 +58,44 @@ texture = ExtResource("4_kd86l")
 [node name="Hold" parent="." unique_id=1192679127 instance=ExtResource("3_8bht6")]
 position = Vector2(313, 252)
 hold_data = ExtResource("4_02qud")
+is_observed = true
+is_confirmed = true
 
 [node name="Hold2" parent="." unique_id=1776323151 instance=ExtResource("3_8bht6")]
 position = Vector2(241, 91)
 hold_data = ExtResource("6_s447v")
+is_observed = true
+is_confirmed = true
 
 [node name="Hold3" parent="." unique_id=158287427 instance=ExtResource("3_8bht6")]
 position = Vector2(176, 300)
 hold_data = ExtResource("7_kd86l")
+is_observed = true
+is_confirmed = true
 
 [node name="Hold4" parent="." unique_id=1215405630 instance=ExtResource("3_8bht6")]
 position = Vector2(223, 182)
 hold_data = ExtResource("8_inykr")
+is_observed = true
+is_confirmed = true
 
 [node name="Hold5" parent="." unique_id=2100748419 instance=ExtResource("3_8bht6")]
 position = Vector2(197, -10)
 hold_data = ExtResource("9_op5m3")
+is_observed = true
+is_confirmed = true
 
 [node name="Hold6" parent="." unique_id=45685880 instance=ExtResource("3_8bht6")]
 position = Vector2(295, -29)
 hold_data = ExtResource("10_e7ntd")
+is_observed = true
+is_confirmed = true
 
 [node name="GoalHold" parent="." unique_id=273551679 instance=ExtResource("3_8bht6")]
 position = Vector2(241, -118)
 hold_data = ExtResource("5_xbkgr")
+is_observed = true
+is_confirmed = true
 
 [node name="TutorialTasks" parent="." unique_id=1741045538 instance=ExtResource("7_r5s75")]
 

@@ -92,9 +92,13 @@ text/autoadvance_per_word_delay=0
 text/input_action="dialogic_default_action"
 glossary/glossary_files=["uid://b8ifoafo1j3vb"]
 
+[display]
+
+window/size/resizable=false
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [global_group]
 
@@ -282,4 +286,4 @@ right_action={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.627451, 0.84705883, 0.9372549, 1)
+environment/defaults/default_clear_color=Color(0.56078434, 0.827451, 1, 1)

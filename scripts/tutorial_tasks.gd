@@ -1,14 +1,14 @@
 extends CanvasLayer
 
 
-@onready var first_task = $TasksContainer/FirstTask
-@onready var second_task = $TasksContainer/SecondTask
-@onready var third_task = $TasksContainer/ThirdTask
-@onready var fourth_task = $TasksContainer/FourthTask
-@onready var fifth_task = $TasksContainer/FifthTask
-@onready var sixth_task = $TasksContainer/SixthTask
-@onready var seventh_task = $TasksContainer/SeventhTask
-@onready var eighth_task = $TasksContainer/EighthTask
+@onready var first_task = $Panel/TasksContainer/FirstTask
+@onready var second_task = $Panel/TasksContainer/SecondTask
+@onready var third_task = $Panel/TasksContainer/ThirdTask
+@onready var fourth_task = $Panel/TasksContainer/FourthTask
+@onready var fifth_task = $Panel/TasksContainer/FifthTask
+@onready var sixth_task = $Panel/TasksContainer/SixthTask
+@onready var seventh_task = $Panel/TasksContainer/SeventhTask
+@onready var eighth_task = $Panel/TasksContainer/EighthTask
 const CLEAR_TEXT: String = "OK!"
 
 # Called when the node enters the scene tree for the first time.
