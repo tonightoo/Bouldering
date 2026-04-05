@@ -40,8 +40,12 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 ## オブザベーションが必要かどうか
 @export var is_need_observation: bool = false
 
+@onready var head_sprite = $Body/HeadSprite
+
 ## プレイヤーボディ
 @onready var body = $Body
+
+@onready var body_sprite = $Body/BodySprite
 
 ## 左肩
 @onready var left_shoulder =  $Body/LeftShoulder
@@ -131,7 +135,19 @@ signal cleared
 ## 設定を設定し、各種マネージャークラスを生成し毎々に必要な参照を渡す。
 func _ready() -> void:
 	message_label.text = ""
-	
+
+	# スプライトの準備
+	left_upper_arm_sprite.texture = GlobalData.status.get_left_upper_arm_sprite()
+	right_upper_arm_sprite.texture = GlobalData.status.get_right_upper_arm_sprite()
+	left_fore_arm_sprite.texture = GlobalData.status.get_left_fore_arm_sprite()
+	right_fore_arm_sprite.texture = GlobalData.status.get_right_fore_arm_sprite()
+	head_sprite.texture = GlobalData.status.get_head_sprite()
+	body_sprite.texture = GlobalData.status.get_body_sprite()
+	left_hand_sprite.sprite_frames = GlobalData.status.get_left_hand_sprite()
+	right_hand_sprite.sprite_frames = GlobalData.status.get_right_hand_sprite()
+	left_hand_sprite.animation = StringName("open")
+	right_hand_sprite.animation = StringName("open")
+
 	initial_position = Vector2(body.global_position.x, body.global_position.y)
 	# 手のサイズ・位置をステータスに応じて変更
 	left_upper_arm_sprite.scale.x = GlobalData.status.get_left_upper_arm_len() / left_upper_arm_sprite.texture.get_width()
@@ -632,10 +648,10 @@ func _on_lunge_charge_reset() -> void:
 
 func grab_hand_sprite(hand: String, area: Area2D) -> void:
 	if hand == "left":
-		left_hand_sprite.animation = StringName("grab")
+		left_hand_sprite.animation = StringName("grab_gaba")
 		left_chalk_particle.emitting = true
 	elif hand == "right":
-		right_hand_sprite.animation = StringName("grab")
+		right_hand_sprite.animation = StringName("grab_gaba")
 		right_chalk_particle.emitting = true
 	Input.start_joy_vibration(0, 0.5, 0.8, 0.2)
 	

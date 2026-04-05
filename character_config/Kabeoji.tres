@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="PlayerConfig" format=3 uid="uid://bfdbq5v3lbafe"]
+
+[ext_resource type="Script" uid="uid://j15j41e1ufqc" path="res://scripts/player_config.gd" id="1_drye6"]
+[ext_resource type="Texture2D" uid="uid://b5n0vh8ev8hpa" path="res://assets/images/characters/kabe_oji/body-muscle.png" id="1_qtt62"]
+[ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/characters/kabe_oji/head.png" id="2_jjqgf"]
+[ext_resource type="Texture2D" uid="uid://itoprhp5eoa5" path="res://assets/images/characters/kabe_oji/fore-arm-left.png" id="3_7ewow"]
+[ext_resource type="Texture2D" uid="uid://bfbbtdxlbb0n2" path="res://assets/images/characters/kabe_oji/upper-arm-left.png" id="4_6mcr3"]
+[ext_resource type="SpriteFrames" uid="uid://ceun3oibfvr3" path="res://assets/images/characters/kabe_oji/left_hand.aseprite" id="4_7ewow"]
+[ext_resource type="Texture2D" uid="uid://cqply0w4g3x4a" path="res://assets/images/characters/kabe_oji/fore-arm-right.png" id="5_b47rw"]
+[ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/characters/kabe_oji/upper-arm-right.png" id="6_a4to3"]
+[ext_resource type="SpriteFrames" uid="uid://cacht46qglcww" path="res://assets/images/characters/kabe_oji/right_hand.aseprite" id="7_6mcr3"]
+[ext_resource type="Resource" uid="uid://cxlyu3wpcryg3" path="res://skills/000_empty.tres" id="9_6mcr3"]
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="9_a4to3"]
+[ext_resource type="Resource" uid="uid://c0hx3dq8qeqya" path="res://skills/008_fart_lunge.tres" id="10_0h07f"]
+
+[resource]
+script = ExtResource("1_drye6")
+SKILL_SLOTS = Dictionary[String, Object]({
+"circle_action": ExtResource("9_6mcr3"),
+"cross_action": ExtResource("9_6mcr3"),
+"down_action": ExtResource("9_6mcr3"),
+"left_action": ExtResource("9_6mcr3"),
+"right_action": ExtResource("9_6mcr3"),
+"square_action": ExtResource("10_0h07f"),
+"triangle_action": ExtResource("9_6mcr3"),
+"up_action": ExtResource("9_6mcr3")
+})
+IS_UNLOCKED = true
+CHARACTER_NAME = "壁おじ"
+CHARACTER_ID = "Kabeoji"
+LEFT_FORE_ARM_SPRITE = ExtResource("3_7ewow")
+LEFT_UPPER_ARM_SPRITE = ExtResource("4_6mcr3")
+RIGHT_FORE_ARM_SPRITE = ExtResource("5_b47rw")
+RIGHT_UPPER_ARM_SPRITE = ExtResource("6_a4to3")
+BODY_SPRITE = ExtResource("1_qtt62")
+HEAD_SPRITE = ExtResource("2_jjqgf")
+LEFT_HAND_SPRITES = ExtResource("4_7ewow")
+RIGHT_HAND_SPRITES = ExtResource("7_6mcr3")
+metadata/_custom_type_script = "uid://j15j41e1ufqc"

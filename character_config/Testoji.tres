@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="PlayerConfig" format=3 uid="uid://cnnoo5y2od08h"]
+
+[ext_resource type="Texture2D" uid="uid://b5n0vh8ev8hpa" path="res://assets/images/characters/kabe_oji/body-muscle.png" id="1_7trrg"]
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_u7lqg"]
+[ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/characters/kabe_oji/head.png" id="2_622ku"]
+[ext_resource type="Script" uid="uid://j15j41e1ufqc" path="res://scripts/player_config.gd" id="2_egxm8"]
+[ext_resource type="Resource" uid="uid://cxlyu3wpcryg3" path="res://skills/000_empty.tres" id="2_trn0s"]
+[ext_resource type="Texture2D" uid="uid://itoprhp5eoa5" path="res://assets/images/characters/kabe_oji/fore-arm-left.png" id="3_a6emh"]
+[ext_resource type="SpriteFrames" uid="uid://ceun3oibfvr3" path="res://assets/images/characters/kabe_oji/left_hand.aseprite" id="4_uaqvj"]
+[ext_resource type="Texture2D" uid="uid://bfbbtdxlbb0n2" path="res://assets/images/characters/kabe_oji/upper-arm-left.png" id="5_ddhnd"]
+[ext_resource type="Texture2D" uid="uid://cqply0w4g3x4a" path="res://assets/images/characters/kabe_oji/fore-arm-right.png" id="6_wulpv"]
+[ext_resource type="SpriteFrames" uid="uid://cacht46qglcww" path="res://assets/images/characters/kabe_oji/right_hand.aseprite" id="7_ff6ms"]
+[ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/characters/kabe_oji/upper-arm-right.png" id="8_d4ic6"]
+
+[resource]
+script = ExtResource("2_egxm8")
+POWER_BASE_LEVEL = 10
+REACH_BASE_LEVEL = 10
+SPEED_BASE_LEVEL = 10
+STAMINA_BASE_LEVEL = 10
+OBSERVATION_BASE_LEVEL = 10
+SKILL_SLOTS = Dictionary[String, ExtResource("1_u7lqg")]({
+"circle_action": ExtResource("2_trn0s"),
+"cross_action": ExtResource("2_trn0s"),
+"down_action": ExtResource("2_trn0s"),
+"left_action": ExtResource("2_trn0s"),
+"right_action": ExtResource("2_trn0s"),
+"square_action": ExtResource("2_trn0s"),
+"triangle_action": ExtResource("2_trn0s"),
+"up_action": ExtResource("2_trn0s")
+})
+IS_UNLOCKED = true
+CHARACTER_NAME = "Testおじ"
+CHARACTER_ID = "Testoji"
+LEFT_FORE_ARM_SPRITE = ExtResource("3_a6emh")
+LEFT_UPPER_ARM_SPRITE = ExtResource("5_ddhnd")
+RIGHT_FORE_ARM_SPRITE = ExtResource("6_wulpv")
+RIGHT_UPPER_ARM_SPRITE = ExtResource("8_d4ic6")
+BODY_SPRITE = ExtResource("1_7trrg")
+HEAD_SPRITE = ExtResource("2_622ku")
+LEFT_HAND_SPRITES = ExtResource("4_uaqvj")
+RIGHT_HAND_SPRITES = ExtResource("7_ff6ms")
+metadata/_custom_type_script = "uid://j15j41e1ufqc"

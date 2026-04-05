@@ -81,40 +81,64 @@ extends Resource
 # ステージ生成関係
 
 ## 全体パス作成時 進行方向を変更しない確率
-const KEEP_DIRECTION_PERCENTANGE: float = 75.0
+@export var KEEP_DIRECTION_PERCENTANGE: float = 75.0
 ## ホールド位置決定時の候補作成試行回数
-const CANDIDATE_NUM: int = 30
+@export var CANDIDATE_NUM: int = 30
 ## ホールドの最大数
-const HOLD_NUM: int = 30
+@export var HOLD_NUM: int = 30
 ## 最初のホールドの地面からの高さ
-const INITIAL_HOLD_DISTANCE: float = 60.0
+@export var INITIAL_HOLD_DISTANCE: float = 60.0
 ## ホールド間の距離最低値
-const HOLD_DISTANCE_MIN: float = 100
+@export var HOLD_DISTANCE_MIN: float = 100
 ## パスとの近さの得点率に使用する値
-const CLOSE_RATE: float = 120
+@export var CLOSE_RATE: float = 120
 ## Cランクのホールド確率
-const C_RANK_PROBABILITY: float = 80.0
+@export var C_RANK_PROBABILITY: float = 80.0
 ## Bランクのホールド確率
-const B_RANK_PROBABILITY: float = 20.0
+@export var B_RANK_PROBABILITY: float = 20.0
 ## Aランクのホールド確率
-const A_RANK_PROBABILITY: float = 0.0
+@export var A_RANK_PROBABILITY: float = 0.0
 ## Sランクのホールド確率
-const S_RANK_PROBABILITY: float = 0.0
+@export var S_RANK_PROBABILITY: float = 0.0
 ## Normalスキルの排出確率
-const NORMAL_DROP_RATE: float = 00.0
+@export var NORMAL_DROP_RATE: float = 00.0
 ## Rareスキルの排出確率
-const RARE_DROP_RATE: float = 100.0
+@export var RARE_DROP_RATE: float = 100.0
 ## Epicスキルの排出確率
-const EPIC_DROP_RATE: float = 0.0
+@export var EPIC_DROP_RATE: float = 0.0
 ## Legendaryスキルの排出確率
-const LEGENDARY_DROP_RATE: float = 0.0
+@export var LEGENDARY_DROP_RATE: float = 0.0
 ## 獲得スキル候補の数
-const SKILL_CANDIDATE_NUM: int = 3
+@export var SKILL_CANDIDATE_NUM: int = 3
 ## タイムリミットの基礎値
-const BASE_STAGE_TIME_LIMIT: float = 300
+@export var BASE_STAGE_TIME_LIMIT: float = 300
 
 ## おならの力
-const FART_FORCE: float = 1000.0
+@export var FART_FORCE: float = 1000.0
+
+## 初期所持アクティブスキル
+@export var SKILL_SLOTS: Dictionary[String, SkillData]
+
+## 初期所持パッシブスキル
+@export var SKILL_LIST: Array[SkillData]
+
+# アンロックされているか
+@export var IS_UNLOCKED: bool = false
+
+# キャラ名
+@export var CHARACTER_NAME: String
+
+# キャラID
+@export var CHARACTER_ID: String
+
+@export var LEFT_FORE_ARM_SPRITE: Texture2D
+@export var LEFT_UPPER_ARM_SPRITE: Texture2D
+@export var RIGHT_FORE_ARM_SPRITE: Texture2D
+@export var RIGHT_UPPER_ARM_SPRITE: Texture2D
+@export var BODY_SPRITE: Texture2D
+@export var HEAD_SPRITE: Texture2D
+@export var LEFT_HAND_SPRITES: SpriteFrames
+@export var RIGHT_HAND_SPRITES: SpriteFrames
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0

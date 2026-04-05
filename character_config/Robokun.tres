@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="PlayerConfig" format=3 uid="uid://cggicib84p31k"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_fwicr"]
+[ext_resource type="Texture2D" uid="uid://cw71i3tp2eqle" path="res://assets/images/characters/robokun/body.png" id="1_rbusu"]
+[ext_resource type="Script" uid="uid://j15j41e1ufqc" path="res://scripts/player_config.gd" id="2_1d5dc"]
+[ext_resource type="Texture2D" uid="uid://cyj2x3eg7k1ov" path="res://assets/images/characters/robokun/head.png" id="2_gpnln"]
+[ext_resource type="Resource" uid="uid://cxlyu3wpcryg3" path="res://skills/000_empty.tres" id="2_qfwpi"]
+[ext_resource type="Texture2D" uid="uid://w11bc2ugukfd" path="res://assets/images/characters/robokun/arm.png" id="3_pvdhy"]
+[ext_resource type="SpriteFrames" uid="uid://dvkx4tguxsgh1" path="res://assets/images/characters/robokun/left_hand.aseprite" id="4_rxxfq"]
+[ext_resource type="SpriteFrames" uid="uid://bxycu3mqfkx3a" path="res://assets/images/characters/robokun/right_hand.aseprite" id="5_1avs0"]
+
+[resource]
+script = ExtResource("2_1d5dc")
+REACH_BASE_LEVEL = 8
+SPEED_BASE_LEVEL = 2
+STAMINA_BASE_LEVEL = 3
+SKILL_SLOTS = Dictionary[String, ExtResource("1_fwicr")]({
+"circle_action": ExtResource("2_qfwpi"),
+"cross_action": ExtResource("2_qfwpi"),
+"down_action": ExtResource("2_qfwpi"),
+"left_action": ExtResource("2_qfwpi"),
+"right_action": ExtResource("2_qfwpi"),
+"square_action": ExtResource("2_qfwpi"),
+"triangle_action": ExtResource("2_qfwpi"),
+"up_action": ExtResource("2_qfwpi")
+})
+IS_UNLOCKED = true
+CHARACTER_NAME = "ロボくん"
+CHARACTER_ID = "Robokun"
+LEFT_FORE_ARM_SPRITE = ExtResource("3_pvdhy")
+LEFT_UPPER_ARM_SPRITE = ExtResource("3_pvdhy")
+RIGHT_FORE_ARM_SPRITE = ExtResource("3_pvdhy")
+RIGHT_UPPER_ARM_SPRITE = ExtResource("3_pvdhy")
+BODY_SPRITE = ExtResource("1_rbusu")
+HEAD_SPRITE = ExtResource("2_gpnln")
+LEFT_HAND_SPRITES = ExtResource("4_rxxfq")
+RIGHT_HAND_SPRITES = ExtResource("5_1avs0")
+metadata/_custom_type_script = "uid://j15j41e1ufqc"

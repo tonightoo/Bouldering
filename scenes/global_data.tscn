@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://dcklocxclvjdp"]
 
 [ext_resource type="Script" uid="uid://hhlpl0d7v688" path="res://scripts/global_data.gd" id="1_3u8yy"]
+[ext_resource type="Script" uid="uid://j15j41e1ufqc" path="res://scripts/player_config.gd" id="2_3dl3g"]
 [ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/hold_data.gd" id="2_jh0ns"]
+[ext_resource type="Resource" uid="uid://bfdbq5v3lbafe" path="res://character_config/Kabeoji.tres" id="3_6vm3y"]
 [ext_resource type="Resource" uid="uid://biodh6ufquwuk" path="res://holds/Gaba1_red.tres" id="3_vvp13"]
+[ext_resource type="Resource" uid="uid://cggicib84p31k" path="res://character_config/Robokun.tres" id="4_6vm3y"]
 [ext_resource type="Resource" uid="uid://dda3puxdkpq86" path="res://holds/Gaba2_red.tres" id="4_52n8v"]
 [ext_resource type="Resource" uid="uid://lwaud387aw78" path="res://holds/Gaba3_red.tres" id="5_86y6w"]
+[ext_resource type="Resource" uid="uid://cnnoo5y2od08h" path="res://character_config/Testoji.tres" id="5_h3t4a"]
 [ext_resource type="Resource" uid="uid://bmcm7tp2r0gsm" path="res://holds/Gaba4_red.tres" id="6_3dl3g"]
 [ext_resource type="Resource" uid="uid://b5mdged8nug2q" path="res://holds/Gaba5_red.tres" id="7_6vm3y"]
 [ext_resource type="Resource" uid="uid://bk1k6mhosu4w8" path="res://holds/Gaba6_red.tres" id="8_h3t4a"]
@@ -28,6 +32,11 @@
 
 [node name="GlobalData" type="Node2D" unique_id=909786168]
 script = ExtResource("1_3u8yy")
+configs = Dictionary[String, ExtResource("2_3dl3g")]({
+"Kabeoji": ExtResource("3_6vm3y"),
+"Robokun": ExtResource("4_6vm3y"),
+"Testoji": ExtResource("5_h3t4a")
+})
 c_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("3_vvp13"), ExtResource("4_52n8v"), ExtResource("5_86y6w"), ExtResource("6_3dl3g"), ExtResource("7_6vm3y"), ExtResource("8_h3t4a"), ExtResource("9_fuol3"), ExtResource("10_yigfa"), ExtResource("11_xegd7")])
 b_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("12_uwdrk"), ExtResource("13_kk0tg"), ExtResource("14_4lvrv")])
 goal_holds = Array[ExtResource("2_jh0ns")]([ExtResource("15_ea2y8")])

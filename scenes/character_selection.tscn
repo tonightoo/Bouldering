@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://gqvo110mb2us"]
+
+[ext_resource type="Script" uid="uid://u33rnayum0tr" path="res://scripts/character_selection.gd" id="1_l56u2"]
+[ext_resource type="StyleBox" uid="uid://dyvh3yi3f5fa7" path="res://styles/pastel_style.tres" id="2_o5bvq"]
+[ext_resource type="StyleBox" uid="uid://cnm5i26tt47qc" path="res://styles/pastel_select.tres" id="3_l56u2"]
+[ext_resource type="PackedScene" uid="uid://kx4omwhsl4r1" path="res://scenes/radar_chart.tscn" id="3_o5bvq"]
+
+[node name="CharacterSelection" type="CanvasLayer" unique_id=1104497457]
+script = ExtResource("1_l56u2")
+
+[node name="CharacterList" type="ItemList" parent="." unique_id=311721979]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -244.0
+offset_right = 398.0
+offset_bottom = 128.0
+grow_vertical = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+theme_override_colors/font_hovered_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+theme_override_colors/font_hovered_selected_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+theme_override_colors/font_selected_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+theme_override_styles/panel = ExtResource("2_o5bvq")
+theme_override_styles/hovered_selected = ExtResource("3_l56u2")
+theme_override_styles/hovered_selected_focus = ExtResource("3_l56u2")
+theme_override_styles/selected = ExtResource("3_l56u2")
+theme_override_styles/selected_focus = ExtResource("3_l56u2")
+allow_reselect = true
+auto_width = true
+auto_height = true
+max_columns = 5
+icon_mode = 0
+fixed_icon_size = Vector2i(32, 32)
+
+[node name="Panel" type="Panel" parent="." unique_id=967287900]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -452.0
+offset_top = -244.0
+offset_right = -92.0
+offset_bottom = 116.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_o5bvq")
+
+[node name="RadarChart" parent="Panel" unique_id=1751132813 instance=ExtResource("3_o5bvq")]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+
+[node name="ActiveSkillLabel" type="Label" parent="." unique_id=174434731]
+offset_left = 430.0
+offset_top = 480.0
+offset_right = 478.0
+offset_bottom = 517.0
+theme_override_colors/font_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+text = "Active
+"
+
+[node name="ActiveSkillContainer" type="HBoxContainer" parent="." unique_id=1386702339]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -168.0
+offset_right = 504.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PassiveSkillLabel" type="Label" parent="." unique_id=363163850]
+offset_left = 420.0
+offset_top = 560.0
+offset_right = 476.0
+offset_bottom = 597.0
+theme_override_colors/font_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+text = "Passive"
+
+[node name="PassiveSkillContainer" type="HBoxContainer" parent="." unique_id=1532607490]
+offset_left = 480.0
+offset_top = 560.0
+offset_right = 1080.0
+offset_bottom = 624.0
+grow_horizontal = 2
+grow_vertical = 0

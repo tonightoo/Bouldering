@@ -1,8 +1,10 @@
 extends Node
 
 @export_group("Player Database")
-@export var config: PlayerConfig
+@export var configs: Dictionary[String, PlayerConfig] = {}
 @export var status: PlayerStatus
+
+@export var selected_character_name: String = "Kabeoji"
 
 @export_group("Hold Database")
 @export var c_rank_holds: Array[HoldData]
@@ -18,15 +20,18 @@ extends Node
 @export var epic_skills: Array[SkillData]
 @export var legendary_skills: Array[SkillData]
 
+
 var signals: GlobalSignal
 
 var rng: RandomNumberGenerator
 
 func _ready() -> void:
-	config = PlayerConfig.new()
-	status = PlayerStatus.new(config)
+	#set_character()
 	rng = RandomNumberGenerator.new()
 	signals = GlobalSignal.new()
+
+func set_character() -> void:
+	status = PlayerStatus.new(configs[selected_character_name])
 
 func pick_up_one_hold() -> HoldData:
 	var hold_rand_value = rng.randf_range(0.0, 100.0)

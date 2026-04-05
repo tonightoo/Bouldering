@@ -4,6 +4,7 @@ extends Resource
 
 var config: PlayerConfig
 
+
 var power_level: int = 5
 var reach_level: int = 5
 var speed_level: int = 5
@@ -32,14 +33,14 @@ func initialize() -> void:
 	is_gameover = false
 	skill_list.clear()
 	skill_slots = {
-		"square_action": GlobalData.empty_skill,
-		"triangle_action": GlobalData.empty_skill,
-		"circle_action": GlobalData.empty_skill,
-		"cross_action": GlobalData.empty_skill,
-		"up_action": GlobalData.empty_skill,
-		"down_action": GlobalData.empty_skill,
-		"left_action": GlobalData.empty_skill,
-		"right_action": GlobalData.empty_skill,
+		"square_action": config.SKILL_SLOTS["square_action"],
+		"triangle_action": config.SKILL_SLOTS["triangle_action"],
+		"circle_action": config.SKILL_SLOTS["circle_action"],
+		"cross_action": config.SKILL_SLOTS["cross_action"],
+		"up_action": config.SKILL_SLOTS["up_action"],
+		"down_action": config.SKILL_SLOTS["up_action"],
+		"left_action": config.SKILL_SLOTS["left_action"],
+		"right_action": config.SKILL_SLOTS["right_action"],
 	}
 	remaining_life = get_max_life()
 	recalcurate()
@@ -255,6 +256,30 @@ func get_max_life() -> int:
 
 func get_fart_force() -> float:
 	return config.FART_FORCE * pow(0.8, fart_num)
+
+func get_left_fore_arm_sprite() -> Texture2D:
+	return config.LEFT_FORE_ARM_SPRITE
+
+func get_left_upper_arm_sprite() -> Texture2D:
+	return config.LEFT_UPPER_ARM_SPRITE
+
+func get_right_fore_arm_sprite() -> Texture2D:
+	return config.RIGHT_FORE_ARM_SPRITE
+
+func get_right_upper_arm_sprite() -> Texture2D:
+	return config.RIGHT_UPPER_ARM_SPRITE
+
+func get_body_sprite() -> Texture2D:
+	return config.BODY_SPRITE
+
+func get_head_sprite() -> Texture2D:
+	return config.HEAD_SPRITE
+
+func get_left_hand_sprite() -> SpriteFrames:
+	return config.LEFT_HAND_SPRITES
+
+func get_right_hand_sprite() -> SpriteFrames:
+	return config.RIGHT_HAND_SPRITES
 
 func set_remaining_life(new_life: int) -> void:
 	remaining_life = clamp(new_life, 0, get_max_life())
