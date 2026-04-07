@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4poucd0ncyin"]
 
-[ext_resource type="Script" uid="uid://d066gd247iuxh" path="res://scripts/hold_behavior.gd" id="1_gum5a"]
+[ext_resource type="Script" uid="uid://d066gd247iuxh" path="res://scripts/holds/hold_behavior.gd" id="1_gum5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cj6eu"]
 

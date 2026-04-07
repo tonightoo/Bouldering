@@ -34,19 +34,39 @@ func calcurate() -> void:
 	holds_coordinates.sort_custom(sort_vectors)
 	var holds_type: Array[HoldData]
 
-	for i in range(holds_coordinates.size() - 1):
-		var hold = hold_scene.instantiate()
-		hold.hold_data = GlobalData.pick_up_one_hold()
+	#for i in range(holds_coordinates.size() - 1):
+		#var hold = hold_scene.instantiate()
+		#hold.hold_data = GlobalData.pick_up_one_hold()
+#
+		#hold.global_position = holds_coordinates.get(i)
+		#add_child(hold)
 
+	# 必ず一番高いところはゴールにする
+	#var goal_hold = hold_scene.instantiate()
+	#var goal_index: int = rng.randi_range(0, GlobalData.goal_holds.size() - 1)
+	#goal_hold.hold_data = GlobalData.goal_holds.get(goal_index)
+	#goal_hold.global_position = holds_coordinates.get(holds_coordinates.size() - 1)
+	#add_child(goal_hold)
+
+	var path_end: Vector2 = root_path.curve.get_point_position(root_path.curve.point_count - 1)
+	var goal_index_in_coords := 0
+	var closest_dist := INF
+	for i in range(holds_coordinates.size()):
+		var d = holds_coordinates[i].distance_to(path_end)
+		if d < closest_dist:
+			closest_dist = d
+			goal_index_in_coords = i
+
+	for i in range(holds_coordinates.size()):
+		var hold = hold_scene.instantiate()
+		if i == goal_index_in_coords:
+			var goal_idx: int = rng.randi_range(0, GlobalData.goal_holds.size() - 1)
+			hold.hold_data = GlobalData.goal_holds.get(goal_idx)
+		else:
+			hold.hold_data = GlobalData.pick_up_one_hold()
 		hold.global_position = holds_coordinates.get(i)
 		add_child(hold)
 
-	# 必ず一番高いところはゴールにする
-	var goal_hold = hold_scene.instantiate()
-	var goal_index: int = rng.randi_range(0, GlobalData.goal_holds.size() - 1)
-	goal_hold.hold_data = GlobalData.goal_holds.get(goal_index)
-	goal_hold.global_position = holds_coordinates.get(holds_coordinates.size() - 1)
-	add_child(goal_hold)
 
 	var bounds = Rect2(holds_coordinates[0], Vector2.ZERO)
 	for h in holds_coordinates:
@@ -55,6 +75,7 @@ func calcurate() -> void:
 	bounds = bounds.grow(200.0)
 	background_rect.global_position = bounds.position
 	background_rect.size = bounds.size
+	GlobalData.status.stage_bounds = bounds.grow(500.0)
 
 func sort_vectors(v1: Vector2, v2: Vector2) -> bool:
 	if v1.y > v2.y:
@@ -121,9 +142,9 @@ func initialize() -> void:
 	root_path.curve.clear_points()
 	root_path.curve.add_point(Vector2.ZERO)
 	current_point = Vector2.ZERO
-	current_angle = -90.0
-	search_num = 10
-	step_length = 100
+	current_angle = GlobalData.status.get_current_angle()
+	search_num = GlobalData.status.get_search_num()
+	step_length = GlobalData.status.get_step_length()
 	rng = RandomNumberGenerator.new()	
 	calcurate()
 

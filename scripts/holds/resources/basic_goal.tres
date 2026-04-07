@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GoalStrategy" format=3 uid="uid://c70om4ud7jos4"]
+
+[ext_resource type="Script" uid="uid://c41jgevvgkou" path="res://scripts/holds/goal_strategy.gd" id="1_sukor"]
+
+[resource]
+script = ExtResource("1_sukor")
+metadata/_custom_type_script = "uid://c41jgevvgkou"

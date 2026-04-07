@@ -73,12 +73,22 @@ func update_left_fatigue(delta: float) -> void:
 		if hand_controller.grabbed_hold_right != null:
 			fatigue_rate *= GlobalData.status.get_fatigue_both_hands_reduce_rate()
 		
+		var hold = hand_controller.grabbed_hold_left.get_parent() as HoldBehavior
+		fatigue_rate *= hold.hold_data.fatigue_rate
+		
 		# 疲労度を増加
 		left_hand_fatigue += fatigue_rate * delta
+
+		# 回復ホールドによる回復処理
+		left_hand_fatigue -= hold.hold_data.recovery_rate * GlobalData.status.get_fatigue_recovery_rate() * delta
+		left_hand_fatigue = max(left_hand_fatigue, 0.0)
+
 		# 落下速度によるダメージを追加
 		left_hand_fatigue += left_hand_fall_damage
 		left_hand_fall_damage = 0.0
 		left_hand_fatigue = min(left_hand_fatigue, GlobalData.status.get_max_fatigue())
+		
+		
 		if left_hand_fatigue >= GlobalData.status.get_max_fatigue():
 			hand_controller.release_left_grab()
 			emit_signal("fatigue_depleted", "left")
@@ -117,12 +127,20 @@ func update_right_fatigue(delta: float) -> void:
 		if hand_controller.grabbed_hold_left != null:
 			fatigue_rate *= GlobalData.status.get_fatigue_both_hands_reduce_rate()
 
-		
+		var hold = hand_controller.grabbed_hold_right.get_parent() as HoldBehavior
+		fatigue_rate *= hold.hold_data.fatigue_rate
+
 		right_hand_fatigue += fatigue_rate * delta
+
+		# 回復ホールドによる回復処理
+		right_hand_fatigue -= hold.hold_data.recovery_rate * GlobalData.status.get_fatigue_recovery_rate() * delta
+		right_hand_fatigue = max(right_hand_fatigue, 0.0)
+
 		# 落下速度によるダメージを追加
 		right_hand_fatigue += right_hand_fall_damage
 		right_hand_fall_damage = 0.0
 		right_hand_fatigue = min(right_hand_fatigue, GlobalData.status.get_max_fatigue())
+		
 		
 		if right_hand_fatigue >= GlobalData.status.get_max_fatigue():
 			hand_controller.release_right_grab()

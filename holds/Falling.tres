@@ -1,17 +1,18 @@
 [gd_resource type="Resource" script_class="HoldData" format=3 uid="uid://b88a4t3tn1bvw"]
 
-[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/hold_data.gd" id="1_p6vxj"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/holds/hold_data.gd" id="1_t3utq"]
+[ext_resource type="Script" uid="uid://b1itm0kjuiny2" path="res://scripts/holds/hold_behavior_strategy.gd" id="2_d55vf"]
 [ext_resource type="Texture2D" uid="uid://fqcjixwpw1iv" path="res://assets/images/holds/Gaba1_gray.png" id="2_y4tdf"]
 [ext_resource type="Texture2D" uid="uid://dfa04chatxbb8" path="res://assets/images/holds/Gaba1_white.png" id="3_oo4cf"]
+[ext_resource type="Resource" uid="uid://curifghd02hny" path="res://scripts/holds/resources/basic_falling.tres" id="3_xcs8v"]
 
 [resource]
-script = ExtResource("1_p6vxj")
+script = ExtResource("1_t3utq")
 type = 2
 rank = 2
-size = Vector2(26, 10)
+size = Vector2(32, 32)
 color = Color(0.4745098, 0.33333334, 0.28235295, 1)
 texture = ExtResource("2_y4tdf")
 unknown_texture = ExtResource("3_oo4cf")
-fall_time = 5.0
-respawn_time = 2.0
+strategies = Array[ExtResource("2_d55vf")]([ExtResource("3_xcs8v")])
 metadata/_custom_type_script = "uid://4ydhvgi6orw3"

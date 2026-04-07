@@ -80,6 +80,15 @@ extends Resource
 
 # ステージ生成関係
 
+## ステージ作成最初に枝をはやしていく方向　
+@export var CURRENT_ANGLE = -90.0
+
+## 全体パス作成時のサーチ回数
+@export var SEARCH_NUM: int = 10
+
+## 全体パス作成時の1ステップの長さ
+@export var STEP_LENGTH: int = 100
+
 ## 全体パス作成時 進行方向を変更しない確率
 @export var KEEP_DIRECTION_PERCENTANGE: float = 75.0
 ## ホールド位置決定時の候補作成試行回数
@@ -130,6 +139,7 @@ extends Resource
 
 # キャラID
 @export var CHARACTER_ID: String
+
 
 @export var LEFT_FORE_ARM_SPRITE: Texture2D
 @export var LEFT_UPPER_ARM_SPRITE: Texture2D

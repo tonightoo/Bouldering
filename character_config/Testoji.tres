@@ -19,6 +19,10 @@ REACH_BASE_LEVEL = 10
 SPEED_BASE_LEVEL = 10
 STAMINA_BASE_LEVEL = 10
 OBSERVATION_BASE_LEVEL = 10
+SEARCH_NUM = 100
+STEP_LENGTH = 500
+HOLD_NUM = 90
+HOLD_DISTANCE_MIN = 150.0
 SKILL_SLOTS = Dictionary[String, ExtResource("1_u7lqg")]({
 "circle_action": ExtResource("2_trn0s"),
 "cross_action": ExtResource("2_trn0s"),

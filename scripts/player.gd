@@ -380,12 +380,13 @@ func update_camera() -> void:
 	camera.global_position = body.global_position
 
 func check_current_position() -> void:
-	if body.global_position.x >= 2000 or \
-		body.global_position.x <= -2000 or \
-		body.global_position.y >= 2000 or \
-		body.global_position.y <= -2000:
+	if not GlobalData.status.stage_bounds.has_point(body.global_position):
 		self.initialize()
 		GlobalData.status.set_remaining_life(GlobalData.status.remaining_life - 1)
+	#if body.global_position.x >= 2000 or \
+		#body.global_position.x <= -2000 or \
+		#body.global_position.y >= 2000 or \
+		#body.global_position.y <= -2000:
 
 ## 手のターゲット位置を更新
 ## [br][br]
@@ -654,7 +655,12 @@ func grab_hand_sprite(hand: String, area: Area2D) -> void:
 		right_hand_sprite.animation = StringName("grab_gaba")
 		right_chalk_particle.emitting = true
 	Input.start_joy_vibration(0, 0.5, 0.8, 0.2)
-	
+	hitstop(0.05)
+
+func hitstop(duration: float) -> void:
+	Engine.time_scale = 0.1
+	await get_tree().create_timer(duration * 0.1).timeout
+	Engine.time_scale = 1.0
 
 func open_hand_sprite(hand: String, area: Area2D) -> void:
 	if hand == "left":
@@ -667,6 +673,8 @@ func open_hand_sprite(hand: String, area: Area2D) -> void:
 			body.linear_velocity = body_velocity
 
 func _on_hand_area_entered(area: Area2D) -> void:
+	if area == null:
+		return
 	if area.is_in_group("holdarea"):
 		var hold: HoldBehavior = area.get_parent()
 		hold.lighten()
