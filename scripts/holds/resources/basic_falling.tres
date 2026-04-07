@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FallingStrategy" format=3 uid="uid://curifghd02hny"]
+
+[ext_resource type="Script" uid="uid://ccffjcxuljlku" path="res://scripts/holds/falling_strategy.gd" id="1_mnolj"]
+
+[resource]
+script = ExtResource("1_mnolj")
+fall_time = 3.0
+metadata/_custom_type_script = "uid://ccffjcxuljlku"

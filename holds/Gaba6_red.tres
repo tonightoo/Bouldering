@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HoldData" format=3 uid="uid://bk1k6mhosu4w8"]
 
-[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/hold_data.gd" id="1_id61t"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/holds/hold_data.gd" id="1_id61t"]
 [ext_resource type="Texture2D" uid="uid://dsbtkx30sr3yh" path="res://assets/images/holds/Gaba6_red.png" id="2_gxyk8"]
 [ext_resource type="Texture2D" uid="uid://cu5hoopgytqyf" path="res://assets/images/holds/Gaba6_white.png" id="3_fswo5"]
 

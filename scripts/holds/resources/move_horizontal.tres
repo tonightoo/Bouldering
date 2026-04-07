@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MovingStrategy" format=3 uid="uid://bkl0fiadhmuib"]
+
+[ext_resource type="Script" uid="uid://rxng2ccaguw4" path="res://scripts/holds/MovingStrategy.gd" id="1_otv20"]
+
+[resource]
+script = ExtResource("1_otv20")
+move_amplitude = 50.0
+move_period = 8.0
+metadata/_custom_type_script = "uid://rxng2ccaguw4"

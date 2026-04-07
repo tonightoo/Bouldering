@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="HoldData" format=3 uid="uid://43vu65rlxequ"]
+
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/holds/hold_data.gd" id="1_srrxm"]
+[ext_resource type="Script" uid="uid://b1itm0kjuiny2" path="res://scripts/holds/hold_behavior_strategy.gd" id="2_vll6i"]
+[ext_resource type="Texture2D" uid="uid://tynkh8tktsjs" path="res://assets/images/holds/Gaba6_green.png" id="3_srrxm"]
+[ext_resource type="Texture2D" uid="uid://cu5hoopgytqyf" path="res://assets/images/holds/Gaba6_white.png" id="4_vll6i"]
+
+[resource]
+script = ExtResource("1_srrxm")
+type = 6
+rank = 3
+size = Vector2(32, 32)
+texture = ExtResource("3_srrxm")
+unknown_texture = ExtResource("4_vll6i")
+fatigue_rate = 0.0
+recovery_rate = 1.1
+metadata/_custom_type_script = "uid://4ydhvgi6orw3"

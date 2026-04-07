@@ -1,15 +1,18 @@
 [gd_resource type="Resource" script_class="HoldData" format=3 uid="uid://c1s8urr202uoj"]
 
-[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/hold_data.gd" id="1_12pa5"]
+[ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/holds/hold_data.gd" id="1_kwecp"]
 [ext_resource type="Texture2D" uid="uid://ceasafmbjdkb4" path="res://assets/images/holds/Gaba8_yellow.png" id="2_36dmv"]
+[ext_resource type="Script" uid="uid://b1itm0kjuiny2" path="res://scripts/holds/hold_behavior_strategy.gd" id="2_gyrqh"]
+[ext_resource type="Resource" uid="uid://c70om4ud7jos4" path="res://scripts/holds/resources/basic_goal.tres" id="3_fwq2w"]
 [ext_resource type="Texture2D" uid="uid://corp563tc1a3f" path="res://assets/images/holds/Gaba8_white.png" id="3_lelo2"]
 
 [resource]
-script = ExtResource("1_12pa5")
+script = ExtResource("1_kwecp")
 type = 12
 rank = 3
 size = Vector2(32, 32)
 color = Color(1, 0.84313726, 0, 1)
 texture = ExtResource("2_36dmv")
 unknown_texture = ExtResource("3_lelo2")
+strategies = Array[ExtResource("2_gyrqh")]([ExtResource("3_fwq2w")])
 metadata/_custom_type_script = "uid://4ydhvgi6orw3"

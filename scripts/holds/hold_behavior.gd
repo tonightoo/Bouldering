@@ -43,21 +43,14 @@ func _ready() -> void:
 	visual_sprite.scale = hold_data.size / visual_sprite.texture.get_size()
 	grab_area.shape.size = hold_data.size
 	grab_area.position = Vector2.ZERO
-
+	hold_data = hold_data.duplicate(true)
+	for i in hold_data.strategies.size():
+		hold_data.strategies[i] = hold_data.strategies[i].duplicate(true)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_grabbed_either:
 		grabbed_time += delta
-		
-	# GoalのHoldを両手で3秒保持したらクリア
-	if hold_data.type == HoldData.HoldType.GOAL and is_grabbed_both:
-		grabbed_goal_time += delta
-	elif hold_data.type == HoldData.HoldType.GOAL_RIGHT and grabbed_by_right:
-		grabbed_goal_time += delta
-	elif hold_data.type == HoldData.HoldType.GOAL_LEFT and grabbed_by_left: 
-		grabbed_goal_time += delta
-	else:
-		grabbed_goal_time = 0.0
 	
 	# リスポーン中のタイマー処理
 	if respawn_timer > 0.0:
@@ -66,53 +59,13 @@ func _process(delta: float) -> void:
 			# リスポーン
 			respawn()
 
-	match hold_data.type:
-		HoldData.HoldType.MOVING:
-			update_moving(delta)
-		HoldData.HoldType.FALLING:
-			update_falling(delta)
-		HoldData.HoldType.SLIPPERY:
-			update_slip(delta)
-			
+	for strategy in hold_data.strategies:
+		strategy.update(self, delta)
 		
 	position_delta = global_position - previous_position
 
-func update_moving(delta):
-	if hold_data.move_period <= 0.0:
-		return
-	
-	var t = Time.get_ticks_msec() / 1000.0
-	var phase: float = (t + hold_data.move_phase) * TAU / hold_data.move_period
-	var offset = sin(phase) * hold_data.move_amplitude
-	global_position = base_position + hold_data.move_dir.normalized() * offset
-
-func update_falling(delta):
-	# 掴まれている時間が設定値を超えたら、落下開始
-	if not is_falling and grabbed_time > hold_data.fall_time:
-		is_falling = true
-		enabled = false  # ホールドが掴めないようにする
-		# ホールドが落ち始めた瞬間、掴んでいる手を離す
-		if hand_controller != null:
-			if grabbed_by_left:
-				hand_controller.release_left_grab()
-			if grabbed_by_right:
-				hand_controller.release_right_grab()
-	
-	# 落下中は重力を適用
-	if is_falling and not is_respawning:
-		fall_velocity += fall_gravity * delta
-		global_position.y += fall_velocity * delta
-		
-		# 画面外（大幅に下に落ちた）場合、非表示にしてリスポーン開始
-		if global_position.y > base_position.y + 500:  # 基準位置から500px以上下に落ちた
-			visible = false
-			is_falling = false
-			is_respawning = true
-			if hold_data.respawn_time > 0.0:
-				respawn_timer = hold_data.respawn_time
-		
-func update_slip(delta):
-	pass
+func start_respawn(respawn_time: float) -> void:
+	respawn_timer = respawn_time
 
 func respawn() -> void:
 	# ホールドをリセット
@@ -159,10 +112,8 @@ func flash() -> void:
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BACK)
-	tween.tween_property(visual_sprite, "modulate", Color.WHITE, 0.1)
 	tween.tween_property(visual_sprite, "scale", Vector2(1.5, 1.5), 0.2)
 	tween.tween_property(visual_sprite, "scale", Vector2.ONE, 0.3)
-	tween.tween_property(visual_sprite, "modulate", hold_data.color, 0.3)
 
 func lighten() -> void:
 	var tween = create_tween()

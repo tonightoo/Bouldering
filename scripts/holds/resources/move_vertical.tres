@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MovingStrategy" format=3 uid="uid://cnwgjof6jeyjc"]
+
+[ext_resource type="Script" uid="uid://rxng2ccaguw4" path="res://scripts/holds/MovingStrategy.gd" id="1_agdse"]
+
+[resource]
+script = ExtResource("1_agdse")
+move_dir = Vector2(0, 1)
+move_period = 8.0
+metadata/_custom_type_script = "uid://rxng2ccaguw4"

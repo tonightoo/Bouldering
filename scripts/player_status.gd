@@ -26,6 +26,9 @@ var gravity_bonus: float = 0.0
 var is_triggered_fart_lunge: bool = false
 var fart_num: int
 
+# ゴールのbounds
+var stage_bounds: Rect2
+
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
 
@@ -204,6 +207,15 @@ func get_right_arm_max_len() -> float:
 
 func get_right_arm_min_len() -> float:
 	return config.RIGHT_ARM_MIN_LEN
+
+func get_current_angle() -> float:
+	return config.CURRENT_ANGLE
+
+func get_search_num() -> int:
+	return config.SEARCH_NUM
+
+func get_step_length() -> int:
+	return config.STEP_LENGTH
 
 func get_keep_direction_percentage() -> float:
 	return config.KEEP_DIRECTION_PERCENTANGE
