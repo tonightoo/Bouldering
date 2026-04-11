@@ -34,6 +34,9 @@ var stage_bounds: Rect2
 var left_arm_length_multiplier: float = 1.0
 var right_arm_length_multiplier: float = 1.0
 
+# 精神力で耐えられるかどうか
+var has_fortitude: bool = false
+
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
@@ -41,6 +44,7 @@ func _init(_config: PlayerConfig) -> void:
 func initialize() -> void:
 	is_gameover = false
 	skill_list.clear()
+	skill_list.append_array(config.SKILL_LIST)
 	skill_slots = {
 		"square_action": config.SKILL_SLOTS["square_action"],
 		"triangle_action": config.SKILL_SLOTS["triangle_action"],
@@ -65,6 +69,7 @@ func recalcurate() -> void:
 	speed_level = config.SPEED_BASE_LEVEL + count_id(skill_list, "speed_up")	
 	stamina_level = config.STAMINA_BASE_LEVEL + count_id(skill_list, "stamina_up")	
 	observation_level = config.OBSERVATION_BASE_LEVEL + count_id(skill_list, "observation_up")	
+	has_fortitude = true if count_id(skill_list, "fortitude") > 0 else false
 	pause_enabled = true
 	fart_num = 0
 
@@ -306,6 +311,9 @@ func get_right_hand_sprite() -> SpriteFrames:
 
 func is_triggered_lunge_skill() -> bool:
 	return is_triggered_air_dyno or is_triggered_fart_lunge
+	
+func get_fortitude_cure_ratio() -> float:
+	return config.FORTITUDE_CURE_RATIO
 
 func set_remaining_life(new_life: int) -> void:
 	remaining_life = clamp(new_life, 0, get_max_life())

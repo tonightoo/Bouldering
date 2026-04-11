@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cqply0w4g3x4a" path="res://assets/images/characters/kabe_oji/fore-arm-right.png" id="6_wulpv"]
 [ext_resource type="SpriteFrames" uid="uid://cacht46qglcww" path="res://assets/images/characters/kabe_oji/right_hand.aseprite" id="7_ff6ms"]
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/characters/kabe_oji/upper-arm-right.png" id="8_d4ic6"]
+[ext_resource type="Resource" uid="uid://bkygfog5ki5mk" path="res://skills/012_fortitude.tres" id="10_uaqvj"]
 [ext_resource type="Resource" uid="uid://caopkn00i8skh" path="res://skills/011_right_wire_arm.tres" id="11_a6emh"]
 [ext_resource type="Resource" uid="uid://4xlda0e4vhll" path="res://skills/010_left_wire_arm.tres" id="12_a6emh"]
 
@@ -35,6 +36,7 @@ SKILL_SLOTS = Dictionary[String, ExtResource("1_u7lqg")]({
 "triangle_action": ExtResource("12_a6emh"),
 "up_action": ExtResource("2_trn0s")
 })
+SKILL_LIST = Array[ExtResource("1_u7lqg")]([ExtResource("10_uaqvj")])
 IS_UNLOCKED = true
 CHARACTER_NAME = "Testおじ"
 CHARACTER_ID = "Testoji"

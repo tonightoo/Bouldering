@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_06v2m")
-id = "10"
+id = "left_wire_arm"
 texture = ExtResource("3_spd0n")
 name = "Left wire arm"
 rank = 1

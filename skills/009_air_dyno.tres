@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_uivcg")
-id = "9"
+id = "air_dyno"
 texture = ExtResource("3_q1c4f")
 name = "Air Dyno"
 rank = 1

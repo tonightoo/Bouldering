@@ -150,6 +150,8 @@ extends Resource
 @export var LEFT_HAND_SPRITES: SpriteFrames
 @export var RIGHT_HAND_SPRITES: SpriteFrames
 
+@export var FORTITUDE_CURE_RATIO: float = 0.3
+
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
 var RIGHT_ARM_MAX_LEN := RIGHT_UPPER_ARM_LEN + RIGHT_FORE_ARM_LEN
