@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://4xlda0e4vhll"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_06v2m"]
+[ext_resource type="Resource" uid="uid://bcpqagqwcjy1q" path="res://scripts/skills/resources/left_wire_arm.tres" id="1_spd0n"]
+[ext_resource type="Texture2D" uid="uid://c6rq7eog0ftft" path="res://assets/images/skill/left_wire_arm.png" id="3_spd0n"]
+
+[resource]
+script = ExtResource("1_06v2m")
+id = "left_wire_arm"
+texture = ExtResource("3_spd0n")
+name = "Left wire arm"
+rank = 1
+description = "左手が伸びる
+びよーーーん"
+type = 0
+logic = ExtResource("1_spd0n")
+metadata/_custom_type_script = "uid://dup46okboq4dh"

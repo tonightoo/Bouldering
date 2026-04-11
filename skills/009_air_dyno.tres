@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://drwccn032lxgi"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_uivcg"]
+[ext_resource type="Resource" uid="uid://dflgkxsn6wcst" path="res://scripts/skills/resources/air_dyno.tres" id="1_wnb83"]
+[ext_resource type="Texture2D" uid="uid://cnd2lvrti6tfw" path="res://assets/images/skill/air_dyno.png" id="3_q1c4f"]
+
+[resource]
+script = ExtResource("1_uivcg")
+id = "air_dyno"
+texture = ExtResource("3_q1c4f")
+name = "Air Dyno"
+rank = 1
+description = "ノーモーションダイノ
+方向入力で狙いを定められる
+ぴょーん"
+cool_time = 0.0
+type = 0
+logic = ExtResource("1_wnb83")
+metadata/_custom_type_script = "uid://dup46okboq4dh"

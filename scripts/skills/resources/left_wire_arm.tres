@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SkillWireArm" format=3 uid="uid://bcpqagqwcjy1q"]
+
+[ext_resource type="Script" uid="uid://bgerh6nt0838w" path="res://scripts/skills/skill_left_wire_arm.gd" id="1_2exq6"]
+
+[resource]
+script = ExtResource("1_2exq6")
+cooldown_time = 0.0
+metadata/_custom_type_script = "uid://bgerh6nt0838w"

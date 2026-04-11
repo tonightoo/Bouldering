@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_mm8ar")
-id = "8"
+id = "fart"
 texture = ExtResource("3_rksfv")
 name = "Fart"
 rank = 1

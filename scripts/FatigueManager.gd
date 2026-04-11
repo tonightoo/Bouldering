@@ -90,6 +90,11 @@ func update_left_fatigue(delta: float) -> void:
 		
 		
 		if left_hand_fatigue >= GlobalData.status.get_max_fatigue():
+			#不屈の精神力スキルを持っていたら一度だけ回復できる
+			if GlobalData.status.has_fortitude:
+				left_hand_fatigue -= GlobalData.status.get_max_fatigue() * GlobalData.status.get_fortitude_cure_ratio()
+				GlobalData.status.has_fortitude = false
+				return
 			hand_controller.release_left_grab()
 			emit_signal("fatigue_depleted", "left")
 	else:
@@ -143,6 +148,11 @@ func update_right_fatigue(delta: float) -> void:
 		
 		
 		if right_hand_fatigue >= GlobalData.status.get_max_fatigue():
+			#不屈の精神力スキルを持っていたら一度だけ回復できる
+			if GlobalData.status.has_fortitude:
+				right_hand_fatigue -= GlobalData.status.get_max_fatigue() * GlobalData.status.get_fortitude_cure_ratio()
+				GlobalData.status.has_fortitude = false
+				return
 			hand_controller.release_right_grab()
 			emit_signal("fatigue_depleted", "right")
 	else:

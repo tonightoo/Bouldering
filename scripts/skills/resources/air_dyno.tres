@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SkillAirDyno" format=3 uid="uid://dflgkxsn6wcst"]
+
+[ext_resource type="Script" uid="uid://jmdntgjam35e" path="res://scripts/skills/skill_air_dyno.gd" id="1_asb16"]
+
+[resource]
+script = ExtResource("1_asb16")
+cooldown_time = 10.0
+metadata/_custom_type_script = "uid://jmdntgjam35e"

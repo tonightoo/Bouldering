@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bovxvn1qds3ua"
+path="res://.godot/imported/template.aseprite-d6b500ca0271e1f02f292e39995e04bb.res"
+
+[deps]
+
+source_file="res://assets/images/skill/template.aseprite"
+dest_files=["res://.godot/imported/template.aseprite-d6b500ca0271e1f02f292e39995e04bb.res"]
+
+[params]
+

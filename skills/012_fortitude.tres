@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bkygfog5ki5mk"]
+
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_fs3iw"]
+
+[resource]
+script = ExtResource("1_fs3iw")
+id = "fortitude"
+name = "Fortitude"
+description = "不屈の精神でスタミナ切れを1度耐え30%回復する
+根性！"
+metadata/_custom_type_script = "uid://dup46okboq4dh"

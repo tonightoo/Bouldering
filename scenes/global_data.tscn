@@ -38,6 +38,7 @@
 [ext_resource type="Resource" uid="uid://c0hx3dq8qeqya" path="res://skills/008_fart_lunge.tres" id="24_52n8v"]
 [ext_resource type="Resource" uid="uid://x8jm6pnm8x1e" path="res://holds/Recover9.tres" id="24_g43vo"]
 [ext_resource type="Resource" uid="uid://c01wp3i7ssdim" path="res://skills/007_victory.tres" id="24_vvp13"]
+[ext_resource type="Resource" uid="uid://drwccn032lxgi" path="res://skills/009_air_dyno.tres" id="38_xy3dq"]
 
 [node name="GlobalData" type="Node2D" unique_id=909786168]
 script = ExtResource("1_3u8yy")
@@ -51,5 +52,5 @@ b_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("12_uwdrk"), ExtResour
 goal_holds = Array[ExtResource("2_jh0ns")]([ExtResource("15_ea2y8")])
 empty_skill = ExtResource("16_jh0ns")
 normal_skills = Array[ExtResource("16_p7ea1")]([ExtResource("17_js40u"), ExtResource("18_xy3dq"), ExtResource("19_sqicn"), ExtResource("20_w22vk"), ExtResource("21_ads5g")])
-rare_skills = Array[ExtResource("16_p7ea1")]([ExtResource("22_ioxdv"), ExtResource("24_52n8v")])
+rare_skills = Array[ExtResource("16_p7ea1")]([ExtResource("22_ioxdv"), ExtResource("24_52n8v"), ExtResource("38_xy3dq")])
 legendary_skills = Array[ExtResource("16_p7ea1")]([ExtResource("24_vvp13")])

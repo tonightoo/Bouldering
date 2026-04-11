@@ -122,8 +122,8 @@ extends Resource
 ## タイムリミットの基礎値
 @export var BASE_STAGE_TIME_LIMIT: float = 300
 
-## おならの力
-@export var FART_FORCE: float = 1000.0
+## ランジスキルのちから
+@export var LUNGE_SKILL_FORCE: float = 1000.0
 
 ## 初期所持アクティブスキル
 @export var SKILL_SLOTS: Dictionary[String, SkillData]
@@ -149,6 +149,8 @@ extends Resource
 @export var HEAD_SPRITE: Texture2D
 @export var LEFT_HAND_SPRITES: SpriteFrames
 @export var RIGHT_HAND_SPRITES: SpriteFrames
+
+@export var FORTITUDE_CURE_RATIO: float = 0.3
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0
