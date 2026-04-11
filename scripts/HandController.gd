@@ -16,6 +16,8 @@ var grabbed_hold_left: Area2D = null
 var grabbed_hold_right: Area2D = null
 ## どちらかの手がホールドを掴んでいるか
 var is_grabbing_something: bool = false
+## 両手で掴んでいるか
+var is_grabbing_both: bool = false
 
 ## 左手ターゲットノード（外部からセット）
 var left_hand_target: Node2D
@@ -55,6 +57,7 @@ func try_grab(hand: Area2D, is_left: bool) -> void:
 			continue
 
 		SoundManager.play_se("grab")
+		
 		if is_left:
 			grabbed_hold_left = a
 			if left_hand_target:
@@ -118,6 +121,7 @@ func release_right_grab() -> void:
 ## is_grabbing_something フラグを、現在のホールド状態に基づいて更新する。
 func update_grab_state() -> void:
 	is_grabbing_something = (grabbed_hold_left != null or grabbed_hold_right != null)
+	is_grabbing_both = (grabbed_hold_left != null and grabbed_hold_right != null)
 
 ## グラブ禁止時間を更新
 ## [br][br]

@@ -22,12 +22,18 @@ var skill_slots: Dictionary[String, SkillData]
 
 var gravity_bonus: float = 0.0
 
-# おなら関係
+# ランジ関係
+var is_triggered_air_dyno: bool = false
 var is_triggered_fart_lunge: bool = false
 var fart_num: int
 
 # ゴールのbounds
 var stage_bounds: Rect2
+
+# 腕が伸びる場合の伸び具合
+var left_arm_length_multiplier: float = 1.0
+var right_arm_length_multiplier: float = 1.0
+
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
@@ -50,6 +56,8 @@ func initialize() -> void:
 
 func reset_bonus() -> void:
 	gravity_bonus = 0.0
+	left_arm_length_multiplier = 1.0
+	right_arm_length_multiplier = 1.0
 
 func recalcurate() -> void:
 	power_level = config.POWER_BASE_LEVEL + count_id(skill_list, "power_up")
@@ -75,13 +83,13 @@ func get_left_upper_arm_len() -> float:
 	return config.LEFT_UPPER_ARM_LEN + 4 * (reach_level - 1)
 
 func get_left_fore_arm_len() -> float:
-	return config.LEFT_FORE_ARM_LEN + 4 * (reach_level - 1)
+	return (config.LEFT_FORE_ARM_LEN + 4 * (reach_level - 1)) * left_arm_length_multiplier
 	
 func get_right_upper_arm_len() -> float:
 	return config.RIGHT_UPPER_ARM_LEN + 4 * (reach_level - 1)
 
 func get_right_fore_arm_len() -> float:
-	return config.RIGHT_FORE_ARM_LEN + 4 * (reach_level - 1)
+	return (config.RIGHT_FORE_ARM_LEN + 4 * (reach_level - 1)) * right_arm_length_multiplier
 
 # speed
 func get_hand_max_speed() -> float:
@@ -267,7 +275,10 @@ func get_max_life() -> int:
 	return config.MAX_LIFE
 
 func get_fart_force() -> float:
-	return config.FART_FORCE * pow(0.8, fart_num)
+	return config.LUNGE_SKILL_FORCE * pow(0.8, fart_num)
+
+func get_lunge_skill_force() -> float:
+	return config.LUNGE_SKILL_FORCE
 
 func get_left_fore_arm_sprite() -> Texture2D:
 	return config.LEFT_FORE_ARM_SPRITE
@@ -292,6 +303,9 @@ func get_left_hand_sprite() -> SpriteFrames:
 
 func get_right_hand_sprite() -> SpriteFrames:
 	return config.RIGHT_HAND_SPRITES
+
+func is_triggered_lunge_skill() -> bool:
+	return is_triggered_air_dyno or is_triggered_fart_lunge
 
 func set_remaining_life(new_life: int) -> void:
 	remaining_life = clamp(new_life, 0, get_max_life())

@@ -451,7 +451,6 @@ randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_l71n6")
 
 [node name="LeftHandTarget" type="Node2D" parent="." unique_id=2015379460]
-visible = false
 position = Vector2(48, -24)
 
 [node name="ColorRect" type="ColorRect" parent="LeftHandTarget" unique_id=1483700435]
@@ -469,7 +468,6 @@ grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
 [node name="RightHandTarget" type="Node2D" parent="." unique_id=2113656126]
-visible = false
 position = Vector2(80, -24)
 
 [node name="ColorRect" type="ColorRect" parent="RightHandTarget" unique_id=2098308742]

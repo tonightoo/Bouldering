@@ -128,6 +128,9 @@ var last_body_velocity: Vector2 = Vector2.ZERO
 var initial_position: Vector2 = Vector2.ZERO
 var is_initialize_next: bool = false
 
+var last_left_fore_arm_length: float = GlobalData.status.get_left_fore_arm_len()
+var last_right_fore_arm_length: float = GlobalData.status.get_right_fore_arm_len()
+
 signal cleared
 
 ## ゲームを初期化
@@ -149,7 +152,7 @@ func _ready() -> void:
 	right_hand_sprite.animation = StringName("open")
 
 	initial_position = Vector2(body.global_position.x, body.global_position.y)
-	# 手のサイズ・位置をステータスに応じて変更
+	## 手のサイズ・位置をステータスに応じて変更
 	left_upper_arm_sprite.scale.x = GlobalData.status.get_left_upper_arm_len() / left_upper_arm_sprite.texture.get_width()
 	left_upper_arm_sprite.position.x = GlobalData.status.get_left_upper_arm_len() / 2
 	left_elbow.position.x = GlobalData.status.get_left_upper_arm_len()
@@ -176,6 +179,7 @@ func _ready() -> void:
 	hand_controller.body = body
 	hand_controller.grabbed.connect(grab_hand_sprite)
 	hand_controller.grabbed.connect(unlighten)
+	hand_controller.grabbed.connect(reset_body_verocity)
 	hand_controller.released.connect(open_hand_sprite)
 	hand_controller.released.connect(lighten)
 
@@ -249,6 +253,38 @@ func adjust_keys_scale(scale: float) -> void:
 	keys.action_keys.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
 	keys.make_it_readonly()
 
+func resize_left_arm(tween: Tween) -> void:
+	if tween != null and hand_controller.grabbed_hold_left != null:
+		tween.stop()
+		tween.finished.emit()
+		
+	# 手のサイズ・位置をステータスに応じて変更
+	var left_fore_arm_length: float = left_fore_arm_sprite.scale.x * left_fore_arm_sprite.texture.get_width()
+	left_fore_arm_sprite.scale.x = GlobalData.status.get_left_fore_arm_len() / left_fore_arm_sprite.texture.get_width()
+	left_fore_arm_sprite.position.x = GlobalData.status.get_left_fore_arm_len() / 2 - GlobalData.status.get_left_elbow_overlap()
+	var left_hand_sprite_half_width = left_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * left_hand_sprite.scale.x / 2
+	left_hand.position.x = GlobalData.status.get_left_fore_arm_len() - GlobalData.status.get_left_elbow_overlap() + left_hand_sprite_half_width - GlobalData.status.get_left_hand_overlap() + left_fore_arm_length - last_left_fore_arm_length
+	#var left_dir = (left_hand_target.global_position - left_shoulder.global_position).normalized()
+	left_hand_target.global_position += (left_fore_arm_length - last_left_fore_arm_length) * (left_hand_target.global_position - left_elbow.global_position).normalized()
+	last_left_fore_arm_length = left_fore_arm_length
+
+func resize_right_arm(tween: Tween) -> void:
+	if tween != null and hand_controller.grabbed_hold_right != null:
+		tween.stop()
+		tween.finished.emit()
+
+	var right_fore_arm_length: float = right_fore_arm_sprite.scale.x * right_fore_arm_sprite.texture.get_width()
+	right_fore_arm_sprite.scale.x = GlobalData.status.get_right_fore_arm_len() / right_fore_arm_sprite.texture.get_width()
+	right_fore_arm_sprite.position.x = GlobalData.status.get_right_fore_arm_len() / 2 - GlobalData.status.get_right_elbow_overlap()
+	var right_hand_sprite_half_width = right_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * right_hand_sprite.scale.x / 2
+	right_hand.position.x = GlobalData.status.get_right_fore_arm_len() - GlobalData.status.get_right_elbow_overlap() + right_hand_sprite_half_width - GlobalData.status.get_right_hand_overlap()
+	right_hand_target.global_position += (right_fore_arm_length - last_right_fore_arm_length) * (right_hand_target.global_position - right_elbow.global_position).normalized()
+	last_right_fore_arm_length = right_fore_arm_length
+
+	#var right_dir = (right_hand_target.global_position - right_shoulder.global_position).normalized()
+	#right_hand_target.global_position = right_shoulder.global_position + right_dir * right_arm_length_limit
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 ## 毎フレーム処理
 ## [br][br]
@@ -300,6 +336,7 @@ func bouldering_process(delta: float) -> void:
 	if not Input.is_action_pressed("RightHold") and hand_controller.grabbed_hold_right != null:
 		hand_controller.release_right_grab()
 
+	#resize_arms()
 	#if Input.is_action_just_released("LeftHold"):
 		#hand_controller.release_left_grab()
 
@@ -322,7 +359,7 @@ func bouldering_process(delta: float) -> void:
 	# ランジの入力状態や発動条件を確認し実行
 	lunge_controller.update(delta)
 	apply_fart_skill()
-
+	apply_air_dyno()
 	
 	goal_checker.check_goal_condition(delta)
 	if hand_controller.is_grabbing_something:
@@ -374,7 +411,17 @@ func bouldering_process(delta: float) -> void:
 	check_current_position()
 	keys.update_cooltime()
 	update_camera()
+	#release_far_hold()
 	#recalcurate_body_velocity(last_body_position, delta)
+
+func release_far_hold() -> void:
+	if hand_controller.grabbed_hold_left != null and \
+		left_hand.global_position.distance_to(hand_controller.grabbed_hold_left.global_position) > 30:
+			hand_controller.release_left_grab()
+
+	if hand_controller.grabbed_hold_right != null and\
+		right_hand.global_position.distance_to(hand_controller.grabbed_hold_right.global_position) > 30:
+			hand_controller.release_right_grab()
 
 func update_camera() -> void:
 	camera.global_position = body.global_position
@@ -453,6 +500,7 @@ func update_hand_target(delta):
 		)
 	
 	apply_rotation_power(delta)
+	
 		
 
 ## 手からの力を使用してボディを移動
@@ -549,7 +597,7 @@ func apply_rotation_power(delta: float) -> void:
 		GlobalData.status.get_initial_rotation(), 
 		0.002 * delta * abs(GlobalData.status.get_gravity())
 	)
-		
+	
 		
 ## 掴んでいるホールドの移動をプレイヤーに適用
 ## [br][br]
@@ -684,6 +732,10 @@ func _on_hand_area_exited(area: Area2D) -> void:
 		var hold: HoldBehavior = area.get_parent()
 		hold.unlighten()
 
+func reset_body_verocity(name: String, area: Area2D) -> void:
+	body_velocity = Vector2.ZERO
+	last_body_velocity = Vector2.ZERO
+
 func lighten(name:String, area: Area2D) -> void:
 	_on_hand_area_entered(area)
 
@@ -692,16 +744,33 @@ func unlighten(name: String, area: Area2D) -> void:
 	
 func inform_cleared() -> void:
 	emit_signal("cleared")
-	
-func apply_fart_skill() -> void:
-	if not GlobalData.status.is_triggered_fart_lunge:
-		return
-	var direction: Vector2 = -body.global_transform.y
-	var force:Vector2 = direction * GlobalData.status.get_fart_force()
 
+func apply_air_dyno() -> void:
+	if not GlobalData.status.is_triggered_air_dyno:
+		return
+	var direction: Vector2 = Vector2(
+		Input.get_action_strength("LeftRight") - Input.get_action_strength("LeftLeft") + Input.get_action_strength("RightRight") - Input.get_action_strength("RightLeft"),
+		Input.get_action_strength("LeftDown")  - Input.get_action_strength("LeftUp") + Input.get_action_strength("RightDown")  - Input.get_action_strength("RightUp")
+	)
+	if direction == Vector2.ZERO:
+		direction = -body.global_transform.y
+	
+	var force:Vector2 = direction.normalized() * GlobalData.status.get_lunge_skill_force()
+	GlobalData.status.is_triggered_air_dyno = false
+		
 	if hand_controller.is_grabbing_something:
 		body_velocity += force
 	else:
 		body.linear_velocity += force
 
+func apply_fart_skill() -> void:
+	if not GlobalData.status.is_triggered_fart_lunge:
+		return
+	var direction: Vector2 = -body.global_transform.y
+	var force:Vector2 = direction * GlobalData.status.get_fart_force()
 	GlobalData.status.is_triggered_fart_lunge = false
+		
+	if hand_controller.is_grabbing_something:
+		body_velocity += force
+	else:
+		body.linear_velocity += force

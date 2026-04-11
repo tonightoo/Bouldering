@@ -122,8 +122,8 @@ extends Resource
 ## タイムリミットの基礎値
 @export var BASE_STAGE_TIME_LIMIT: float = 300
 
-## おならの力
-@export var FART_FORCE: float = 1000.0
+## ランジスキルのちから
+@export var LUNGE_SKILL_FORCE: float = 1000.0
 
 ## 初期所持アクティブスキル
 @export var SKILL_SLOTS: Dictionary[String, SkillData]

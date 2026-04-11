@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://caopkn00i8skh"]
+
+[ext_resource type="Resource" uid="uid://ddc6xch1l6x4v" path="res://scripts/skills/resources/right_wire_arm.tres" id="1_cligx"]
+[ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_wyrvo"]
+[ext_resource type="Texture2D" uid="uid://ylna24d0dbub" path="res://assets/images/skill/right_wire_arm.png" id="3_e5su5"]
+
+[resource]
+script = ExtResource("1_wyrvo")
+id = "11"
+texture = ExtResource("3_e5su5")
+name = "Right Wire Arm"
+rank = 1
+description = "右手が伸びる
+びよーーーん"
+type = 0
+logic = ExtResource("1_cligx")
+metadata/_custom_type_script = "uid://dup46okboq4dh"

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4ydhvgi6orw3" path="res://scripts/holds/hold_data.gd" id="1_awr34"]
 [ext_resource type="Texture2D" uid="uid://cbe32bydv2od" path="res://assets/images/holds/Gaba5_red.png" id="2_71sxr"]
+[ext_resource type="Script" uid="uid://b1itm0kjuiny2" path="res://scripts/holds/hold_behavior_strategy.gd" id="2_q3bc1"]
 [ext_resource type="Texture2D" uid="uid://bccbbhqldb8wf" path="res://assets/images/holds/Gaba5_white.png" id="3_2qvfi"]
 
 [resource]

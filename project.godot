@@ -95,6 +95,8 @@ glossary/glossary_files=["uid://b8ifoafo1j3vb"]
 [display]
 
 window/size/resizable=false
+window/size/minimize_disabled=true
+window/size/maximize_disabled=true
 
 [editor_plugins]
 

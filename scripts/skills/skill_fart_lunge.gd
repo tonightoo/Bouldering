@@ -1,9 +1,6 @@
 class_name SkillFartLunge
 extends SkillLogic
 
-var life_on_execute: int
-var bonus_amount: float
-
 
 func execute(key: String, player: Player, stage: Stage):
 	if player.observation_controller.is_observation:
