@@ -12,8 +12,8 @@
 [ext_resource type="SpriteFrames" uid="uid://cacht46qglcww" path="res://assets/images/characters/kabe_oji/right_hand.aseprite" id="7_ff6ms"]
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/characters/kabe_oji/upper-arm-right.png" id="8_d4ic6"]
 [ext_resource type="Resource" uid="uid://bkygfog5ki5mk" path="res://skills/012_fortitude.tres" id="10_uaqvj"]
-[ext_resource type="Resource" uid="uid://caopkn00i8skh" path="res://skills/011_right_wire_arm.tres" id="11_a6emh"]
-[ext_resource type="Resource" uid="uid://4xlda0e4vhll" path="res://skills/010_left_wire_arm.tres" id="12_a6emh"]
+[ext_resource type="Resource" uid="uid://de3bjxs74q35k" path="res://skills/013_detach_left.tres" id="12_uaqvj"]
+[ext_resource type="Resource" uid="uid://dpl4ogu7tyids" path="res://skills/014_detach_right.tres" id="13_uaqvj"]
 
 [resource]
 script = ExtResource("2_egxm8")
@@ -32,8 +32,8 @@ SKILL_SLOTS = Dictionary[String, ExtResource("1_u7lqg")]({
 "down_action": ExtResource("2_trn0s"),
 "left_action": ExtResource("2_trn0s"),
 "right_action": ExtResource("2_trn0s"),
-"square_action": ExtResource("11_a6emh"),
-"triangle_action": ExtResource("12_a6emh"),
+"square_action": ExtResource("12_uaqvj"),
+"triangle_action": ExtResource("13_uaqvj"),
 "up_action": ExtResource("2_trn0s")
 })
 SKILL_LIST = Array[ExtResource("1_u7lqg")]([ExtResource("10_uaqvj")])

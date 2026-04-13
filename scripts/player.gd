@@ -69,6 +69,9 @@ var right_hand_velocity: Vector2 = Vector2.ZERO
 @onready var left_hand_sprite = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/VisualSprite
 ## 左手のチョークパーティクル
 @onready var left_chalk_particle = $Body/LeftShoulder/LeftUpperArm/LeftElbow/LeftForeArm/LeftHand/ChalkParticle
+## 左手ターゲットのスプライト
+@onready var left_hand_target_sprite = $LeftHandTarget/VisualSprite
+
 ## 左手の腕の長さのリミット
 var left_arm_length_limit: float
 
@@ -94,6 +97,9 @@ var left_arm_length_limit: float
 @onready var right_hand_sprite = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/VisualSprite
 ## 右手のチョークパーティクル
 @onready var right_chalk_particle = $Body/RightShoulder/RightUpperArm/RightElbow/RightForeArm/RightHand/ChalkParticle
+## 右手ターゲットのスプライト
+@onready var right_hand_target_sprite = $RightHandTarget/VisualSprite
+
 ## 右手の腕の長さのリミット
 var right_arm_length_limit: float
 
@@ -263,7 +269,7 @@ func resize_left_arm(tween: Tween) -> void:
 	left_fore_arm_sprite.scale.x = GlobalData.status.get_left_fore_arm_len() / left_fore_arm_sprite.texture.get_width()
 	left_fore_arm_sprite.position.x = GlobalData.status.get_left_fore_arm_len() / 2 - GlobalData.status.get_left_elbow_overlap()
 	var left_hand_sprite_half_width = left_hand_sprite.sprite_frames.get_frame_texture("open", 0).get_width() * left_hand_sprite.scale.x / 2
-	left_hand.position.x = GlobalData.status.get_left_fore_arm_len() - GlobalData.status.get_left_elbow_overlap() + left_hand_sprite_half_width - GlobalData.status.get_left_hand_overlap() + left_fore_arm_length - last_left_fore_arm_length
+	left_hand.position.x = GlobalData.status.get_left_fore_arm_len() - GlobalData.status.get_left_elbow_overlap() + left_hand_sprite_half_width - GlobalData.status.get_left_hand_overlap()
 	#var left_dir = (left_hand_target.global_position - left_shoulder.global_position).normalized()
 	left_hand_target.global_position += (left_fore_arm_length - last_left_fore_arm_length) * (left_hand_target.global_position - left_elbow.global_position).normalized()
 	last_left_fore_arm_length = left_fore_arm_length
@@ -371,7 +377,8 @@ func bouldering_process(delta: float) -> void:
 		left_elbow,
 		GlobalData.status.get_left_fore_arm_len() - GlobalData.status.get_left_elbow_overlap(),
 		left_hand_target.global_position,
-		1.0
+		1.0,
+		GlobalData.status.get_left_arm_max_len()
 	)
 	if hand_controller.grabbed_hold_left != null:
 		ik_solver.solve_reverse_ik(
@@ -379,7 +386,8 @@ func bouldering_process(delta: float) -> void:
 			left_shoulder,
 			left_elbow,
 			#config.LEFT_ARM_MAX_LEN,
-			left_arm_length_limit,
+			#left_arm_length_limit,
+			GlobalData.status.get_left_arm_max_len(),
 			GlobalData.status.get_left_arm_min_len(),
 			GlobalData.status.get_left_upper_arm_len(),
 			GlobalData.status.get_left_fore_arm_len() - GlobalData.status.get_left_elbow_overlap(),
@@ -393,7 +401,8 @@ func bouldering_process(delta: float) -> void:
 		right_elbow,
 		GlobalData.status.get_right_fore_arm_len() - GlobalData.status.get_right_elbow_overlap(),
 		right_hand_target.global_position,
-		-1.0
+		-1.0,
+		GlobalData.status.get_right_arm_max_len()
 	)
 	if hand_controller.grabbed_hold_right != null:
 		ik_solver.solve_reverse_ik(
@@ -401,7 +410,8 @@ func bouldering_process(delta: float) -> void:
 			right_shoulder,
 			right_elbow,
 			#config.RIGHT_ARM_MAX_LEN,
-			right_arm_length_limit,
+			#right_arm_length_limit,
+			GlobalData.status.get_right_arm_max_len(),
 			GlobalData.status.get_right_arm_min_len(),
 			GlobalData.status.get_right_upper_arm_len(),
 			GlobalData.status.get_right_fore_arm_len() - GlobalData.status.get_right_elbow_overlap(),
@@ -413,6 +423,10 @@ func bouldering_process(delta: float) -> void:
 	update_camera()
 	#release_far_hold()
 	#recalcurate_body_velocity(last_body_position, delta)
+	if GlobalData.status.is_detaching_left:
+		left_hand.global_position = left_hand_target.global_position
+	if GlobalData.status.is_detaching_right:
+		right_hand.global_position = right_hand_target.global_position
 
 func release_far_hold() -> void:
 	if hand_controller.grabbed_hold_left != null and \
@@ -424,7 +438,12 @@ func release_far_hold() -> void:
 			hand_controller.release_right_grab()
 
 func update_camera() -> void:
-	camera.global_position = body.global_position
+	if GlobalData.status.is_detaching_left:
+		camera.global_position = left_hand_target.global_position
+	elif GlobalData.status.is_detaching_right:
+		camera.global_position = right_hand_target.global_position
+	else:
+		camera.global_position = body.global_position
 
 func check_current_position() -> void:
 	if not GlobalData.status.stage_bounds.has_point(body.global_position):
@@ -500,8 +519,6 @@ func update_hand_target(delta):
 		)
 	
 	apply_rotation_power(delta)
-	
-		
 
 ## 手からの力を使用してボディを移動
 ## [br][br]
