@@ -37,6 +37,13 @@ var right_arm_length_multiplier: float = 1.0
 # 精神力で耐えられるかどうか
 var has_fortitude: bool = false
 
+## バラバラスキル用
+var is_detaching_left: bool = false
+var left_detach_bonus: float = 0.0
+var left_detach_point: Vector2 = Vector2.ZERO
+var is_detaching_right: bool = false
+var right_detach_bonus: float = 0.0
+var right_detach_point: Vector2 = Vector2.ZERO
 
 func _init(_config: PlayerConfig) -> void:
 	self.config = _config
@@ -62,6 +69,12 @@ func reset_bonus() -> void:
 	gravity_bonus = 0.0
 	left_arm_length_multiplier = 1.0
 	right_arm_length_multiplier = 1.0
+	is_detaching_left = false
+	is_detaching_right = false
+	left_detach_bonus = 0.0
+	right_detach_bonus = 0.0
+	left_detach_point = Vector2.ZERO
+	right_detach_point = Vector2.ZERO
 
 func recalcurate() -> void:
 	power_level = config.POWER_BASE_LEVEL + count_id(skill_list, "power_up")
@@ -210,13 +223,13 @@ func get_initial_rotation() -> float:
 		return PI
 
 func get_left_arm_max_len() -> float:
-	return get_left_upper_arm_len() + get_left_fore_arm_len() - get_left_elbow_overlap()
+	return get_left_upper_arm_len() + get_left_fore_arm_len() - get_left_elbow_overlap() + left_detach_bonus
 
 func get_left_arm_min_len() -> float:
 	return config.LEFT_ARM_MIN_LEN
 
 func get_right_arm_max_len() -> float:
-	return get_right_upper_arm_len() + get_right_fore_arm_len() - get_right_elbow_overlap()
+	return get_right_upper_arm_len() + get_right_fore_arm_len() - get_right_elbow_overlap() + right_detach_bonus
 
 func get_right_arm_min_len() -> float:
 	return config.RIGHT_ARM_MIN_LEN

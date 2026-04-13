@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SkillDetachLeft" format=3 uid="uid://dk48j031bs60h"]
+
+[ext_resource type="Script" uid="uid://b768xm4oy55hp" path="res://scripts/skills/skill_detach_left.gd" id="1_o0jrw"]
+
+[resource]
+script = ExtResource("1_o0jrw")
+cooldown_time = 10.0
+metadata/_custom_type_script = "uid://b768xm4oy55hp"

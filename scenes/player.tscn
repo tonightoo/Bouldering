@@ -451,9 +451,11 @@ randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_l71n6")
 
 [node name="LeftHandTarget" type="Node2D" parent="." unique_id=2015379460]
+visible = false
 position = Vector2(48, -24)
 
 [node name="ColorRect" type="ColorRect" parent="LeftHandTarget" unique_id=1483700435]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -467,10 +469,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
+[node name="VisualSprite" type="AnimatedSprite2D" parent="LeftHandTarget" unique_id=2043397123]
+position = Vector2(0, 2)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_2hs0m")
+animation = &"open"
+
 [node name="RightHandTarget" type="Node2D" parent="." unique_id=2113656126]
+visible = false
 position = Vector2(80, -24)
 
 [node name="ColorRect" type="ColorRect" parent="RightHandTarget" unique_id=2098308742]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -483,6 +493,12 @@ offset_bottom = 2.5
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
+
+[node name="VisualSprite" type="AnimatedSprite2D" parent="RightHandTarget" unique_id=1057259312]
+position = Vector2(0, -2)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_dw050")
+animation = &"grab"
 
 [node name="ObservationVision" type="PointLight2D" parent="." unique_id=1201653189]
 visible = false

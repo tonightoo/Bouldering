@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://bkygfog5ki5mk"]
 
 [ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_fs3iw"]
+[ext_resource type="Texture2D" uid="uid://ce7n7bhidqrrr" path="res://assets/images/skill/fortitude.png" id="2_my0bm"]
 
 [resource]
 script = ExtResource("1_fs3iw")
 id = "fortitude"
+texture = ExtResource("2_my0bm")
 name = "Fortitude"
 description = "不屈の精神でスタミナ切れを1度耐え30%回復する
 根性！"

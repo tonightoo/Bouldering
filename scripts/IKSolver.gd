@@ -26,6 +26,7 @@ func solve_ik(
 	fore_len: float,
 	hand_target: Vector2,
 	sign: float,
+	max_len: float,
 ) -> void:
 	# === positions ===
 	var shoulder_pos: Vector2 = shoulder.global_position
@@ -37,11 +38,14 @@ func solve_ik(
 	target_dist = clamp(
 		target_dist,
 		1.0,
-		upper_len + fore_len - 0.1
+		max_len - 0.1
+		#upper_len + fore_len - 0.1
 	)
 	
-	var max_reach = upper_len + fore_len
-	if target_dist >= max_reach - 0.5:
+	#var max_reach = upper_len + fore_len
+	var max_reach = max_len
+	#if target_dist >= max_reach - 0.5:
+	if target_dist >= max_reach:
 		elbow.rotation = 0
 		shoulder.global_rotation = shoulder_to_target.angle()
 		return
@@ -97,7 +101,7 @@ func solve_reverse_ik(
 	upper_len: float,
 	fore_len: float,
 	sign: float,
-	delta: float
+	delta: float,
 ) -> void:
 	# 手の位置は固定
 	var hand_pos = hand_target.global_position
@@ -140,7 +144,7 @@ func solve_reverse_ik(
 	body.global_position = new_body_pos
 	
 	# 通常のIKで腕の角度を解決
-	solve_ik(shoulder, upper_len, elbow, fore_len, hand_pos, sign)
+	solve_ik(shoulder, upper_len, elbow, fore_len, hand_pos, sign, arm_max_len)
 
 ## 円形の範囲内に位置をクランプ
 ## [br][br]
