@@ -90,7 +90,7 @@ extends Resource
 @export var STEP_LENGTH: int = 100
 
 ## 全体パス作成時 進行方向を変更しない確率
-@export var KEEP_DIRECTION_PERCENTANGE: float = 75.0
+@export var KEEP_DIRECTION_PERCENTANGE: float = 50.0
 ## ホールド位置決定時の候補作成試行回数
 @export var CANDIDATE_NUM: int = 30
 ## ホールドの最大数
@@ -152,6 +152,7 @@ extends Resource
 
 @export var FORTITUDE_CURE_RATIO: float = 0.3
 
+@export var STAGE_CLEAR_LEVEL: int = 25
 
 var LEFT_ARM_MAX_LEN := LEFT_UPPER_ARM_LEN + LEFT_FORE_ARM_LEN
 var LEFT_ARM_MIN_LEN := 10.0

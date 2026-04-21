@@ -16,7 +16,12 @@ var remaining_life: int = 3
 var pause_enabled: bool = true
 
 var skill_list: Array[SkillData]
-var is_gameover: bool = false
+var is_gameover: bool = false:
+	set(value):
+		# ここでブレークポイントを張るか、プリントする
+		print("変数が書き換わったよ！ 新しい値: ", value)
+		print_stack() # どこから呼ばれたかスタックトレースを表示
+		is_gameover = value
 
 var skill_slots: Dictionary[String, SkillData]
 
@@ -63,6 +68,7 @@ func initialize() -> void:
 		"right_action": config.SKILL_SLOTS["right_action"],
 	}
 	remaining_life = get_max_life()
+	stage_bounds = Rect2(-200.0, -500.0, 1000, 1000)
 	recalcurate()
 
 func reset_bonus() -> void:
@@ -238,24 +244,49 @@ func get_current_angle() -> float:
 	return config.CURRENT_ANGLE
 
 func get_search_num() -> int:
+	if stage_level > 5 and stage_level <= 10:
+		return config.SEARCH_NUM + 5
+	
 	return config.SEARCH_NUM
 
 func get_step_length() -> int:
+	if stage_level > 10 and stage_level <= 15:
+		return config.STEP_LENGTH + 20
 	return config.STEP_LENGTH
 
 func get_keep_direction_percentage() -> float:
+	if stage_level > 10 and stage_level <= 15:
+		return config.KEEP_DIRECTION_PERCENTANGE - 20
+
+	if stage_level > 15 and stage_level <= 20:
+		return config.KEEP_DIRECTION_PERCENTANGE + 30
+
 	return config.KEEP_DIRECTION_PERCENTANGE
 
 func get_candidate_num() -> int:
+	if stage_level > 20 and stage_level <= 25:
+		return config.CANDIDATE_NUM - 15
 	return config.CANDIDATE_NUM
 
 func get_hold_num() -> int:
+	if stage_level > 5 and stage_level <= 10:
+		return config.HOLD_NUM + 10
+
+	if stage_level > 20 and stage_level <= 25:
+		return config.HOLD_NUM - 10
+		
 	return config.HOLD_NUM
 
 func get_initial_hold_distance() -> float:
 	return config.INITIAL_HOLD_DISTANCE
 
 func get_hold_distance_min() -> float:
+	if stage_level > 15 and stage_level <= 20:
+		return config.HOLD_DISTANCE_MIN + 40
+
+	if stage_level > 25:
+		return config.HOLD_DISTANCE_MIN + 200
+
 	return config.HOLD_DISTANCE_MIN
 
 func get_close_rate() -> float:
@@ -327,6 +358,9 @@ func is_triggered_lunge_skill() -> bool:
 	
 func get_fortitude_cure_ratio() -> float:
 	return config.FORTITUDE_CURE_RATIO
+
+func get_stage_clear_level() -> int:
+	return config.STAGE_CLEAR_LEVEL
 
 func set_remaining_life(new_life: int) -> void:
 	remaining_life = clamp(new_life, 0, get_max_life())

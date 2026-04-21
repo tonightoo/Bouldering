@@ -12,8 +12,10 @@
 [ext_resource type="SpriteFrames" uid="uid://cacht46qglcww" path="res://assets/images/characters/kabe_oji/right_hand.aseprite" id="7_ff6ms"]
 [ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/characters/kabe_oji/upper-arm-right.png" id="8_d4ic6"]
 [ext_resource type="Resource" uid="uid://bkygfog5ki5mk" path="res://skills/012_fortitude.tres" id="10_uaqvj"]
-[ext_resource type="Resource" uid="uid://de3bjxs74q35k" path="res://skills/013_detach_left.tres" id="12_uaqvj"]
+[ext_resource type="Resource" uid="uid://5oc7pfemk20f" path="res://skills/003_reverse_gravity.tres" id="11_wulpv"]
+[ext_resource type="Resource" uid="uid://drwccn032lxgi" path="res://skills/009_air_dyno.tres" id="12_ff6ms"]
 [ext_resource type="Resource" uid="uid://dpl4ogu7tyids" path="res://skills/014_detach_right.tres" id="13_uaqvj"]
+[ext_resource type="Resource" uid="uid://caopkn00i8skh" path="res://skills/011_right_wire_arm.tres" id="14_d4ic6"]
 
 [resource]
 script = ExtResource("2_egxm8")
@@ -22,17 +24,17 @@ REACH_BASE_LEVEL = 10
 SPEED_BASE_LEVEL = 10
 STAMINA_BASE_LEVEL = 10
 OBSERVATION_BASE_LEVEL = 10
-SEARCH_NUM = 100
-STEP_LENGTH = 500
-HOLD_NUM = 90
-HOLD_DISTANCE_MIN = 150.0
+NORMAL_DROP_RATE = 70.0
+RARE_DROP_RATE = 20.0
+EPIC_DROP_RATE = 5.0
+LEGENDARY_DROP_RATE = 5.0
 SKILL_SLOTS = Dictionary[String, ExtResource("1_u7lqg")]({
-"circle_action": ExtResource("2_trn0s"),
-"cross_action": ExtResource("2_trn0s"),
+"circle_action": ExtResource("11_wulpv"),
+"cross_action": ExtResource("12_ff6ms"),
 "down_action": ExtResource("2_trn0s"),
 "left_action": ExtResource("2_trn0s"),
 "right_action": ExtResource("2_trn0s"),
-"square_action": ExtResource("12_uaqvj"),
+"square_action": ExtResource("14_d4ic6"),
 "triangle_action": ExtResource("13_uaqvj"),
 "up_action": ExtResource("2_trn0s")
 })

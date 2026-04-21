@@ -38,7 +38,13 @@
 [ext_resource type="Resource" uid="uid://c0hx3dq8qeqya" path="res://skills/008_fart_lunge.tres" id="24_52n8v"]
 [ext_resource type="Resource" uid="uid://x8jm6pnm8x1e" path="res://holds/Recover9.tres" id="24_g43vo"]
 [ext_resource type="Resource" uid="uid://c01wp3i7ssdim" path="res://skills/007_victory.tres" id="24_vvp13"]
+[ext_resource type="Resource" uid="uid://cqkxuyb3vaiqv" path="res://holds/Pinchi1_red.tres" id="28_sqicn"]
 [ext_resource type="Resource" uid="uid://drwccn032lxgi" path="res://skills/009_air_dyno.tres" id="38_xy3dq"]
+[ext_resource type="Resource" uid="uid://bkygfog5ki5mk" path="res://skills/012_fortitude.tres" id="40_xyk7u"]
+[ext_resource type="Resource" uid="uid://4xlda0e4vhll" path="res://skills/010_left_wire_arm.tres" id="41_g43vo"]
+[ext_resource type="Resource" uid="uid://caopkn00i8skh" path="res://skills/011_right_wire_arm.tres" id="42_3h8pm"]
+[ext_resource type="Resource" uid="uid://de3bjxs74q35k" path="res://skills/013_detach_left.tres" id="43_to00g"]
+[ext_resource type="Resource" uid="uid://dpl4ogu7tyids" path="res://skills/014_detach_right.tres" id="44_x0uub"]
 
 [node name="GlobalData" type="Node2D" unique_id=909786168]
 script = ExtResource("1_3u8yy")
@@ -48,9 +54,10 @@ configs = Dictionary[String, ExtResource("2_3dl3g")]({
 "Testoji": ExtResource("5_h3t4a")
 })
 c_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("3_vvp13"), ExtResource("4_52n8v"), ExtResource("5_86y6w"), ExtResource("6_3dl3g"), ExtResource("7_6vm3y"), ExtResource("8_h3t4a"), ExtResource("9_fuol3"), ExtResource("10_yigfa"), ExtResource("11_xegd7"), ExtResource("16_js40u"), ExtResource("17_xy3dq"), ExtResource("18_sqicn"), ExtResource("19_w22vk"), ExtResource("20_ads5g"), ExtResource("21_ioxdv"), ExtResource("22_hrcw4"), ExtResource("23_xyk7u"), ExtResource("24_g43vo")])
-b_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("12_uwdrk"), ExtResource("13_kk0tg"), ExtResource("14_4lvrv")])
+b_rank_holds = Array[ExtResource("2_jh0ns")]([ExtResource("12_uwdrk"), ExtResource("13_kk0tg"), ExtResource("14_4lvrv"), ExtResource("28_sqicn")])
 goal_holds = Array[ExtResource("2_jh0ns")]([ExtResource("15_ea2y8")])
 empty_skill = ExtResource("16_jh0ns")
 normal_skills = Array[ExtResource("16_p7ea1")]([ExtResource("17_js40u"), ExtResource("18_xy3dq"), ExtResource("19_sqicn"), ExtResource("20_w22vk"), ExtResource("21_ads5g")])
-rare_skills = Array[ExtResource("16_p7ea1")]([ExtResource("22_ioxdv"), ExtResource("24_52n8v"), ExtResource("38_xy3dq")])
+rare_skills = Array[ExtResource("16_p7ea1")]([ExtResource("22_ioxdv"), ExtResource("24_52n8v"), ExtResource("38_xy3dq"), ExtResource("40_xyk7u"), ExtResource("41_g43vo"), ExtResource("42_3h8pm")])
+epic_skills = Array[ExtResource("16_p7ea1")]([ExtResource("43_to00g"), ExtResource("44_x0uub")])
 legendary_skills = Array[ExtResource("16_p7ea1")]([ExtResource("24_vvp13")])

@@ -21,6 +21,7 @@ var clear_effect_right: GPUParticles2D
 var is_goaled: bool = false
 
 func _ready() -> void:
+	GlobalData.status.is_gameover = false
 	GlobalData.signals.gameover.connect(gameover)
 
 ## ゴールしたかどうかを確認
