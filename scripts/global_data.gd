@@ -1,5 +1,7 @@
 extends Node
 
+@export var current_save: SaveData
+
 @export_group("Player Database")
 @export var configs: Dictionary[String, PlayerConfig] = {}
 @export var status: PlayerStatus
@@ -19,7 +21,7 @@ extends Node
 @export var rare_skills: Array[SkillData]
 @export var epic_skills: Array[SkillData]
 @export var legendary_skills: Array[SkillData]
-
+var high_score: int = 0
 
 var signals: GlobalSignal
 
@@ -64,3 +66,21 @@ func get_rank_color(rank: SkillData.SkillRank) -> Color:
 		SkillData.SkillRank.EPIC: return Color("#A884F3FF")
 		SkillData.SkillRank.LEGENDARY: return Color("#F9C22BFF")
 	return Color.WHITE
+
+func save_game() -> void:
+	if not current_save:
+		current_save = SaveData.new()
+	
+	current_save.high_score = self.high_score
+	
+	var error = ResourceSaver.save(current_save, SaveData.SAVE_PATH)
+	if error == OK:
+		print("success")
+	else:
+		print(error)
+
+func load_game() -> void:
+	if FileAccess.file_exists(SaveData.SAVE_PATH):
+		current_save = ResourceLoader.load(SaveData.SAVE_PATH)
+	else:
+		current_save = SaveData.new()

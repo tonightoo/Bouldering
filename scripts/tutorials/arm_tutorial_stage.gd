@@ -8,6 +8,7 @@ var is_entered_arm_tutorial: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalData.status.is_gameover = false
 	tutorial_tasks.reset_tutorial_tasks()
 	Dialogic.start("tutorial")
 
