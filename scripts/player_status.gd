@@ -160,11 +160,50 @@ func get_left_elbow_overlap() -> float:
 func get_left_hand_overlap() -> float:
 	return config.LEFT_HAND_OVERLAP
 
+func get_left_hand_horizontal_offset() -> float:
+	return config.LEFT_HAND_HORIZONTAL_OFFSET
+
+func get_left_hand_collision_radius() -> float:
+	return config.LEFT_HAND_COLLISION_RADIUS
+	
+func get_left_hand_collision_height() -> float:
+	return config.LEFT_HAND_COLLISION_HEIGHT
+
+func get_left_hand_collision_offset() -> Vector2:
+	return config.LEFT_HAND_COLLISION_OFFSET
+	
 func get_right_elbow_overlap() -> float:
 	return config.RIGHT_ELBOW_OVERLAP
 
 func get_right_hand_overlap() -> float:
 	return config.RIGHT_HAND_OVERLAP
+
+func get_right_hand_horizontal_offset() -> float:
+	return config.RIGHT_HAND_HORIZONTAL_OFFSET
+
+func get_right_hand_collision_radius() -> float:
+	return config.RIGHT_HAND_COLLISION_RADIUS
+
+func get_right_hand_collision_height() -> float:
+	return config.RIGHT_HAND_COLLISION_HEIGHT
+
+func get_right_hand_collision_offset() -> Vector2:
+	return config.RIGHT_HAND_COLLISION_OFFSET
+
+func get_head_overlap() -> float:
+	return config.HEAD_OVERLAP
+
+func get_right_shoulder_vertical_overlap() -> float:
+	return config.RIGHT_SHOULDER_VERTICAL_OVERLAP
+
+func get_right_shoulder_horizontal_overlap() -> float:
+	return config.RIGHT_SHOULDER_HORIZONTAL_OVERLAP
+
+func get_left_shoulder_vertical_overlap() -> float:
+	return config.LEFT_SHOULDER_VERTICAL_OVERLAP
+
+func get_left_shoulder_horizontal_overlap() -> float:
+	return config.LEFT_SHOULDER_HORIZONTAL_OVERLAP
 
 func get_smoothness() -> float:
 	return config.SMOOTHNESS

@@ -89,8 +89,8 @@ turbulence_noise_scale = 2.0
 turbulence_noise_speed_random = 0.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
-radius = 16.0
-height = 46.0
+radius = 20.0
+height = 48.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4flbx"]
 radius = 5.0
@@ -236,12 +236,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.85490197, 0.7254902, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" unique_id=1282312990]
-position = Vector2(0, -9)
+[node name="BodyCollision" type="CollisionShape2D" parent="Body" unique_id=1282312990]
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="LeftShoulder" type="Node2D" parent="Body" unique_id=1100496951]
-position = Vector2(-16, -24)
+position = Vector2(-16, -15)
 
 [node name="LeftUpperArm" type="Node2D" parent="Body/LeftShoulder" unique_id=121721875]
 
@@ -330,7 +329,7 @@ scale_amount_curve = SubResource("Curve_bwjto")
 color_ramp = SubResource("Gradient_606se")
 
 [node name="RightShoulder" type="Node2D" parent="Body" unique_id=812598058]
-position = Vector2(16, -24)
+position = Vector2(16, -15)
 
 [node name="RightUpperArm" type="Node2D" parent="Body/RightShoulder" unique_id=230935008]
 
@@ -422,11 +421,10 @@ scale_amount_curve = SubResource("Curve_bwjto")
 color_ramp = SubResource("Gradient_606se")
 
 [node name="BodySprite" type="Sprite2D" parent="Body" unique_id=621112677]
-position = Vector2(0, -9)
 texture = ExtResource("10_ivps1")
 
 [node name="HeadSprite" type="Sprite2D" parent="Body" unique_id=450175935]
-position = Vector2(0, -47)
+position = Vector2(0, -38)
 texture = ExtResource("9_b26j0")
 
 [node name="LeftFatigueUI" parent="Body" unique_id=1199585877 instance=ExtResource("2_onrkg")]
@@ -451,7 +449,6 @@ randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_l71n6")
 
 [node name="LeftHandTarget" type="Node2D" parent="." unique_id=2015379460]
-visible = false
 position = Vector2(48, -24)
 
 [node name="ColorRect" type="ColorRect" parent="LeftHandTarget" unique_id=1483700435]
@@ -469,14 +466,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
 
-[node name="VisualSprite" type="AnimatedSprite2D" parent="LeftHandTarget" unique_id=2043397123]
-position = Vector2(0, 2)
-scale = Vector2(0.7, 0.7)
-sprite_frames = SubResource("SpriteFrames_2hs0m")
-animation = &"open"
-
 [node name="RightHandTarget" type="Node2D" parent="." unique_id=2113656126]
-visible = false
 position = Vector2(80, -24)
 
 [node name="ColorRect" type="ColorRect" parent="RightHandTarget" unique_id=2098308742]
@@ -493,12 +483,6 @@ offset_bottom = 2.5
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.8980392, 0, 0, 1)
-
-[node name="VisualSprite" type="AnimatedSprite2D" parent="RightHandTarget" unique_id=1057259312]
-position = Vector2(0, -2)
-scale = Vector2(0.7, 0.7)
-sprite_frames = SubResource("SpriteFrames_dw050")
-animation = &"grab"
 
 [node name="ObservationVision" type="PointLight2D" parent="." unique_id=1201653189]
 visible = false

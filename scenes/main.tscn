@@ -30,42 +30,53 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = 56.0
+offset_top = -4.0
 offset_right = 100.0
-offset_bottom = 142.0
+offset_bottom = 248.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
 
-[node name="StartButton" type="Button" parent="MenuContainer" unique_id=1974315312]
+[node name="StoryButton" type="Button" parent="MenuContainer" unique_id=1422573499]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../ChallengeButton")
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+text = "ストーリー"
+
+[node name="ChallengeButton" type="Button" parent="MenuContainer" unique_id=1974315312]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../StoryButton")
 focus_neighbor_bottom = NodePath("../TutorialButton")
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
-text = "Start"
+text = "無限登攀"
 
 [node name="TutorialButton" type="Button" parent="MenuContainer" unique_id=1531564401]
 layout_mode = 2
-focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_top = NodePath("../ChallengeButton")
 focus_neighbor_bottom = NodePath("../ExitButton")
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
-text = "Tutorial"
+text = "チュートリアル"
 
 [node name="ExitButton" type="Button" parent="MenuContainer" unique_id=1798186730]
 layout_mode = 2
 focus_neighbor_top = NodePath("../TutorialButton")
-focus_neighbor_bottom = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../ChallengeButton")
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
-text = "Exit"
+text = "終了"
 
 [node name="FadeLayer" parent="." unique_id=908999020 instance=ExtResource("5_lquwl")]
 
-[connection signal="mouse_entered" from="MenuContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
-[connection signal="pressed" from="MenuContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/StoryButton" to="." method="_on_story_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/StoryButton" to="." method="_on_story_button_pressed"]
+[connection signal="mouse_entered" from="MenuContainer/ChallengeButton" to="." method="_on_challenge_button_mouse_entered"]
+[connection signal="pressed" from="MenuContainer/ChallengeButton" to="." method="_on_challenge_button_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/TutorialButton" to="." method="_on_tutorial_button_mouse_entered"]
 [connection signal="pressed" from="MenuContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="mouse_entered" from="MenuContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]

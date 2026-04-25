@@ -34,19 +34,23 @@ SoundManager="*uid://k0eh4pe3a7yo"
 
 [dialogic]
 
-directories/dch_directory={}
+directories/dch_directory={
+"kabeoji": "res://timelines/characters/kabeoji.dch"
+}
 directories/dtl_directory={
 "MainMenu": "res://timelines/MainMenu.dtl",
 "advanced_tutorial": "res://timelines/advanced_tutorial.dtl",
 "grab_tutorial": "res://timelines/grab_tutorial.dtl",
+"story_1": "res://timelines/story_1.dtl",
 "tutorial": "res://timelines/arm_move_tutorial.dtl"
 }
 layout/style_directory={
 "": "res://styles/bouldering.tres",
-"bouldering": "res://styles/bouldering.tres"
+"bouldering": "res://styles/bouldering.tres",
+"stories": "res://styles/stories.tres"
 }
 glossary/default_case_sensitive=true
-layout/style_list=["res://styles/bouldering.tres"]
+layout/style_list=["res://styles/bouldering.tres", "res://styles/stories.tres"]
 layout/default_style="res://styles/bouldering.tres"
 variables={
 "is_arm_tutorial_done": false,

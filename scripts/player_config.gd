@@ -8,10 +8,26 @@ extends Resource
 @export var LEFT_FORE_ARM_LEN: float = 32.0 # 左前腕の長さ
 @export var LEFT_ELBOW_OVERLAP: float = 6.0 # 左肘の重なりの大きさ
 @export var LEFT_HAND_OVERLAP: float = 2.0 # 左手の重なりの大きさ
+@export var LEFT_HAND_HORIZONTAL_OFFSET: float = 2.0 #左手位置の高さ調整
+@export var LEFT_HAND_COLLISION_RADIUS: float = 5.0
+@export var LEFT_HAND_COLLISION_HEIGHT: float = 10.0
+@export var LEFT_HAND_COLLISION_OFFSET: Vector2 = Vector2.ZERO
+
 @export var RIGHT_UPPER_ARM_LEN: float = 32.0 # 右上腕の長さ
 @export var RIGHT_FORE_ARM_LEN: float = 32.0 # 右前腕の長さ
 @export var RIGHT_ELBOW_OVERLAP: float = 6.0 # 右肘の重なりの大きさ
 @export var RIGHT_HAND_OVERLAP: float = 2.0 # 右手の重なりの大きさ
+@export var RIGHT_HAND_HORIZONTAL_OFFSET: float = 2.0 #右手位置の高さ調整
+@export var RIGHT_HAND_COLLISION_RADIUS: float = 5.0
+@export var RIGHT_HAND_COLLISION_HEIGHT: float = 10.0
+@export var RIGHT_HAND_COLLISION_OFFSET: Vector2 = Vector2.ZERO
+
+@export var HEAD_OVERLAP: float = 2.0 # 頭が体と重なっている大きさ
+@export var RIGHT_SHOULDER_VERTICAL_OVERLAP: float = 9.0 # 右肩が体と重なっている大きさ（垂直方向）
+@export var RIGHT_SHOULDER_HORIZONTAL_OVERLAP: float = 4.0 # 右肩が体と重なっている大きさ（水平方向）
+@export var LEFT_SHOULDER_VERTICAL_OVERLAP: float = 9.0 # 左肩が体と重なっている大きさ（垂直方向）
+@export var LEFT_SHOULDER_HORIZONTAL_OVERLAP: float = 4.0 # 左肩が体と重なっている大きさ（水平方向）
+
 @export var SMOOTHNESS = 0.2 # 
 @export var FATIGUE_RATE_OPEN_HAND: float = 3.0 # 腕が伸び切っているときの疲労たまりレート
 @export var FATIGUE_RATE_BENT_ARM: float = 15.0 # 腕を曲げているときの疲労たまりレート
