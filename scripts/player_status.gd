@@ -169,6 +169,9 @@ func get_left_hand_collision_radius() -> float:
 func get_left_hand_collision_height() -> float:
 	return config.LEFT_HAND_COLLISION_HEIGHT
 
+func get_left_hand_collision_offset() -> Vector2:
+	return config.LEFT_HAND_COLLISION_OFFSET
+	
 func get_right_elbow_overlap() -> float:
 	return config.RIGHT_ELBOW_OVERLAP
 
@@ -183,6 +186,9 @@ func get_right_hand_collision_radius() -> float:
 
 func get_right_hand_collision_height() -> float:
 	return config.RIGHT_HAND_COLLISION_HEIGHT
+
+func get_right_hand_collision_offset() -> Vector2:
+	return config.RIGHT_HAND_COLLISION_OFFSET
 
 func get_head_overlap() -> float:
 	return config.HEAD_OVERLAP

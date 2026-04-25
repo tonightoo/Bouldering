@@ -11,6 +11,8 @@ extends Resource
 @export var LEFT_HAND_HORIZONTAL_OFFSET: float = 2.0 #左手位置の高さ調整
 @export var LEFT_HAND_COLLISION_RADIUS: float = 5.0
 @export var LEFT_HAND_COLLISION_HEIGHT: float = 10.0
+@export var LEFT_HAND_COLLISION_OFFSET: Vector2 = Vector2.ZERO
+
 @export var RIGHT_UPPER_ARM_LEN: float = 32.0 # 右上腕の長さ
 @export var RIGHT_FORE_ARM_LEN: float = 32.0 # 右前腕の長さ
 @export var RIGHT_ELBOW_OVERLAP: float = 6.0 # 右肘の重なりの大きさ
@@ -18,6 +20,7 @@ extends Resource
 @export var RIGHT_HAND_HORIZONTAL_OFFSET: float = 2.0 #右手位置の高さ調整
 @export var RIGHT_HAND_COLLISION_RADIUS: float = 5.0
 @export var RIGHT_HAND_COLLISION_HEIGHT: float = 10.0
+@export var RIGHT_HAND_COLLISION_OFFSET: Vector2 = Vector2.ZERO
 
 @export var HEAD_OVERLAP: float = 2.0 # 頭が体と重なっている大きさ
 @export var RIGHT_SHOULDER_VERTICAL_OVERLAP: float = 9.0 # 右肩が体と重なっている大きさ（垂直方向）
