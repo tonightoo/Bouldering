@@ -37,6 +37,7 @@ SoundManager="*uid://k0eh4pe3a7yo"
 directories/dch_directory={}
 directories/dtl_directory={
 "MainMenu": "res://timelines/MainMenu.dtl",
+"Stroy_1": "res://timelines/Stroy_1.dtl",
 "advanced_tutorial": "res://timelines/advanced_tutorial.dtl",
 "grab_tutorial": "res://timelines/grab_tutorial.dtl",
 "tutorial": "res://timelines/arm_move_tutorial.dtl"

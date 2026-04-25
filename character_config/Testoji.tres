@@ -1,16 +1,14 @@
 [gd_resource type="Resource" script_class="PlayerConfig" format=3 uid="uid://cnnoo5y2od08h"]
 
-[ext_resource type="Texture2D" uid="uid://b5n0vh8ev8hpa" path="res://assets/images/characters/kabe_oji/body-muscle.png" id="1_7trrg"]
 [ext_resource type="Script" uid="uid://dup46okboq4dh" path="res://scripts/skill_data.gd" id="1_u7lqg"]
-[ext_resource type="Texture2D" uid="uid://d3c5m77onsfmd" path="res://assets/images/characters/kabe_oji/head.png" id="2_622ku"]
+[ext_resource type="Texture2D" uid="uid://c5ratbynciy3u" path="res://assets/images/characters/kumo_oji/body.png" id="1_uaqvj"]
 [ext_resource type="Script" uid="uid://j15j41e1ufqc" path="res://scripts/player_config.gd" id="2_egxm8"]
 [ext_resource type="Resource" uid="uid://cxlyu3wpcryg3" path="res://skills/000_empty.tres" id="2_trn0s"]
-[ext_resource type="Texture2D" uid="uid://itoprhp5eoa5" path="res://assets/images/characters/kabe_oji/fore-arm-left.png" id="3_a6emh"]
-[ext_resource type="SpriteFrames" uid="uid://ceun3oibfvr3" path="res://assets/images/characters/kabe_oji/left_hand.aseprite" id="4_uaqvj"]
-[ext_resource type="Texture2D" uid="uid://bfbbtdxlbb0n2" path="res://assets/images/characters/kabe_oji/upper-arm-left.png" id="5_ddhnd"]
-[ext_resource type="Texture2D" uid="uid://cqply0w4g3x4a" path="res://assets/images/characters/kabe_oji/fore-arm-right.png" id="6_wulpv"]
+[ext_resource type="Texture2D" uid="uid://c84h48t2lukta" path="res://assets/images/characters/kumo_oji/head_nobi2.png" id="2_wulpv"]
+[ext_resource type="Texture2D" uid="uid://dbadmwh7teyci" path="res://assets/images/characters/kumo_oji/Futoude.png" id="3_uaqvj"]
+[ext_resource type="SpriteFrames" uid="uid://cnb3r00ttswf2" path="res://assets/images/characters/kumo_oji/hand.aseprite" id="4_uaqvj"]
+[ext_resource type="Texture2D" uid="uid://dmihsn826d27j" path="res://assets/images/characters/kumo_oji/Futoude_r.png" id="5_ddhnd"]
 [ext_resource type="SpriteFrames" uid="uid://cacht46qglcww" path="res://assets/images/characters/kabe_oji/right_hand.aseprite" id="7_ff6ms"]
-[ext_resource type="Texture2D" uid="uid://dttjvi720l2ws" path="res://assets/images/characters/kabe_oji/upper-arm-right.png" id="8_d4ic6"]
 [ext_resource type="Resource" uid="uid://bkygfog5ki5mk" path="res://skills/012_fortitude.tres" id="10_uaqvj"]
 [ext_resource type="Resource" uid="uid://5oc7pfemk20f" path="res://skills/003_reverse_gravity.tres" id="11_wulpv"]
 [ext_resource type="Resource" uid="uid://drwccn032lxgi" path="res://skills/009_air_dyno.tres" id="12_ff6ms"]
@@ -19,6 +17,9 @@
 
 [resource]
 script = ExtResource("2_egxm8")
+LEFT_HAND_COLLISION_HEIGHT = 20.0
+RIGHT_SHOULDER_VERTICAL_OVERLAP = 18.0
+LEFT_SHOULDER_VERTICAL_OVERLAP = 18.0
 POWER_BASE_LEVEL = 10
 REACH_BASE_LEVEL = 10
 SPEED_BASE_LEVEL = 10
@@ -42,12 +43,12 @@ SKILL_LIST = Array[ExtResource("1_u7lqg")]([ExtResource("10_uaqvj")])
 IS_UNLOCKED = true
 CHARACTER_NAME = "Testおじ"
 CHARACTER_ID = "Testoji"
-LEFT_FORE_ARM_SPRITE = ExtResource("3_a6emh")
-LEFT_UPPER_ARM_SPRITE = ExtResource("5_ddhnd")
-RIGHT_FORE_ARM_SPRITE = ExtResource("6_wulpv")
-RIGHT_UPPER_ARM_SPRITE = ExtResource("8_d4ic6")
-BODY_SPRITE = ExtResource("1_7trrg")
-HEAD_SPRITE = ExtResource("2_622ku")
+LEFT_FORE_ARM_SPRITE = ExtResource("3_uaqvj")
+LEFT_UPPER_ARM_SPRITE = ExtResource("3_uaqvj")
+RIGHT_FORE_ARM_SPRITE = ExtResource("5_ddhnd")
+RIGHT_UPPER_ARM_SPRITE = ExtResource("5_ddhnd")
+BODY_SPRITE = ExtResource("1_uaqvj")
+HEAD_SPRITE = ExtResource("2_wulpv")
 LEFT_HAND_SPRITES = ExtResource("4_uaqvj")
 RIGHT_HAND_SPRITES = ExtResource("7_ff6ms")
 metadata/_custom_type_script = "uid://j15j41e1ufqc"

@@ -6,7 +6,7 @@ extends CanvasLayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalData.set_character()
-	$MenuContainer/StartButton.grab_focus()
+	$MenuContainer/StoryButton.grab_focus()
 	animate_logo()
 
 func animate_logo() -> void:
@@ -30,14 +30,22 @@ func to_tutorial_scene(anim_name: StringName) -> void:
 	GlobalData.status.skill_list.clear()
 	get_tree().change_scene_to_file("res://scenes/tutorials/arm_tutorial_stage.tscn")	
 
-func to_story_scene(anim_name: StringName) -> void:
+func to_challenge_scene(anim_name: StringName) -> void:
 	#get_tree().change_scene_to_file("res://stage_1.tscn")
 	#get_tree().change_scene_to_file("res://stage.tscn")
 	#get_tree().change_scene_to_file("res://scenes/attempts_manager.tscn")
 	get_tree().change_scene_to_file("res://scenes/character_selection.tscn")
 
-func _on_start_button_pressed() -> void:
+func to_story_scene(anim_name: StringName) -> void:
+	get_tree().change_scene_to_file("res://scenes/stories/story_1.tscn")
+
+
+func _on_story_button_pressed() -> void:
 	fade_animation.connect_finished(to_story_scene)
+	fade_animation.play()
+
+func _on_challenge_button_pressed() -> void:
+	fade_animation.connect_finished(to_challenge_scene)
 	fade_animation.play()
 
 func _on_tutorial_button_pressed() -> void:
@@ -47,8 +55,11 @@ func _on_tutorial_button_pressed() -> void:
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()	
 
-func _on_start_button_mouse_entered() -> void:
-	$MenuContainer/StartButton.grab_focus()
+func _on_story_button_mouse_entered() -> void:
+	$MenuContainer/StoryButton.grab_focus()
+
+func _on_challenge_button_mouse_entered() -> void:
+	$MenuContainer/ChallengeButton.grab_focus()
 
 func _on_tutorial_button_mouse_entered() -> void:
 	$MenuContainer/TutorialButton.grab_focus()
